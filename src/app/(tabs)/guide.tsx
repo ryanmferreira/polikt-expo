@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   Image,
@@ -21,7 +22,11 @@ import {
 export default function GuideScreen() {
   const [selectedCategory, setSelectedCategory] = useState('VER TODOS');
 
-  const categories = ['VER TODOS', 'ELEITORAL', 'URBANO', 'DENÚNCIAS'];
+  const handleguideContents = () => {
+    router.push('/guideContents');
+  };
+
+  const categories = ['VER TODOS', 'ELEITORAL', 'URBANO', 'MEIO AMBIENTE'];
 
   const guideItems = [
     {
@@ -29,12 +34,21 @@ export default function GuideScreen() {
       title: 'Infraestrutura Urbana',
       description: 'Buracos, iluminação, limpeza',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj_iG2KsKjYthmbhIGfyo_yJYWj7AL_7g66_TaSkfwcmfYoWOTTtceBLEE&s=10',
+      guide: 'infraestrutura',
     },
     {
       id: '2',
       title: 'Crimes eleitorais',
       description: 'Compra de votos, caixa dois.',
       image: 'https://f.i.uol.com.br/fotografia/2022/08/25/16614746996308178b8decc_1661474699_3x2_rt.jpg',
+      guide: 'eleitoral',
+    },
+    {
+      id: '3',
+      title: 'Crimes Ambientais',
+      description: 'Desmatamento, fiscalização ambiental, poluição.',
+      image: 'https://wwfbrnew.awsassets.panda.org/img/original/web_249548.jpg',
+      guide: 'ambiental',
     },
   ];
 
@@ -61,6 +75,11 @@ export default function GuideScreen() {
         <Text style={styles.subtitle}>
           Saiba como e onde agir contra irregularidades.
         </Text>
+
+
+
+{/**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+
 
         {/* Filter Categories Row */}
         <ScrollView
@@ -93,30 +112,61 @@ export default function GuideScreen() {
           ))}
         </ScrollView>
 
+
+
+{/**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+
         {/* Guide Items List */}
         {guideItems.map((item) => (
+
+
+
           /* Guide Item Card */
-          <TouchableOpacity key={item.id} style={styles.card} activeOpacity={0.8}>
+          <TouchableOpacity key={item.id} style={styles.card} activeOpacity={0.8}
+            onPress={() =>
+              router.push({
+                pathname: '/guideContents',
+                params: { guide: item.guide },  
+              })}>
+
+
+
             {/* Card Image */}
             <Image source={{ uri: item.image }} style={styles.cardImage} />
 
+
+
             {/* Card Content Container */}
             <View style={styles.cardContent}>
+
+
               {/* Card Title */}
               <Text style={styles.cardTitle}>{item.title}</Text>
 
+
+
               {/* Card Divider */}
               <View style={styles.cardDivider} />
+
+
 
               {/* Card Description */}
               <Text style={styles.cardDescription}>{item.description}</Text>
             </View>
           </TouchableOpacity>
+
+
         ))}
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+
+{/**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */ }
+
 
 const styles = StyleSheet.create({
   safeArea: {
