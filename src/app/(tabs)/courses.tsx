@@ -1,4 +1,5 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
     Image,
@@ -73,7 +74,15 @@ export default function CoursesScreen() {
                     {/* Action Button Container */}
                     <View style={styles.actionContainer}>
                         {/* Resume Button */}
-                        <TouchableOpacity style={styles.resumeButton} activeOpacity={0.8}>
+                        <TouchableOpacity
+                            style={styles.resumeButton}
+                            activeOpacity={0.8}
+                            // O botão de retomada abre a tela de progresso do curso.
+                            // A rota /courseprogress corresponde ao arquivo src/app/courseprogress.tsx.
+                            onPress={() => router.push('/courseprogress')}
+                            accessibilityRole="button"
+                            accessibilityLabel="Retomar curso Voto Nulo e Voto Branco"
+                        >
                             <Text style={styles.buttonText}>RETOMAR CURSO</Text>
                         </TouchableOpacity>
                     </View>
