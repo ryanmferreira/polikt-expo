@@ -105,7 +105,11 @@ export default function ProfileScreen() {
                         </TouchableOpacity>
 
                         {/* Settings Button */}
-                        <TouchableOpacity style={styles.settingsButton} onPress={() => { }} activeOpacity={0.8}>
+                        <TouchableOpacity
+                            style={styles.settingsButton}
+                            onPress={() => router.push('/settings')}
+                            activeOpacity={0.8}
+                        >
                             <Text style={styles.buttonText}>CONFIGURAÇÕES</Text>
                         </TouchableOpacity>
                     </View>
