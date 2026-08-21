@@ -1,11 +1,10 @@
 export const COLORS = {
-    loginBackground: '#0C0C0C',
-    background: '#0C0C0C',  
+    loginBackground: '#2A003B',
+    background: '#0C0C0C',
     containerBackground: '#1C1C1C',
-    darkercontainerBackground: '#020101',
     border: '#393939',
-    primary: '#61A3FA',
-    secondary: '#6ea1ff',
+    primary: '#B360FF',
+    secondary: '#B79EEA',
     danger: '#E53935',
     textPrimary: '#FFFFFF',
     textSecondary: '#D1D5DB',
@@ -39,7 +38,6 @@ export const BORDER_RADIUS = {
 };
 
 export const FONT_SIZE = {
-    xxs: 9,  
     xs: 12,
     sm: 14,
     md: 16,
