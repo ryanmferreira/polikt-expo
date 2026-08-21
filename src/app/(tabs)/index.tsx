@@ -1,4 +1,5 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
     Image,
@@ -69,13 +70,22 @@ export default function HomeScreen() {
                 </View>
 
                 {/* News Card */}
-                <View style={styles.card}>
+                <TouchableOpacity
+                    style={styles.card}
+                    activeOpacity={0.8}
+                    onPress={() =>
+                        router.push({
+                            pathname: '/newsContent',
+                        })
+                    }
+                >
                     {/* Tags Container */}
                     <View style={styles.tagsContainer}>
                         {/* Tag Item */}
                         <View style={styles.tag}>
                             <Text style={styles.tagText}>ECONOMIA</Text>
                         </View>
+
                         {/* Tag Item */}
                         <View style={styles.tag}>
                             <Text style={styles.tagText}>PISO NACIONAL</Text>
@@ -107,17 +117,25 @@ export default function HomeScreen() {
                     <View style={styles.cardFooter}>
                         {/* Upvote Button */}
                         <TouchableOpacity style={styles.actionButton}>
-                            <Ionicons name="chevron-up-outline" size={18} color={COLORS.textSecondary} />
+                            <Ionicons
+                                name="chevron-up-outline"
+                                size={18}
+                                color={COLORS.textSecondary}
+                            />
                             <Text style={styles.actionText}>40</Text>
                         </TouchableOpacity>
 
                         {/* Comment Button */}
                         <TouchableOpacity style={styles.actionButton}>
-                            <Ionicons name="chatbubble-outline" size={16} color={COLORS.textSecondary} />
+                            <Ionicons
+                                name="chatbubble-outline"
+                                size={16}
+                                color={COLORS.textSecondary}
+                            />
                             <Text style={styles.actionText}>60</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     );

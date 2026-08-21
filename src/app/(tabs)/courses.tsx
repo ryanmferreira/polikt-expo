@@ -1,280 +1,405 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { useState } from 'react';
+import { router } from 'expo-router';
+import { useMemo } from 'react';
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import {
-    BORDER_RADIUS,
-    BORDER_WIDTH,
-    BUTTON_PADDING,
-    COLORS,
-    FONT_SIZE,
-    SPACING,
-} from '../../constants/theme';
 
-export default function CoursesScreen() {
-    const [selectedCategory, setSelectedCategory] = useState('VER TODOS');
 
-    const categories = ['VER TODOS', 'GOVERNANÇA', 'ELEITORAL'];
+type TrailStatus = 'completed' | 'current' | 'locked';
 
-    return (
-        /* Safe Area View */
-        <SafeAreaView style={styles.safeArea}>
-            <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
+type TrailItemProps = {
+  title: string;
+  status: TrailStatus;
+  last?: boolean;
+  onPress?: () => void;
+};
 
-            {/* Scroll Container */}
-            <ScrollView
-                contentContainerStyle={styles.scrollContainer}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Header Container */}
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>CURSOS EM ANDAMENTO</Text>
-                    <Ionicons name="notifications" size={26} color={COLORS.primary} />
-                </View>
+function TrailItem({ title, status, last = false, onPress }: TrailItemProps) {
 
-                {/* Header Divider */}
-                <View style={styles.headerDivider} />
+  const itemVisual = useMemo(() => {
+    switch (status) {
+      case 'completed':
+        return {
+          icon: 'checkmark' as const,
+          circleStyle: styles.completedCircle,
+          iconColor: COLORS.blue,
+          titleStyle: styles.trailTitle,
+        };
+      case 'current':
+        return {
+          icon: 'play' as const,
+          circleStyle: styles.currentCircle,
+          iconColor: COLORS.white,
+          titleStyle: styles.trailTitle,
+        };
+      default:
+        return {
+          icon: 'lock-closed' as const,
+          circleStyle: styles.lockedCircle,
+          iconColor: COLORS.lockedIcon,
+          titleStyle: styles.lockedTitle,
+        };
+    }
+  }, [status]);
 
-                {/* In Progress Course Card */}
-                <View style={styles.card}>
-                    {/* Category Tag */}
-                    <View style={styles.tag}>
-                        <Text style={styles.tagText}>ELEITORAL</Text>
-                    </View>
+  return (
+    <View style={styles.trailItem}>
+      
+      {!last && <View style={styles.timelineLine} />}
 
-                    {/* Course Title */}
-                    <Text style={styles.cardTitle}>VOTO NULO E VOTO BRANCO</Text>
+      
+      <Pressable
+        accessibilityRole={status === 'locked' ? 'button' : 'link'}
+        accessibilityLabel={title}
+        disabled={status === 'locked'}
+        onPress={onPress}
+        style={({ pressed }) => [
+          styles.trailNodeArea,
+          pressed && status !== 'locked' ? styles.pressed : undefined,
+        ]}
+      >
+        
+        <View style={[styles.trailCircle, itemVisual.circleStyle]}>
+          <Ionicons name={itemVisual.icon} size={status === 'current' ? 17 : 16} color={itemVisual.iconColor} />
+        </View>
 
-                    {/* Course Description */}
-                    <Text style={styles.cardDescription}>
-                        Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro
-                    </Text>
+        
+        <View style={styles.trailLabelBox}>
+          <Text style={itemVisual.titleStyle} numberOfLines={2}>
+            {title}
+          </Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+}
 
-                    {/* Progress Header */}
-                    <View style={styles.progressHeader}>
-                        <Text style={styles.progressLabel}>PROGRESSO</Text>
-                        <Text style={styles.progressValue}>60%</Text>
-                    </View>
 
-                    {/* Progress Bar Track */}
-                    <View style={styles.progressBarTrack}>
-                        {/* Progress Bar Fill */}
-                        <View style={styles.progressBarFill} />
-                    </View>
+const COLORS = {
+  background: '#0B0B0B',
+  panel: '#171717',
+  card: '#1D1D1D',
+  white: '#FFFFFF',
+  text: '#F5F5F5',
+  muted: '#BDBDBD',
+  blue: '#66B2FF',
+  blueStrong: '#4C9BEF',
+  lockedIcon: '#4A4A4A',
+  lockedText: '#E7E7E7',
+  divider: '#62AEFF',
+};
 
-                    {/* Action Button Container */}
-                    <View style={styles.actionContainer}>
-                        {/* Resume Button */}
-                        <TouchableOpacity style={styles.resumeButton} activeOpacity={0.8}>
-                            <Text style={styles.buttonText}>RETOMAR CURSO</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+export default function CourseProgressScreen() {
 
-                {/* Section Header */}
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>EXPLORAR</Text>
-                    <View style={styles.sectionDivider} />
-                </View>
+  const trail = [
+    { title: 'O que é voto branco?', status: 'completed' as const },
+    { title: 'O que é voto nulo?', status: 'completed' as const },
+    { title: 'Influência nos resultados', status: 'current' as const },
+    { title: 'O mito da anulação da eleição pelo voto nulo', status: 'locked' as const },
+    { title: 'Como funciona na prática?', status: 'locked' as const },
+    { title: 'Considerações finais', status: 'locked' as const, last: true },
+  ];
 
-                {/* Filter Categories Row */}
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.categoriesRow}
-                >
-                    {categories.map((category) => (
-                        /* Category Filter Button */
-                        <TouchableOpacity
-                            key={category}
-                            style={[
-                                styles.chipButton,
-                                selectedCategory === category ? styles.activeChip : styles.inactiveChip,
-                            ]}
-                            onPress={() => setSelectedCategory(category)}
-                            activeOpacity={0.8}
-                        >
-                            <Text
-                                style={[
-                                    styles.chipText,
-                                    selectedCategory === category
-                                        ? styles.activeChipText
-                                        : styles.inactiveChipText,
-                                ]}
-                            >
-                                {category}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      {/* Status bar escura para manter o mesmo fundo da tela. */}
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
 
-                {/* Course Item Card */}
-                <View style={styles.card}>
-                    {/* Course Image */}
-                    <Image
-                        source={{
-                            uri: 'https://www.camara.leg.br/midias/image/2022/08/ilustra-eleicao-voto-branco.jpg',
-                        }}
-                        style={styles.cardImage}
-                    />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Barra superior com as ações VOLTAR e COMPARTILHAR da referência. */}
+        <View style={styles.topBar}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Voltar"
+            onPress={() => router.back()}
+            hitSlop={8}
+          >
+            <Text style={styles.topAction}>← VOLTAR</Text>
+          </Pressable>
 
-                    {/* Course Title */}
-                    <Text style={styles.cardTitle}>VOTO NULO E VOTO BRANCO</Text>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Compartilhar curso"
+            hitSlop={8}
+          >
+            <Text style={styles.topAction}>COMPARTILHAR</Text>
+          </Pressable>
+        </View>
 
-                    {/* Course Description */}
-                    <Text style={styles.cardDescription}>
-                        Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro
-                    </Text>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
+        {/* Título principal e divisor azul. */}
+        <View style={styles.headingBlock}>
+          <Text style={styles.pageTitle}>VOTO NULO E VOTO BRANCO</Text>
+          <View style={styles.headingDivider} />
+        </View>
+
+        {/* Card de resumo do curso, seguindo a proporção compacta da imagem. */}
+        <View style={styles.summaryCard}>
+          <Text style={styles.description}>
+            Conceitos, Diferenças e Efeitos no{`\n`}Processo Eleitoral Brasileiro
+          </Text>
+
+          {/* Cabeçalho da barra de progresso. */}
+          <View style={styles.progressHeader}>
+            <Text style={styles.progressLabel}>PROGRESSO</Text>
+            <Text style={styles.progressValue}>60%</Text>
+          </View>
+
+          {/* Barra de progresso com 60% preenchidos. */}
+          <View style={styles.progressTrack}>
+            <View style={styles.progressFill} />
+          </View>
+        </View>
+
+        {/* Título da seção de trilhas e seu divisor. */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>TRILHAS</Text>
+          <View style={styles.sectionDivider} />
+        </View>
+
+        {/* Trilha vertical de conteúdos. */}
+        <View style={styles.timeline}>
+          {trail.map((item, index) => (
+            <TrailItem
+              key={item.title}
+              title={item.title}
+              status={item.status}
+              last={item.last}
+              onPress={item.status !== 'locked' ? () => undefined : undefined}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    scrollContainer: {
-        padding: SPACING.default,
-        gap: SPACING.default,
-        paddingBottom: 100,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    headerTitle: {
-        fontSize: FONT_SIZE.lg,
-        fontWeight: 'bold',
-        color: COLORS.primary,
-    },
-    headerDivider: {
-        height: BORDER_WIDTH.thick,
-        backgroundColor: COLORS.primary,
-    },
-    card: {
-        backgroundColor: COLORS.containerBackground,
-        borderRadius: BORDER_RADIUS.default,
-        borderColor: COLORS.border,
-        borderWidth: BORDER_WIDTH.thin,
-        padding: SPACING.default,
-        gap: SPACING.sm,
-    },
-    tag: {
-        alignSelf: 'flex-start',
-        backgroundColor: COLORS.secondary,
-        paddingHorizontal: BUTTON_PADDING.horizontal,
-        paddingVertical: BUTTON_PADDING.vertical,
-        borderRadius: BORDER_RADIUS.max,
-    },
-    tagText: {
-        color: '#000000',
-        fontSize: FONT_SIZE.xs,
-        fontWeight: 'bold',
-    },
-    cardTitle: {
-        fontSize: FONT_SIZE.md,
-        fontWeight: 'bold',
-        color: COLORS.textPrimary,
-    },
-    cardDescription: {
-        fontSize: FONT_SIZE.sm,
-        color: COLORS.textSecondary,
-    },
-    progressHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: SPACING.xs,
-    },
-    progressLabel: {
-        fontSize: FONT_SIZE.xs,
-        fontWeight: 'bold',
-        color: COLORS.textPrimary,
-    },
-    progressValue: {
-        fontSize: FONT_SIZE.xs,
-        fontWeight: 'bold',
-        color: COLORS.textPrimary,
-    },
-    progressBarTrack: {
-        height: 12,
-        backgroundColor: '#FFFFFF',
-        borderRadius: BORDER_RADIUS.default,
-        overflow: 'hidden',
-    },
-    progressBarFill: {
-        width: '60%',
-        height: '100%',
-        backgroundColor: COLORS.secondary,
-        borderRadius: BORDER_RADIUS.default,
-    },
-    actionContainer: {
-        alignItems: 'flex-end',
-        marginTop: SPACING.xs,
-    },
-    resumeButton: {
-        backgroundColor: COLORS.primary,
-        borderRadius: BORDER_RADIUS.default,
-        paddingHorizontal: BUTTON_PADDING.horizontal,
-        paddingVertical: BUTTON_PADDING.vertical,
-    },
-    buttonText: {
-        color: '#000000',
-        fontSize: FONT_SIZE.xs,
-        fontWeight: 'bold',
-    },
-    sectionHeader: {
-        gap: SPACING.xs,
-    },
-    sectionTitle: {
-        fontSize: FONT_SIZE.md,
-        fontWeight: 'bold',
-        color: COLORS.primary,
-    },
-    sectionDivider: {
-        height: BORDER_WIDTH.thick,
-        backgroundColor: COLORS.primary,
-    },
-    categoriesRow: {
-        gap: SPACING.sm,
-    },
-    chipButton: {
-        borderRadius: BORDER_RADIUS.max,
-        paddingHorizontal: BUTTON_PADDING.horizontal,
-        paddingVertical: BUTTON_PADDING.vertical,
-    },
-    activeChip: {
-        backgroundColor: COLORS.secondary,
-    },
-    inactiveChip: {
-        backgroundColor: COLORS.containerBackground,
-        borderWidth: BORDER_WIDTH.thin,
-        borderColor: COLORS.border,
-    },
-    chipText: {
-        fontSize: FONT_SIZE.xs,
-        fontWeight: 'bold',
-    },
-    activeChipText: {
-        color: '#000000',
-    },
-    inactiveChipText: {
-        color: COLORS.secondary,
-    },
-    cardImage: {
-        width: '100%',
-        height: 160,
-        borderRadius: BORDER_RADIUS.default,
-    },
+  // Container principal: ocupa toda a tela e usa preto como fundo predominante.
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+
+  // Espaçamento geral da tela. O padding inferior deixa a última etapa respirando.
+  scrollContent: {
+    paddingHorizontal: 10,
+    paddingTop: 8,
+    paddingBottom: 34,
+  },
+
+  // Cabeçalho superior com as duas ações alinhadas nas extremidades.
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 2,
+    marginBottom: 14,
+    backgroundColor: COLORS.background,
+  },
+
+  // Texto pequeno em azul, como na referência.
+  topAction: {
+    color: COLORS.blue,
+    fontSize: 8,
+    fontWeight: '800',
+    letterSpacing: 0.2,
+  },
+
+  // Bloco do título principal.
+  headingBlock: {
+    marginBottom: 14,
+  },
+
+  pageTitle: {
+    color: COLORS.blue,
+    fontSize: 14,
+    lineHeight: 18,
+    fontWeight: '800',
+    letterSpacing: 0.2,
+  },
+
+  // Divisor azul espesso abaixo do título.
+  headingDivider: {
+    height: 1,
+    width: '100%',
+    backgroundColor: COLORS.divider,
+    marginTop: 7,
+  },
+
+  // Card escuro usado para a descrição e o progresso.
+  summaryCard: {
+    backgroundColor: COLORS.card,
+    borderRadius: 3,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 18,
+  },
+
+  description: {
+    color: COLORS.text,
+    fontSize: 9,
+    lineHeight: 12,
+    marginBottom: 12,
+  },
+
+  // Linha que contém PROGRESSO e 60%.
+  progressHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+
+  progressLabel: {
+    color: COLORS.blue,
+    fontSize: 7,
+    fontWeight: '800',
+  },
+
+  progressValue: {
+    color: COLORS.blue,
+    fontSize: 7,
+    fontWeight: '800',
+  },
+
+  // Fundo branco da barra de progresso.
+  progressTrack: {
+    height: 6,
+    borderRadius: 99,
+    overflow: 'hidden',
+    backgroundColor: COLORS.white,
+  },
+
+  // Preenchimento azul correspondente a 60%.
+  progressFill: {
+    width: '60%',
+    height: '100%',
+    backgroundColor: COLORS.blue,
+    borderRadius: 99,
+  },
+
+  // Cabeçalho da seção TRILHAS.
+  sectionHeader: {
+    marginBottom: 9,
+  },
+
+  sectionTitle: {
+    color: COLORS.blue,
+    fontSize: 10,
+    fontWeight: '800',
+    marginBottom: 5,
+  },
+
+  sectionDivider: {
+    height: 1,
+    width: '100%',
+    backgroundColor: COLORS.divider,
+  },
+
+  // Área que contém a sequência vertical de etapas.
+  timeline: {
+    paddingTop: 10,
+    paddingBottom: 4,
+  },
+
+  // Cada etapa possui altura suficiente para receber o título ao lado do círculo.
+  trailItem: {
+    minHeight: 49,
+    position: 'relative',
+  },
+
+  // Linha vertical azul clara que conecta os círculos.
+  timelineLine: {
+    position: 'absolute',
+    left: 28,
+    top: 30,
+    bottom: -2,
+    width: 3,
+    borderRadius: 4,
+    backgroundColor: COLORS.blue,
+  },
+
+  // Área de toque da etapa.
+  trailNodeArea: {
+    minHeight: 43,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+
+  // Pequena transparência visual ao pressionar etapas disponíveis.
+  pressed: {
+    opacity: 0.72,
+  },
+
+  // Base comum de todos os círculos da trilha.
+  trailCircle: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 14,
+    flexShrink: 0,
+  },
+
+  // Estado concluído: círculo escuro com contorno azul.
+  completedCircle: {
+    backgroundColor: COLORS.background,
+    borderWidth: 1.5,
+    borderColor: COLORS.blue,
+  },
+
+  // Estado atual: círculo branco para destacar o botão de reprodução.
+  currentCircle: {
+    backgroundColor: COLORS.background,
+    borderWidth: 1.5,
+    borderColor: COLORS.white,
+  },
+
+  // Estado bloqueado: círculo cinza discreto.
+  lockedCircle: {
+    backgroundColor: '#232323',
+    borderWidth: 1,
+    borderColor: '#303030',
+  },
+
+  // Caixa escura do rótulo, usada para aproximar os cartões da referência.
+  trailLabelBox: {
+    flex: 1,
+    minHeight: 24,
+    justifyContent: 'center',
+    marginLeft: 7,
+    marginRight: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 4,
+    backgroundColor: COLORS.panel,
+    borderRadius: 2,
+  },
+
+  // Texto normal das etapas concluídas e da etapa atual.
+  trailTitle: {
+    color: COLORS.text,
+    fontSize: 7,
+    lineHeight: 9,
+    fontWeight: '600',
+  },
+
+  // Texto das etapas bloqueadas fica levemente mais apagado.
+  lockedTitle: {
+    color: COLORS.lockedText,
+    fontSize: 7,
+    lineHeight: 9,
+    fontWeight: '600',
+  },
 });
