@@ -1,0 +1,150 @@
+import { StyleSheet } from 'react-native';
+import { THEME } from '../constants/theme';
+
+export const coursesStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: THEME.colors.background,
+        paddingTop: THEME.spacing.paddingPageTop,
+        paddingHorizontal: THEME.spacing.paddingStandard,
+    },
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    headerTitle: {
+        fontSize: 22,
+        fontWeight: '800',
+        color: THEME.colors.primary,
+    },
+    mainDivider: {
+        height: THEME.borderWidth.default,
+        backgroundColor: THEME.colors.primary,
+        width: '100%',
+        marginBottom: 24,
+    },
+    progressCard: {
+        backgroundColor: THEME.colors.container,
+        borderTopWidth: THEME.borderWidth.default,
+        borderLeftWidth: THEME.borderWidth.default,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderColor: THEME.colors.border,
+        borderRadius: THEME.borderRadius.default,
+        padding: THEME.spacing.paddingArticleContainer,
+        gap: 16,
+        marginBottom: 32,
+    },
+    tagsContainer: {
+        flexDirection: 'row',
+        gap: 8,
+        marginBottom: 24,
+        flexWrap: 'wrap',
+    },
+    tag: {
+        backgroundColor: THEME.colors.tag,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: THEME.borderRadius.rounded,
+        borderColor: THEME.colors.border,
+        alignSelf: 'flex-start',
+    },
+    tagText: {
+        color: THEME.colors.black,
+        fontSize: 11,
+        fontWeight: '800',
+    },
+    courseTitle: {
+        color: THEME.colors.white,
+        fontSize: 18,
+        fontWeight: '800',
+    },
+    courseDesc: {
+        color: THEME.colors.white,
+        fontSize: 14,
+        lineHeight: 20,
+    },
+    progressRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        marginBottom: 6,
+    },
+    progressLabel: {
+        color: THEME.colors.primary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+    progressValue: {
+        color: THEME.colors.primary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+    progressTrack: {
+        height: 8,
+        backgroundColor: THEME.colors.white,
+        borderRadius: 4,
+        width: '100%',
+        overflow: 'hidden',
+    },
+    progressFill: {
+        height: '100%',
+        backgroundColor: THEME.colors.primary,
+        borderRadius: 4,
+    },
+    actionButton: {
+        backgroundColor: THEME.colors.primary,
+        paddingHorizontal: THEME.spacing.buttonHorizontal,
+        paddingVertical: THEME.spacing.buttonVertical,
+        borderRadius: THEME.borderRadius.default,
+        alignSelf: 'flex-end',
+        marginTop: 8,
+    },
+    actionButtonText: {
+        color: THEME.colors.black,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+    exploreCard: {
+        backgroundColor: THEME.colors.container,
+        borderTopWidth: THEME.borderWidth.default,
+        borderLeftWidth: THEME.borderWidth.default,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderColor: THEME.colors.border,
+        borderRadius: THEME.borderRadius.default,
+        marginBottom: 24,
+        overflow: 'hidden',
+    },
+    exploreCardImage: {
+        width: '100%',
+        height: 180,
+    },
+    exploreCardContent: {
+        padding: THEME.spacing.paddingArticleContainer,
+        gap: 12,
+    },
+    exploreCourseTitle: {
+        color: THEME.colors.primary,
+        fontSize: 18,
+        fontWeight: '800',
+    },
+    cardDivider: {
+        height: 1,
+        backgroundColor: THEME.colors.border,
+        marginVertical: 4,
+    },
+    exploreFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    exploreFooterInfo: {
+        color: THEME.colors.white,
+        fontSize: 13,
+        fontWeight: '600',
+    },
+});

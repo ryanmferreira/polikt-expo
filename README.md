@@ -1,56 +1,88 @@
-# Welcome to your Expo app 👋
+# Polikt App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Polikt is a mobile app focused on political education and civic awareness. It
+helps users learn about politics, public responsibilities, elections, and how
+to report irregularities.
 
-## Get started
+> Status: In development
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- Expo 57
+- React Native
+- TypeScript
 
-2. Start the app
+## Requirements
 
-   ```bash
-   npx expo start
-   ```
+- Node.js 24 or later
+- npm
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Installation
 
 ```bash
-npm run reset-project
+git clone https://github.com/ryanmferreira/polikt-app.git
+
+cd polikt-app
+
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Running the App
 
-### Other setup steps
+Start the Expo development server:
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npx expo start
+```
 
-## Learn more
+Or run the app directly on a target platform:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm run web
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Development
 
-## Join the community
+Run the linter with:
 
-Join our community of developers creating universal apps.
+```bash
+npm run lint
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The app is currently using static content in some screens while its complete
+functionality and API integration are still being developed.
+
+## File Structure
+```plaintext
+src
+├── app
+│   ├── (auth)
+│   │   ├── index.tsx
+│   │   └── register.tsx
+│   ├── guides
+│   │   └── [id].tsx
+│   ├── _layout.tsx
+│   ├── news
+│   │   └── [id].tsx
+│   └── (tabs)
+│       ├── courses.tsx
+│       ├── guides.tsx
+│       ├── home.tsx
+│       ├── _layout.tsx
+│       ├── profile.tsx
+│       └── search.tsx
+├── constants
+│   └── theme.ts
+└── styles
+    ├── articleStyles.ts
+    ├── authStyles.ts
+    ├── coursesStyles.ts
+    ├── guideStyles.ts
+    ├── homeStyles.ts
+    ├── profileStyles.ts
+    └── searchStyles.ts
+```
+
+## License
+
+This project is licensed under the MIT License.

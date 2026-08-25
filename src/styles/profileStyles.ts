@@ -1,0 +1,105 @@
+import { StyleSheet } from 'react-native';
+import { THEME } from '../constants/theme';
+
+export const profileStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: THEME.colors.background,
+        paddingTop: THEME.spacing.paddingPageTop,
+        paddingHorizontal: THEME.spacing.paddingStandard,
+    },
+    avatarContainer: {
+        alignItems: 'center',
+        marginBottom: 16,
+        gap: 12,
+    },
+    avatarPlaceholder: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#1E1E1E',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    avatarText: {
+        color: THEME.colors.primary,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    mainDivider: {
+        height: 2,
+        backgroundColor: THEME.colors.primary,
+        width: '100%',
+        marginBottom: 24,
+    },
+    card: {
+        backgroundColor: THEME.colors.container,
+        borderTopWidth: THEME.borderWidth.default,
+        borderLeftWidth: THEME.borderWidth.default,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderColor: THEME.colors.border,
+        borderRadius: THEME.borderRadius.default,
+        padding: THEME.spacing.paddingStandard,
+        gap: 16,
+    },
+    fieldGroup: {
+        gap: 6,
+    },
+    label: {
+        color: THEME.colors.primary,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    input: {
+        backgroundColor: THEME.colors.white,
+        borderRadius: THEME.borderRadius.default,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        fontSize: 14,
+        color: THEME.colors.black,
+    },
+    cardDivider: {
+        height: 2,
+        backgroundColor: THEME.colors.border,
+        marginVertical: 4,
+    },
+    actionContainer: {
+        backgroundColor: '#141414',
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: THEME.borderWidth.default,
+        borderBottomWidth: THEME.borderWidth.default,
+        borderColor: THEME.colors.border,
+        borderRadius: THEME.borderRadius.default,
+        padding: 16,
+        flexDirection: 'row',
+        gap: 12,
+        justifyContent: 'space-between',
+        marginTop: 4,
+    },
+    buttonExit: {
+        flex: 1,
+        backgroundColor: THEME.colors.red,
+        borderRadius: THEME.borderRadius.default,
+        paddingVertical: THEME.spacing.buttonVertical,
+        alignItems: 'center',
+    },
+    buttonSettings: {
+        flex: 1,
+        backgroundColor: THEME.colors.primary,
+        borderRadius: THEME.borderRadius.default,
+        paddingVertical: THEME.spacing.buttonVertical,
+        alignItems: 'center',
+    },
+    buttonTextExit: {
+        color: THEME.colors.white,
+        fontWeight: 'bold',
+        fontSize: 12,
+    },
+    buttonTextSettings: {
+        color: THEME.colors.black,
+        fontWeight: 'bold',
+        fontSize: 12,
+    },
+});

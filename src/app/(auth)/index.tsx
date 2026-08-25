@@ -1,0 +1,72 @@
+import { Link, router } from 'expo-router';
+import { useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { THEME } from '../../constants/theme';
+import { authStyles } from '../../styles/authStyles';
+
+export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    router.replace('/(tabs)/home');
+  };
+
+  return (
+    <SafeAreaView style={authStyles.container}>
+      <View style={authStyles.headerGroup}>
+        <Text style={authStyles.headerTitle}>BEM-VINDO</Text>
+        <Text style={authStyles.headerSubtitle}>O que gostaria de aprender hoje?</Text>
+      </View>
+
+      <View style={authStyles.divider} />
+
+      <View style={authStyles.card}>
+        <Text style={authStyles.cardTitle}>ENTRAR</Text>
+
+        <View style={authStyles.fieldGroup}>
+          <Text style={authStyles.label}>E-mail:</Text>
+          <TextInput
+            style={authStyles.input}
+            placeholder="nome@dominio.com"
+            placeholderTextColor={THEME.colors.contrast}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={authStyles.fieldGroup}>
+          <Text style={authStyles.label}>Senha:</Text>
+          <TextInput
+            style={authStyles.input}
+            placeholder="********"
+            placeholderTextColor={THEME.colors.contrast}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity style={authStyles.button} activeOpacity={0.8} onPress={handleLogin}>
+          <Text style={authStyles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+
+        <View style={authStyles.cardDivider} />
+
+        <Link href="/(auth)/register" asChild>
+          <TouchableOpacity>
+            <Text style={authStyles.linkText}>Não possui conta? Crie aqui!</Text>
+          </TouchableOpacity>
+        </Link>
+
+        <TouchableOpacity>
+          <Text style={authStyles.linkText}>Esqueci a senha</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
