@@ -232,10 +232,17 @@ export const guidesStyles = StyleSheet.create({
         paddingVertical: THEME.spacing.buttonVertical,
         borderRadius: THEME.borderRadius.default,
         marginTop: 4,
+        flex: 1,
     },
     nextButtonText: {
         color: THEME.colors.black,
         fontSize: 13,
         fontWeight: '800',
     },
+    buttonsRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: THEME.spacing.gap,
+        width: 'auto',
+    }
 });

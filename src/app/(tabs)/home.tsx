@@ -1,14 +1,11 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
-
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { THEME } from '../../constants/theme';
 import { News } from '../../models/news';
 import { getAllNews } from '../../services/news';
-
 import { homeStyles } from '../../styles/homeStyles';
 
 export default function HomeScreen() {
@@ -26,7 +23,6 @@ export default function HomeScreen() {
         try {
             setLoading(true);
             setError(null);
-
             const data = await getAllNews();
             setNewsList(data);
         } catch (e) {
@@ -91,7 +87,6 @@ export default function HomeScreen() {
                         key={item.id}
                         onPress={() => router.push(`/news/${item.id}`)}
                         activeOpacity={0.8}>
-
                         <View style={homeStyles.card}>
                             <Image
                                 source={{ uri: item.coverImage || 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original' }}
@@ -100,7 +95,7 @@ export default function HomeScreen() {
                             <Text style={homeStyles.cardTitle}>{item.title}</Text>
                             <Text style={homeStyles.cardDescription}>{item.description}</Text>
                             <View style={homeStyles.cardDivider} />
-
+                            {/* Tags de notícia ainda não existem no backend — bloco mantido sem dados por enquanto */}
                             <View style={homeStyles.footerRow}>
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
                                     <Ionicons name="arrow-up" size={20} color={THEME.colors.white} />
@@ -111,10 +106,27 @@ export default function HomeScreen() {
                                     <Text style={homeStyles.statText}>0</Text>
                                 </TouchableOpacity>
                             </View>
-
                         </View>
                     </TouchableOpacity>
                 ))}
+
+                {/* --- SEÇÃO: EXPLORAR (restaurada, ainda estática) --- */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={homeStyles.sectionTitle}>EXPLORAR</Text>
+                    <Ionicons name="options" size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
+                </View>
+                <View style={homeStyles.sectionDivider} />
+                <View style={homeStyles.tagsContainer}>
+                    <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
+                        <Text style={homeStyles.tagText}>VER TODOS</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
+                        <Text style={homeStyles.tagText}>GOVERNANÇA</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
+                        <Text style={homeStyles.tagText}>ELEITORAL</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );

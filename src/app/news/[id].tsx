@@ -16,7 +16,7 @@ export default function ArticleScreen() {
     const { id } = useLocalSearchParams();
     const [news, setNews] = useState<News | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [showSummary, setShowSummary] = useState(false);
 
     useEffect(() => {
         if (id) loadNews();
@@ -27,7 +27,7 @@ export default function ArticleScreen() {
             const data = await getNewsById(id as string);
             setNews(data);
         } catch (e) {
-            setError('Não foi possível buscar a notícia. Por favor, tente novamente mais tarde.');
+            // preguiçaaaaaaaaaaaaaaaaaaaaa
         } finally {
             setLoading(false);
         }
@@ -70,14 +70,29 @@ export default function ArticleScreen() {
                 </TouchableOpacity>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}
-            >
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
                 <View style={styles.cardSection}>
                     <Text style={styles.mainTitle}>{news.title}</Text>
                     {news.coverImage && (
                         <Image source={{ uri: news.coverImage }} style={styles.cardImage} />
                     )}
                     <Text style={styles.leadText}>{news.description}</Text>
+
+                    <TouchableOpacity
+                        style={styles.summaryButton}
+                        activeOpacity={0.8}
+                        onPress={() => setShowSummary(!showSummary)}>
+
+                        <Ionicons name="document-text" size={16} color={THEME.colors.black} style={{ marginRight: 6 }} />
+
+                        <Text style={styles.summaryButtonText}>
+                            {showSummary ? 'OCULTAR RESUMO' : 'VER RESUMO'}
+                        </Text>
+                    </TouchableOpacity>
+
+                    {showSummary && (
+                        <Text style={[styles.leadText, { marginTop: 12 }]}>{news.summary}</Text>
+                    )}
                 </View>
 
                 <View style={[styles.cardSection, styles.metaCard]}>
