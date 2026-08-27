@@ -3,6 +3,11 @@
     "name": "polikt-app",
     "slug": "polikt-app",
     "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "poliktapp",
