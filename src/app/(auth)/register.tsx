@@ -12,9 +12,23 @@ export default function RegisterScreen() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    
-    // TODO: Implement register
+
     const handleRegister = () => {
+        const emailValido = /^[^\s@]+@[^\s@]+$/.test(email);
+
+    if (!emailValido) {
+      alert('Digite um e-mail válido.');
+      return;
+    }
+    if (password.length < 6) {
+      alert('A senha deve ter pelo menos 6 caracteres.');
+      return;
+    }
+        if (password !== confirmPassword) {
+        alert('As senhas não coincidem.');
+        return;
+    }
+
         router.replace('/(tabs)/home');
     };
 
@@ -22,12 +36,14 @@ export default function RegisterScreen() {
         <SafeAreaView style={authStyles.container}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ gap: THEME.spacing.gap, paddingBottom: 24 }} >
-
+                contentContainerStyle={{ gap: THEME.spacing.gap, paddingBottom: 24 }}
+            >
                 {/* Header */}
                 <View style={authStyles.headerGroup}>
                     <Text style={authStyles.headerTitle}>BEM-VINDO</Text>
-                    <Text style={authStyles.headerSubtitle}>O que gostaria de aprender hoje?</Text>
+                    <Text style={authStyles.headerSubtitle}>
+                        O que gostaria de aprender hoje?
+                    </Text>
                 </View>
 
                 <View style={authStyles.divider} />
@@ -36,7 +52,6 @@ export default function RegisterScreen() {
                 <View style={authStyles.card}>
                     <Text style={authStyles.cardTitle}>CRIAR CONTA</Text>
 
-                    {/* Name */}
                     <View style={authStyles.fieldGroup}>
                         <Text style={authStyles.label}>Nome:</Text>
                         <TextInput
@@ -44,10 +59,10 @@ export default function RegisterScreen() {
                             placeholder="Nome Sobrenome"
                             placeholderTextColor={THEME.colors.contrast}
                             value={name}
-                            onChangeText={setName} />
+                            onChangeText={setName}
+                        />
                     </View>
 
-                    {/* Email */}
                     <View style={authStyles.fieldGroup}>
                         <Text style={authStyles.label}>E-mail:</Text>
                         <TextInput
@@ -57,10 +72,10 @@ export default function RegisterScreen() {
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
-                            autoCapitalize="none" />
+                            autoCapitalize="none"
+                        />
                     </View>
 
-                    {/* Phone */}
                     <View style={authStyles.fieldGroup}>
                         <Text style={authStyles.label}>Telefone:</Text>
                         <TextInput
@@ -69,10 +84,10 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={phone}
                             onChangeText={setPhone}
-                            keyboardType="phone-pad" />
+                            keyboardType="phone-pad"
+                        />
                     </View>
 
-                    {/* Password */}
                     <View style={authStyles.fieldGroup}>
                         <Text style={authStyles.label}>Senha:</Text>
                         <TextInput
@@ -81,10 +96,10 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={password}
                             onChangeText={setPassword}
-                            secureTextEntry />
+                            secureTextEntry
+                        />
                     </View>
 
-                    {/* Confirm password */}
                     <View style={authStyles.fieldGroup}>
                         <Text style={authStyles.label}>Repita a senha:</Text>
                         <TextInput
@@ -93,24 +108,28 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            secureTextEntry />
+                            secureTextEntry
+                        />
                     </View>
 
-                    {/* Register button */}
-                    <TouchableOpacity style={authStyles.button} activeOpacity={0.8} onPress={handleRegister}>
+                    <TouchableOpacity
+                        style={authStyles.button}
+                        activeOpacity={0.8}
+                        onPress={handleRegister}
+                    >
                         <Text style={authStyles.buttonText}>Criar</Text>
                     </TouchableOpacity>
 
                     <View style={authStyles.cardDivider} />
 
-                    {/* Go to login */}
                     <Link href="/(auth)" asChild>
                         <TouchableOpacity>
-                            <Text style={authStyles.linkText}>Já possui conta? Entre aqui!</Text>
+                            <Text style={authStyles.linkText}>
+                                Já possui conta? Entre aqui!
+                            </Text>
                         </TouchableOpacity>
                     </Link>
 
-                    {/* Forgot password */}
                     <TouchableOpacity>
                         <Text style={authStyles.linkText}>Esqueci a senha</Text>
                     </TouchableOpacity>
