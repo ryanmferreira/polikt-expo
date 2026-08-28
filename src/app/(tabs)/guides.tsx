@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { getAllGuides } from '../../services/guides';
+
 import { THEME } from '../../constants/theme';
 import { Guide } from '../../models/guide';
-import { getAllGuides } from '../../services/guides';
 
 import { guidesStyles } from '../../styles/guideStyles';
 
@@ -67,14 +68,17 @@ export default function GuidesScreen() {
                     </Text>
                 </View>
 
-                <TouchableOpacity
-                    style={guidesStyles.refreshButton}
-                    activeOpacity={0.7}
-                    onPress={loadGuides} >
-                    <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+                {/* Refresh button */}
+                {!loading && (
+                    <TouchableOpacity
+                        style={guidesStyles.refreshButton}
+                        activeOpacity={0.7}
+                        onPress={loadGuides} >
+                        <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
 
-                    <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
-                </TouchableOpacity>
+                        <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
+                    </TouchableOpacity>
+                )}
 
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>

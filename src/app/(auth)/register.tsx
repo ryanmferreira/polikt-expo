@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { registerUser } from '../../services/users';
+
 import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
 
@@ -18,7 +20,7 @@ export default function RegisterScreen() {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         setNameError('');
         setEmailError('');
         setPasswordError('');
@@ -26,12 +28,13 @@ export default function RegisterScreen() {
 
         let hasError = false;
 
-        if (name === '') {
+        if (name.trim() === '') {
             setNameError('Digite seu nome.');
             hasError = true;
         }
 
         const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
+
         if (!validMail) {
             setEmailError('Digite um e-mail válido.');
             hasError = true;
@@ -51,7 +54,18 @@ export default function RegisterScreen() {
             return;
         }
 
-        router.replace('/(tabs)/home');
+        try {
+            await registerUser(
+                name.trim(),
+                email.trim(),
+                password,
+                phone.trim()
+            );
+
+            router.replace('/(tabs)/home');
+        } catch (error) {
+            alert('Erro ao cadastrar usuário:' + error);
+        }
     };
 
     return (
@@ -80,8 +94,8 @@ export default function RegisterScreen() {
                             placeholder="Nome Sobrenome"
                             placeholderTextColor={THEME.colors.contrast}
                             value={name}
-                            onChangeText={setName}
-                        />
+                            onChangeText={setName} />
+
                         {nameError !== '' && <Text style={authStyles.errorText}>{nameError}</Text>}
                     </View>
 
@@ -95,8 +109,8 @@ export default function RegisterScreen() {
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
+                            autoCapitalize="none" />
+
                         {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
                     </View>
 
@@ -122,8 +136,8 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={password}
                             onChangeText={setPassword}
-                            secureTextEntry
-                        />
+                            secureTextEntry />
+
                         {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
                     </View>
 
@@ -136,8 +150,8 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            secureTextEntry
-                        />
+                            secureTextEntry />
+
                         {confirmPasswordError !== '' && <Text style={authStyles.errorText}>{confirmPasswordError}</Text>}
                     </View>
 

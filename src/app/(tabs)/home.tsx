@@ -81,14 +81,17 @@ export default function HomeScreen() {
                 <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>
                 <View style={homeStyles.sectionDivider} />
 
-                <TouchableOpacity
-                    style={guidesStyles.refreshButton}
-                    activeOpacity={0.7}
-                    onPress={loadNews} >
-                    <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+                {/* Refresh button */}
+                {!loading && (
+                    <TouchableOpacity
+                        style={guidesStyles.refreshButton}
+                        activeOpacity={0.7}
+                        onPress={loadNews} >
+                        <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
 
-                    <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
-                </TouchableOpacity>
+                        <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
+                    </TouchableOpacity>
+                )}
 
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
@@ -156,6 +159,13 @@ export default function HomeScreen() {
                         <Text style={homeStyles.tagText}>ELEITORAL</Text>
                     </TouchableOpacity>
                 </View>
+
+                {loading &&
+                    <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
+                        {loading && (<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }} />)}
+                        <Text style={{ color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
+                    </View>
+                }
             </ScrollView>
         </SafeAreaView>
     );
