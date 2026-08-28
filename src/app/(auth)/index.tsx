@@ -10,15 +10,27 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    const emailValido = /^[^\s@]+@[^\s@]+$/.test(email);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-    if (!emailValido) {
-      alert('Digite um e-mail válido.');
-      return;
+  const handleLogin = () => {
+    setEmailError('');
+    setPasswordError('');
+
+    let hasError = false;
+
+    const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
+    if (!validMail) {
+      setEmailError('Digite um e-mail válido.');
+      hasError = true;
     }
+
     if (password.length < 6) {
-      alert('A senha deve ter pelo menos 6 caracteres.');
+      setPasswordError('A senha deve ter pelo menos 6 caracteres.');
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -27,18 +39,20 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={authStyles.container}>
+
+      {/* Header */}
       <View style={authStyles.headerGroup}>
         <Text style={authStyles.headerTitle}>BEM-VINDO</Text>
-        <Text style={authStyles.headerSubtitle}>
-          O que gostaria de aprender hoje?
-        </Text>
+        <Text style={authStyles.headerSubtitle}>O que gostaria de aprender hoje?</Text>
       </View>
 
       <View style={authStyles.divider} />
 
+      {/* Card */}
       <View style={authStyles.card}>
         <Text style={authStyles.cardTitle}>ENTRAR</Text>
 
+        {/* Mail field */}
         <View style={authStyles.fieldGroup}>
           <Text style={authStyles.label}>E-mail:</Text>
           <TextInput
@@ -48,10 +62,11 @@ export default function LoginScreen() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            autoCapitalize="none"
-          />
+            autoCapitalize="none" />
+          {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
         </View>
 
+        {/* Password field */}
         <View style={authStyles.fieldGroup}>
           <Text style={authStyles.label}>Senha:</Text>
           <TextInput
@@ -60,28 +75,25 @@ export default function LoginScreen() {
             placeholderTextColor={THEME.colors.contrast}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry
-          />
+            secureTextEntry />
+          {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
         </View>
 
-        <TouchableOpacity
-          style={authStyles.button}
-          activeOpacity={0.8}
-          onPress={handleLogin}
-        >
+        {/* Login button */}
+        <TouchableOpacity style={authStyles.button} activeOpacity={0.8} onPress={handleLogin}>
           <Text style={authStyles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
         <View style={authStyles.cardDivider} />
 
+        {/* Create account */}
         <Link href="/(auth)/register" asChild>
           <TouchableOpacity>
-            <Text style={authStyles.linkText}>
-              Não possui conta? Crie aqui!
-            </Text>
+            <Text style={authStyles.linkText}>Não possui conta? Crie aqui!</Text>
           </TouchableOpacity>
         </Link>
 
+        {/* Forgot password */}
         <TouchableOpacity>
           <Text style={authStyles.linkText}>Esqueci a senha</Text>
         </TouchableOpacity>

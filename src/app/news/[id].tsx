@@ -135,7 +135,7 @@ export default function ArticleScreen() {
 
                 {/* News body */}
                 <View>
-                    {news.body.split('---').map((section, index) => (
+                    {(news.body ?? '').split('---').map((section, index) => (
                         <View key={index} style={[styles.cardSection, index > 0 && { marginTop: THEME.spacing.gap },]} >
                             <Markdown style={markdownStyles}>
                                 {section.trim()}

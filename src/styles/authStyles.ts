@@ -60,6 +60,11 @@ export const authStyles = StyleSheet.create({
     fontSize: 14,
     color: THEME.colors.black,
   },
+  errorText: {
+    color: '#FF4D4D',
+    fontSize: 12,
+    marginTop: 2,
+  },
   button: {
     backgroundColor: THEME.colors.primary,
     borderRadius: THEME.borderRadius.default,
