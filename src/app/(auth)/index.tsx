@@ -9,9 +9,21 @@ import { authStyles } from '../../styles/authStyles';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  // TODO: Implement login
+  // Validação mínima dos campos obrigatórios antes de executar o login.
   const handleLogin = () => {
+    const normalizedEmail = email.trim();
+    const normalizedPassword = password.trim();
+
+    setEmailError(normalizedEmail ? '' : 'O e-mail é obrigatório.');
+    setPasswordError(normalizedPassword ? '' : 'A senha é obrigatória.');
+
+    if (!normalizedEmail || !normalizedPassword) {
+      return;
+    }
+
     router.replace('/(tabs)/home');
   };
 
@@ -40,7 +52,9 @@ export default function LoginScreen() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            autoCapitalize="none" />
+            autoCapitalize="none"
+            onFocus={() => setEmailError('')} />
+          {emailError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{emailError}</Text> : null}
         </View>
 
         {/* Password field */}
@@ -52,7 +66,9 @@ export default function LoginScreen() {
             placeholderTextColor={THEME.colors.contrast}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry />
+            secureTextEntry
+            onFocus={() => setPasswordError('')} />
+          {passwordError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{passwordError}</Text> : null}
         </View>
 
         {/* Login button */}
