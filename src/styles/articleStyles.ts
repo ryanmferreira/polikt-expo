@@ -26,13 +26,13 @@ export const articleStyles = StyleSheet.create({
     actionButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 6,
+        gap: THEME.spacing.gap,
     },
 
     scrollContent: {
         paddingHorizontal: THEME.spacing.paddingStandard,
         paddingVertical: 16,
-        gap: 16,
+        gap: THEME.spacing.gap,
         paddingBottom: 100,
     },
 
@@ -45,7 +45,7 @@ export const articleStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         padding: THEME.spacing.paddingArticleContainer,
-        gap: 12,
+        gap: THEME.spacing.gap,
     },
     metaCard: {
         backgroundColor: THEME.colors.container,
@@ -69,12 +69,12 @@ export const articleStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         padding: THEME.spacing.paddingArticleContainer,
-        gap: 12,
+        gap: THEME.spacing.gap,
     },
 
     tagsContainer: {
         flexDirection: 'row',
-        gap: 8,
+        gap: THEME.spacing.gap,
         flexWrap: 'wrap',
     },
     tag: {
@@ -161,6 +161,6 @@ export const articleStyles = StyleSheet.create({
         lineHeight: 20,
     },
     bulletList: {
-        gap: 10,
+        gap: THEME.spacing.gap,
     },
 });
