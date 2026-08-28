@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Markdown from 'react-native-markdown-display';
+
 import { THEME } from '../../constants/theme';
 import { News } from '../../models/news';
 import { getNewsById } from '../../services/news';
 
 import { articleStyles as styles } from '../../styles/articleStyles';
+import { markdownStyles } from '../../styles/markdownStyles';
 
 export default function ArticleScreen() {
     const router = useRouter();
@@ -104,9 +107,9 @@ export default function ArticleScreen() {
                         </Text>
                     </TouchableOpacity>
 
-                    {/* TODO: Do a modal to show the summary */}
+                    {/* // TODO: Do a modal to show the summary */}
                     {showSummary && (
-                        <Text style={[styles.leadText, { marginTop: 12 }]}>{news.summary}</Text>
+                        <Text style={[styles.leadText, { marginTop: THEME.spacing.gap }]}>{news.summary}</Text>
                     )}
                 </View>
 
@@ -125,8 +128,20 @@ export default function ArticleScreen() {
                     </Text>
                 </View>
 
+                {/* News introduction */}
                 <View style={styles.cardSection}>
                     <Text style={styles.paragraph}>{news.content}</Text>
+                </View>
+
+                {/* News body */}
+                <View>
+                    {(news.body ?? '').split('---').map((section, index) => (
+                        <View key={index} style={[styles.cardSection, index > 0 && { marginTop: THEME.spacing.gap },]} >
+                            <Markdown style={markdownStyles}>
+                                {section.trim()}
+                            </Markdown>
+                        </View>
+                    ))}
                 </View>
             </ScrollView>
         </SafeAreaView>

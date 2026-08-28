@@ -12,9 +12,45 @@ export default function RegisterScreen() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    
-    // TODO: Implement register
+
+    const [nameError, setNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
     const handleRegister = () => {
+        setNameError('');
+        setEmailError('');
+        setPasswordError('');
+        setConfirmPasswordError('');
+
+        let hasError = false;
+
+        if (name === '') {
+            setNameError('Digite seu nome.');
+            hasError = true;
+        }
+
+        const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
+        if (!validMail) {
+            setEmailError('Digite um e-mail válido.');
+            hasError = true;
+        }
+
+        if (password.length < 6) {
+            setPasswordError('A senha deve ter pelo menos 6 caracteres.');
+            hasError = true;
+        }
+
+        if (password !== confirmPassword) {
+            setConfirmPasswordError('As senhas não coincidem.');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
         router.replace('/(tabs)/home');
     };
 
@@ -44,7 +80,9 @@ export default function RegisterScreen() {
                             placeholder="Nome Sobrenome"
                             placeholderTextColor={THEME.colors.contrast}
                             value={name}
-                            onChangeText={setName} />
+                            onChangeText={setName}
+                        />
+                        {nameError !== '' && <Text style={authStyles.errorText}>{nameError}</Text>}
                     </View>
 
                     {/* Email */}
@@ -57,7 +95,9 @@ export default function RegisterScreen() {
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
-                            autoCapitalize="none" />
+                            autoCapitalize="none"
+                        />
+                        {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
                     </View>
 
                     {/* Phone */}
@@ -69,7 +109,8 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={phone}
                             onChangeText={setPhone}
-                            keyboardType="phone-pad" />
+                            keyboardType="phone-pad"
+                        />
                     </View>
 
                     {/* Password */}
@@ -81,7 +122,9 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={password}
                             onChangeText={setPassword}
-                            secureTextEntry />
+                            secureTextEntry
+                        />
+                        {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
                     </View>
 
                     {/* Confirm password */}
@@ -93,7 +136,9 @@ export default function RegisterScreen() {
                             placeholderTextColor={THEME.colors.contrast}
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            secureTextEntry />
+                            secureTextEntry
+                        />
+                        {confirmPasswordError !== '' && <Text style={authStyles.errorText}>{confirmPasswordError}</Text>}
                     </View>
 
                     {/* Register button */}

@@ -21,6 +21,27 @@ export default function LoginScreen() {
     setPasswordError(normalizedPassword ? '' : 'A senha é obrigatória.');
 
     if (!normalizedEmail || !normalizedPassword) {
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handleLogin = () => {
+    setEmailError('');
+    setPasswordError('');
+
+    let hasError = false;
+
+    const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
+    if (!validMail) {
+      setEmailError('Digite um e-mail válido.');
+      hasError = true;
+    }
+
+    if (password.length < 6) {
+      setPasswordError('A senha deve ter pelo menos 6 caracteres.');
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -55,6 +76,8 @@ export default function LoginScreen() {
             autoCapitalize="none"
             onFocus={() => setEmailError('')} />
           {emailError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{emailError}</Text> : null}
+            autoCapitalize="none" />
+          {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
         </View>
 
         {/* Password field */}
@@ -69,6 +92,8 @@ export default function LoginScreen() {
             secureTextEntry
             onFocus={() => setPasswordError('')} />
           {passwordError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{passwordError}</Text> : null}
+            secureTextEntry />
+          {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
         </View>
 
         {/* Login button */}
