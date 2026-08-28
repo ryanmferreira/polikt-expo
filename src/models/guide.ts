@@ -1,10 +1,5 @@
+import { Agency } from "./agency";
 import { User } from "./user";
-
-export interface Agency {
-  id: number;
-  name: string;
-  contact: string;
-}
 
 export interface Guide {
   id: number;

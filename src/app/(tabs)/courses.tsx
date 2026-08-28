@@ -7,7 +7,9 @@ import { THEME } from '../../constants/theme';
 import { coursesStyles } from '../../styles/coursesStyles';
 
 export default function CoursesScreen() {
-    const cursosExplorar = [
+
+    // TODO: Replace with real data
+    const exploreCourses = [
         {
             id: 1,
             title: 'VOTO NULO E VOTO BRANCO',
@@ -30,9 +32,11 @@ export default function CoursesScreen() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}>
 
-                {/* --- CURSOS EM ANDAMENTO --- */}
+                {/* Header - Courses in progress */}
                 <View style={coursesStyles.headerRow}>
                     <Text style={coursesStyles.headerTitle}>CURSOS EM ANDAMENTO</Text>
+
+                    {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
                         <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
@@ -40,70 +44,75 @@ export default function CoursesScreen() {
 
                 <View style={coursesStyles.mainDivider} />
 
+                {/* Progress card */}
                 <View style={coursesStyles.progressCard}>
+
+                    {/* // TODO: Implement tags */}
                     <View style={coursesStyles.tag}>
                         <Text style={coursesStyles.tagText}>ELEITORAL</Text>
                     </View>
 
+                    {/* Title */}
                     <Text style={coursesStyles.courseTitle}>VOTO NULO E VOTO BRANCO</Text>
+
                     <Text style={coursesStyles.courseDesc}>
                         Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro
                     </Text>
 
-                    {/* Barra de Progresso */}
+                    {/* Progress bar */}
                     <View>
                         <View style={coursesStyles.progressRow}>
                             <Text style={coursesStyles.progressLabel}>PROGRESSO</Text>
                             <Text style={coursesStyles.progressValue}>60%</Text>
                         </View>
+
                         <View style={coursesStyles.progressTrack}>
                             <View style={[coursesStyles.progressFill, { width: '60%' }]} />
                         </View>
                     </View>
 
+                    {/* Action button */}
                     <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
                         <Text style={coursesStyles.actionButtonText}>RETOMAR CURSO</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* --- EXPLORAR --- */}
+                {/* Explore section */}
                 <View style={coursesStyles.headerRow}>
                     <Text style={coursesStyles.headerTitle}>EXPLORAR</Text>
                 </View>
-                
+
                 <View style={coursesStyles.mainDivider} />
 
-                {/* Filtros */}
+                {/* Filters */}
                 <View style={coursesStyles.tagsContainer}>
                     <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
                         <Text style={coursesStyles.tagText}>VER TODOS</Text>
                     </TouchableOpacity>
-                  
+
                     <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
                         <Text style={coursesStyles.tagText}>GOVERNANÇA</Text>
                     </TouchableOpacity>
-                 
+
                     <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
                         <Text style={coursesStyles.tagText}>ELEITORAL</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* Lista de Cursos */}
-                {cursosExplorar.map((curso, index) => (
+                {/* Courses list // TODO: Replace with real data */}
+                {exploreCourses.map((course, index) => (
                     <View key={index} style={coursesStyles.exploreCard}>
-                        <Image
-                            source={{ uri: curso.image }}
-                            style={coursesStyles.exploreCardImage}
-                        />
+                        <Image source={{ uri: course.image }} style={coursesStyles.exploreCardImage} />
 
                         <View style={coursesStyles.exploreCardContent}>
-                            <Text style={coursesStyles.exploreCourseTitle}>{curso.title}</Text>
-                            <Text style={coursesStyles.courseDesc}>{curso.desc}</Text>
+                            <Text style={coursesStyles.exploreCourseTitle}>{course.title}</Text>
+
+                            <Text style={coursesStyles.courseDesc}>{course.desc}</Text>
 
                             <View style={coursesStyles.cardDivider} />
 
                             <View style={coursesStyles.exploreFooter}>
-                                <Text style={coursesStyles.exploreFooterInfo}>{curso.info}</Text>
+                                <Text style={coursesStyles.exploreFooterInfo}>{course.info}</Text>
 
                                 <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
                                     <Text style={coursesStyles.actionButtonText}>INICIAR CURSO</Text>

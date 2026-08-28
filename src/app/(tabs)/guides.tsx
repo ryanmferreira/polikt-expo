@@ -59,8 +59,11 @@ export default function GuidesScreen() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }} >
 
+                {/* Header */}
                 <View style={guidesStyles.headerRow}>
                     <Text style={guidesStyles.headerTitle}>GUIA DE DENÚNCIAS</Text>
+
+                    {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
                         <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
@@ -74,6 +77,7 @@ export default function GuidesScreen() {
                     </Text>
                 </View>
 
+                {/* // ! For each guide, show a card */}
                 {guides.map((item) => (
                     <TouchableOpacity
                         key={item.id}

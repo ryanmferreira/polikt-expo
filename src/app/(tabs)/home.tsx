@@ -44,6 +44,7 @@ export default function HomeScreen() {
         return (
             <SafeAreaView style={[homeStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
                 <Text style={{ color: THEME.colors.white, marginBottom: 12 }}>{error}</Text>
+
                 <TouchableOpacity onPress={loadNews}>
                     <Text style={{ color: THEME.colors.primary }}>Tentar novamente</Text>
                 </TouchableOpacity>
@@ -55,52 +56,66 @@ export default function HomeScreen() {
         <SafeAreaView style={homeStyles.container}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 100 }}
-            >
+                contentContainerStyle={{ paddingBottom: 100 }} >
+
+                {/* Header */}
                 <View style={homeStyles.headerRow}>
                     <View>
                         <Text style={homeStyles.greetingTitle}>BOM DIA,</Text>
                         <Text style={homeStyles.greetingHighlight}>CIDADÃO!</Text>
                     </View>
+
+                    {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
                         <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
                 </View>
 
                 <Text style={homeStyles.subtitle}>O que deseja aprender hoje?</Text>
+
+                {/* Search bar */}
                 <View style={homeStyles.searchContainer}>
                     <TextInput
                         style={homeStyles.searchInput}
                         placeholder="Pesquisar..."
                         placeholderTextColor={THEME.colors.contrast}
                         value={search}
-                        onChangeText={setSearch}
-                    />
+                        onChangeText={setSearch} />
+
                     <Ionicons name="search" size={20} color={THEME.colors.white} />
                 </View>
 
                 <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>
                 <View style={homeStyles.sectionDivider} />
 
+                {/* // ! For each news, show a card */}
                 {newsList.map((item) => (
                     <TouchableOpacity
                         key={item.id}
-                        onPress={() => router.push(`/news/${item.id}`)}
-                        activeOpacity={0.8}>
+                        onPress={() => router.push(`/news/${item.id}`)} // 
+                        activeOpacity={0.8} >
+
                         <View style={homeStyles.card}>
-                            <Image
-                                source={{ uri: item.coverImage || 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original' }}
-                                style={homeStyles.cardImage}
-                            />
+                            <Image source={{ uri: item.coverImage ?? undefined }} style={homeStyles.cardImage} />
+
                             <Text style={homeStyles.cardTitle}>{item.title}</Text>
+
                             <Text style={homeStyles.cardDescription}>{item.description}</Text>
+
                             <View style={homeStyles.cardDivider} />
-                            {/* Tags de notícia ainda não existem no backend — bloco mantido sem dados por enquanto */}
+
+                            {/* // TODO: Tags (not implemented yet) :( */}
+
+                            {/* Card footer */}
                             <View style={homeStyles.footerRow}>
+
+                                {/* // TODO: Implement upvotes */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
                                     <Ionicons name="arrow-up" size={20} color={THEME.colors.white} />
                                     <Text style={homeStyles.statText}>{item.upvotes}</Text>
                                 </TouchableOpacity>
+
+                                {/* // TODO: Implement comments */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
                                     <Ionicons name="chatbox" size={18} color={THEME.colors.white} />
                                     <Text style={homeStyles.statText}>0</Text>
@@ -110,19 +125,24 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                 ))}
 
-                {/* --- SEÇÃO: EXPLORAR (restaurada, ainda estática) --- */}
+                {/* Explore section */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={homeStyles.sectionTitle}>EXPLORAR</Text>
                     <Ionicons name="options" size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
                 </View>
+
                 <View style={homeStyles.sectionDivider} />
+
+                {/* // TODO: Implement tags */}
                 <View style={homeStyles.tagsContainer}>
                     <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
                         <Text style={homeStyles.tagText}>VER TODOS</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
                         <Text style={homeStyles.tagText}>GOVERNANÇA</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={homeStyles.tag} activeOpacity={0.8}>
                         <Text style={homeStyles.tagText}>ELEITORAL</Text>
                     </TouchableOpacity>

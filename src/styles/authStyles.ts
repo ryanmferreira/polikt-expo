@@ -74,7 +74,7 @@ export const authStyles = StyleSheet.create({
     fontSize: 16,
   },
   cardDivider: {
-    height: 1,
+    height: THEME.borderWidth.default,
     backgroundColor: THEME.colors.border,
     marginVertical: 4,
   },

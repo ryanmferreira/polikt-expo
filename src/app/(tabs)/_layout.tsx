@@ -35,8 +35,9 @@ export default function TabLayout() {
                 tabBarIconStyle: {
                     marginTop: 0,
                 },
-            }}
-        >
+            }} >
+
+            {/* Home tab */}
             <Tabs.Screen
                 name="home"
                 options={{
@@ -45,8 +46,9 @@ export default function TabLayout() {
                             <Ionicons name="home" size={22} color={color} />
                         </View>
                     ),
-                }}
-            />
+                }} />
+
+            {/* Search tab */}
             <Tabs.Screen
                 name="search"
                 options={{
@@ -55,8 +57,9 @@ export default function TabLayout() {
                             <Ionicons name="search" size={22} color={color} />
                         </View>
                     ),
-                }}
-            />
+                }} />
+
+            {/* Courses tab */}
             <Tabs.Screen
                 name="courses"
                 options={{
@@ -65,8 +68,9 @@ export default function TabLayout() {
                             <Ionicons name="school" size={22} color={color} />
                         </View>
                     ),
-                }}
-            />
+                }} />
+
+            {/* Guides tab */}
             <Tabs.Screen
                 name="guides"
                 options={{
@@ -75,8 +79,9 @@ export default function TabLayout() {
                             <Ionicons name="megaphone" size={22} color={color} />
                         </View>
                     ),
-                }}
-            />
+                }} />
+
+            {/* Profile tab */}
             <Tabs.Screen
                 name="profile"
                 options={{
@@ -85,8 +90,7 @@ export default function TabLayout() {
                             <Ionicons name="person" size={22} color={color} />
                         </View>
                     ),
-                }}
-            />
+                }} />
         </Tabs>
     );
 }

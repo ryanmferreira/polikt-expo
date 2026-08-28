@@ -8,6 +8,7 @@ export const guidesStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -19,12 +20,14 @@ export const guidesStyles = StyleSheet.create({
         fontWeight: '800',
         color: THEME.colors.primary,
     },
+
     mainDivider: {
         height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.primary,
         width: '100%',
         marginBottom: 24,
     },
+
     infoBox: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -41,6 +44,7 @@ export const guidesStyles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
     },
+
     tagsContainer: {
         flexDirection: 'row',
         gap: 8,
@@ -59,6 +63,12 @@ export const guidesStyles = StyleSheet.create({
         fontSize: 11,
         fontWeight: '800',
     },
+    tagRow: {
+        flexDirection: 'row',
+        gap: 8,
+        flexWrap: 'wrap',
+    },
+
     card: {
         flexDirection: 'row',
         backgroundColor: THEME.colors.container,
@@ -88,7 +98,7 @@ export const guidesStyles = StyleSheet.create({
         marginBottom: 8,
     },
     cardDivider: {
-        height: 1,
+        height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.border,
         marginBottom: 8,
     },
@@ -101,6 +111,7 @@ export const guidesStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: THEME.colors.background,
     },
+
     topBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -111,21 +122,24 @@ export const guidesStyles = StyleSheet.create({
         borderBottomColor: THEME.colors.primary,
         backgroundColor: THEME.colors.background,
     },
-    actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-    },
     topBarText: {
         color: THEME.colors.primary,
         fontSize: 13,
         fontWeight: '800',
     },
+
+    actionButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+
     scrollContent: {
         paddingHorizontal: THEME.spacing.paddingStandard,
         paddingVertical: 16,
         gap: 16,
     },
+
     mainCard: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -148,11 +162,7 @@ export const guidesStyles = StyleSheet.create({
         padding: THEME.spacing.paddingArticleContainer,
         gap: 12,
     },
-    tagRow: {
-        flexDirection: 'row',
-        gap: 8,
-        flexWrap: 'wrap',
-    },
+
     mainTitle: {
         color: THEME.colors.white,
         fontSize: 22,
@@ -173,6 +183,7 @@ export const guidesStyles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 20,
     },
+
     sectionTitle: {
         color: THEME.colors.primary,
         fontSize: 18,
@@ -223,6 +234,12 @@ export const guidesStyles = StyleSheet.create({
         lineHeight: 18,
     },
 
+    buttonsRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: THEME.spacing.gap,
+        width: 'auto',
+    },
     nextButton: {
         backgroundColor: THEME.colors.primary,
         flexDirection: 'row',
@@ -239,10 +256,4 @@ export const guidesStyles = StyleSheet.create({
         fontSize: 13,
         fontWeight: '800',
     },
-    buttonsRow: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: THEME.spacing.gap,
-        width: 'auto',
-    }
 });

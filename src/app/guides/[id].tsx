@@ -20,6 +20,7 @@ export default function GuideScreen() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [loading, setLoading] = useState(true);
 
+    // Update the guide when the id changes (attention to the end of the line)
     useEffect(() => {
         if (id) {
             loadGuide();
@@ -34,12 +35,13 @@ export default function GuideScreen() {
             setGuide(guideData);
             setSteps(stepsData);
         } catch (e) {
-            // preguiçaaaaaaaaaaaaaaaaaaaaa
+            // TODO: Error handling
         } finally {
             setLoading(false);
         }
     }
 
+    // If can't go back, go direct to the home route
     const handleBack = () => {
         if (router.canGoBack()) {
             router.back();
@@ -76,13 +78,17 @@ export default function GuideScreen() {
         );
     }
 
-    const progressRatio = steps.length > 0 ? (currentStepIndex + 1) / steps.length : 0;
+    const progressRatio = steps.length > 0 ? (currentStepIndex + 1) / steps.length : 0; // Calculate the progress ratio
+
     const currentStep = steps[currentStepIndex];
+
     const isFirstStep = currentStepIndex === 0;
     const isLastStep = currentStepIndex === steps.length - 1;
 
     return (
         <SafeAreaView style={styles.detailContainer}>
+
+            {/* Top bar */}
             <View style={styles.topBar}>
                 <TouchableOpacity style={styles.actionButton} onPress={handleBack} activeOpacity={0.7}>
                     <Ionicons name="chevron-back" size={20} color={THEME.colors.primary} />
@@ -95,35 +101,50 @@ export default function GuideScreen() {
                 </TouchableOpacity>
             </View>
 
+            {/* Main content */}
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
                 <View style={styles.mainCard}>
+
+                    {/* Tag row */}
                     <View style={styles.tagRow}>
                         <View style={styles.tag}>
                             <Text style={styles.tagText}>{guide.agency.name}</Text>
                         </View>
-
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>GUIA DE DENÚNCIA</Text>
-                        </View>
                     </View>
 
+                    {/* Title */}
                     <Text style={styles.mainTitle}>{guide.title}</Text>
 
+                    {/* Progress header */}
                     <View style={styles.progressHeader}>
                         <Text style={styles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
                         <Text style={styles.progressHeaderText}>{steps.length} ETAPAS</Text>
                     </View>
 
+                    {/* Progress track */}
                     <View style={styles.progressTrack}>
                         <View style={[styles.progressFill, { width: `${progressRatio * 100}%` }]} />
                     </View>
 
+                    {/* Cover image */}
                     {guide.coverImage && (
                         <Image source={{ uri: guide.coverImage }} style={styles.detailImage} />
                     )}
+
+                    {/* Description */}
                     <Text style={styles.leadText}>{guide.description}</Text>
                 </View>
 
+                {/* Agency */}
+                <View style={styles.cardSection}>
+                    <Text style={styles.sectionTitle}>Órgão responsável</Text>
+
+                    <View style={styles.sectionDivider} />
+
+                    <Text style={styles.leadText}>{guide.agency.name}</Text>
+                </View>
+
+                {/* Steps */}
                 <View style={styles.cardSection}>
                     <Text style={styles.sectionTitle}>ETAPAS DO PROCESSO</Text>
                     <View style={styles.sectionDivider} />
@@ -139,17 +160,21 @@ export default function GuideScreen() {
                         </View>
                     )}
 
+                    {/* Navigation buttons */}
                     <View style={styles.buttonsRow}>
+
+                        {/* Previous button */}
                         <TouchableOpacity
                             style={[styles.nextButton, isFirstStep && { opacity: 0.4 }]}
                             activeOpacity={0.8}
                             onPress={handlePreviousStep}
                             disabled={isFirstStep} >
 
-                            <Ionicons name="caret-back" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
+                            <Ionicons name="arrow-back" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
                             <Text style={styles.nextButtonText}>ANTERIOR</Text>
                         </TouchableOpacity>
 
+                        {/* Next button */}
                         <TouchableOpacity
                             style={[styles.nextButton, isLastStep && { opacity: 0.4 }]}
                             activeOpacity={0.8}
@@ -157,7 +182,7 @@ export default function GuideScreen() {
                             disabled={isLastStep}>
 
                             <Text style={styles.nextButtonText}>PRÓXIMO</Text>
-                            <Ionicons name="caret-forward" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
+                            <Ionicons name="arrow-forward" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>
                     </View>
                 </View>

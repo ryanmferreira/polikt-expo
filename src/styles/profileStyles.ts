@@ -8,6 +8,7 @@ export const profileStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
+
     avatarContainer: {
         alignItems: 'center',
         marginBottom: 16,
@@ -26,12 +27,14 @@ export const profileStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+
     mainDivider: {
         height: 2,
         backgroundColor: THEME.colors.primary,
         width: '100%',
         marginBottom: 24,
     },
+
     card: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -43,6 +46,7 @@ export const profileStyles = StyleSheet.create({
         padding: THEME.spacing.paddingStandard,
         gap: 16,
     },
+
     fieldGroup: {
         gap: 6,
     },
@@ -59,11 +63,13 @@ export const profileStyles = StyleSheet.create({
         fontSize: 14,
         color: THEME.colors.black,
     },
+
     cardDivider: {
-        height: 2,
+        height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.border,
         marginVertical: 4,
     },
+
     actionContainer: {
         backgroundColor: '#141414',
         borderTopWidth: 0,
@@ -78,6 +84,7 @@ export const profileStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 4,
     },
+
     buttonExit: {
         flex: 1,
         backgroundColor: THEME.colors.red,
@@ -92,6 +99,7 @@ export const profileStyles = StyleSheet.create({
         paddingVertical: THEME.spacing.buttonVertical,
         alignItems: 'center',
     },
+    
     buttonTextExit: {
         color: THEME.colors.white,
         fontWeight: 'bold',

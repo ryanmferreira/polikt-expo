@@ -8,6 +8,7 @@ export const homeStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -28,6 +29,7 @@ export const homeStyles = StyleSheet.create({
         color: THEME.colors.white,
         marginBottom: 16,
     },
+
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -44,6 +46,7 @@ export const homeStyles = StyleSheet.create({
         color: THEME.colors.white,
         fontSize: 14,
     },
+
     sectionTitle: {
         fontSize: 18,
         fontWeight: '800',
@@ -56,6 +59,7 @@ export const homeStyles = StyleSheet.create({
         width: '100%',
         marginBottom: 24,
     },
+
     card: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -86,10 +90,11 @@ export const homeStyles = StyleSheet.create({
         lineHeight: 20,
     },
     cardDivider: {
-        height: 1,
+        height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.border,
         marginBottom: 16,
     },
+
     tagsContainer: {
         flexDirection: 'row',
         gap: 8,
@@ -108,10 +113,12 @@ export const homeStyles = StyleSheet.create({
         fontSize: 11,
         fontWeight: '800',
     },
+
     footerRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
+
     iconStat: {
         flexDirection: 'row',
         alignItems: 'center',

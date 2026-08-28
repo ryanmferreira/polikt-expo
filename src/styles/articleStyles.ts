@@ -17,15 +17,16 @@ export const articleStyles = StyleSheet.create({
         borderBottomColor: THEME.colors.primary,
         backgroundColor: THEME.colors.background,
     },
-    actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-    },
     topBarText: {
         color: THEME.colors.primary,
         fontSize: 13,
         fontWeight: '800',
+    },
+
+    actionButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
     },
 
     scrollContent: {
@@ -95,12 +96,14 @@ export const articleStyles = StyleSheet.create({
         fontWeight: '800',
         lineHeight: 28,
     },
+
     cardImage: {
         width: '100%',
         height: 180,
         borderRadius: THEME.borderRadius.default,
         marginVertical: 4,
     },
+
     leadText: {
         color: THEME.colors.contrast,
         fontSize: 14,
@@ -110,6 +113,7 @@ export const articleStyles = StyleSheet.create({
         color: THEME.colors.contrast,
         fontSize: 12,
     },
+
     sectionTitle: {
         color: THEME.colors.primary,
         fontSize: 18,
@@ -120,6 +124,7 @@ export const articleStyles = StyleSheet.create({
         backgroundColor: THEME.colors.primary,
         marginBottom: 4,
     },
+
     paragraph: {
         color: THEME.colors.contrast,
         fontSize: 14,
@@ -141,7 +146,7 @@ export const articleStyles = StyleSheet.create({
         fontSize: 13,
         fontWeight: '800',
     },
-    
+
     nestedCard: {
         backgroundColor: THEME.colors.background,
         borderBottomWidth: THEME.borderWidth.default,

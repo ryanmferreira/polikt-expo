@@ -1,11 +1,35 @@
-const API_URL = "http://localhost:8080";
+const DEFAULT_API_URL = "https://polikt-spring.onrender.com";
+const LOCALHOST_URL = "http://localhost:8080";
+
+async function getActiveApiUrl() {
+    try {
+        console.log("Attempting to connect to localhost...");
+
+        const response = await fetch(LOCALHOST_URL, {
+            method: "HEAD",
+        });
+
+        if (response.ok) {
+            console.log("Localhost available. Using localhost.");
+            return LOCALHOST_URL;
+        }
+
+        console.error(`Status ${response.status} returned`);
+    } catch (error) {
+        console.warn("Localhost unavailable. Falling back to Render.");
+        return DEFAULT_API_URL;
+    }
+}
 
 export async function apiFetch(path: string, options: RequestInit = {}) {
-    const response = await fetch(`${API_URL}${path}`, {
+    const apiUrl = await getActiveApiUrl();
+
+    const response = await fetch(`${apiUrl}${path}`, {
         method: options.method,
         body: options.body,
         headers: {
             "Content-Type": "application/json",
+            ...options.headers,
         },
     });
 

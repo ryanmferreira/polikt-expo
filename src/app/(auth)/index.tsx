@@ -10,12 +10,15 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // TODO: Implement login
   const handleLogin = () => {
     router.replace('/(tabs)/home');
   };
 
   return (
     <SafeAreaView style={authStyles.container}>
+
+      {/* Header */}
       <View style={authStyles.headerGroup}>
         <Text style={authStyles.headerTitle}>BEM-VINDO</Text>
         <Text style={authStyles.headerSubtitle}>O que gostaria de aprender hoje?</Text>
@@ -23,9 +26,11 @@ export default function LoginScreen() {
 
       <View style={authStyles.divider} />
 
+      {/* Card */}
       <View style={authStyles.card}>
         <Text style={authStyles.cardTitle}>ENTRAR</Text>
 
+        {/* Mail field */}
         <View style={authStyles.fieldGroup}>
           <Text style={authStyles.label}>E-mail:</Text>
           <TextInput
@@ -35,10 +40,10 @@ export default function LoginScreen() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            autoCapitalize="none"
-          />
+            autoCapitalize="none" />
         </View>
 
+        {/* Password field */}
         <View style={authStyles.fieldGroup}>
           <Text style={authStyles.label}>Senha:</Text>
           <TextInput
@@ -47,22 +52,24 @@ export default function LoginScreen() {
             placeholderTextColor={THEME.colors.contrast}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry
-          />
+            secureTextEntry />
         </View>
 
+        {/* Login button */}
         <TouchableOpacity style={authStyles.button} activeOpacity={0.8} onPress={handleLogin}>
           <Text style={authStyles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
         <View style={authStyles.cardDivider} />
 
+        {/* Create account */}
         <Link href="/(auth)/register" asChild>
           <TouchableOpacity>
             <Text style={authStyles.linkText}>Não possui conta? Crie aqui!</Text>
           </TouchableOpacity>
         </Link>
 
+        {/* Forgot password */}
         <TouchableOpacity>
           <Text style={authStyles.linkText}>Esqueci a senha</Text>
         </TouchableOpacity>

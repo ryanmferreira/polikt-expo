@@ -8,6 +8,7 @@ export const coursesStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -19,12 +20,14 @@ export const coursesStyles = StyleSheet.create({
         fontWeight: '800',
         color: THEME.colors.primary,
     },
+
     mainDivider: {
         height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.primary,
         width: '100%',
         marginBottom: 24,
     },
+
     progressCard: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -37,6 +40,7 @@ export const coursesStyles = StyleSheet.create({
         gap: 16,
         marginBottom: 32,
     },
+
     tagsContainer: {
         flexDirection: 'row',
         gap: 8,
@@ -56,6 +60,7 @@ export const coursesStyles = StyleSheet.create({
         fontSize: 11,
         fontWeight: '800',
     },
+
     courseTitle: {
         color: THEME.colors.white,
         fontSize: 18,
@@ -66,6 +71,7 @@ export const coursesStyles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 20,
     },
+
     progressRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -94,6 +100,7 @@ export const coursesStyles = StyleSheet.create({
         backgroundColor: THEME.colors.primary,
         borderRadius: 4,
     },
+
     actionButton: {
         backgroundColor: THEME.colors.primary,
         paddingHorizontal: THEME.spacing.buttonHorizontal,
@@ -107,6 +114,7 @@ export const coursesStyles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '800',
     },
+
     exploreCard: {
         backgroundColor: THEME.colors.container,
         borderTopWidth: THEME.borderWidth.default,
@@ -131,11 +139,13 @@ export const coursesStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '800',
     },
+
     cardDivider: {
-        height: 1,
+        height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.border,
         marginVertical: 4,
     },
+    
     exploreFooter: {
         flexDirection: 'row',
         justifyContent: 'space-between',

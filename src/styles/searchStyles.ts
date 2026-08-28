@@ -8,6 +8,7 @@ export const searchStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
+    
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -19,6 +20,7 @@ export const searchStyles = StyleSheet.create({
         fontSize: 22,
         fontWeight: '800',
     },
+
     mainDivider: {
         height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.primary,
