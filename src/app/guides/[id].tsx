@@ -9,6 +9,9 @@ import { THEME } from '../../constants/theme';
 import { Guide, GuideStep } from '../../models/guide';
 import { getGuideById, getGuideSteps } from '../../services/guides';
 
+import Markdown from 'react-native-markdown-display';
+
+import { markdownStyles } from '@/styles/markdownStyles';
 import { guidesStyles as styles } from '../../styles/guideStyles';
 
 export default function GuideScreen() {
@@ -142,6 +145,7 @@ export default function GuideScreen() {
                     <View style={styles.sectionDivider} />
 
                     <Text style={styles.leadText}>{guide.agency.name}</Text>
+                    <Text style={styles.linkText}>{guide.agency.contact}</Text>
                 </View>
 
                 {/* Steps */}
@@ -150,12 +154,17 @@ export default function GuideScreen() {
                     <View style={styles.sectionDivider} />
 
                     {currentStep && (
-                        <View style={styles.stepCard}>
+                        <View>
                             <Text style={styles.stepText}>
-                                <Text style={{ fontWeight: '800', color: THEME.colors.white }}>
-                                    Passo {currentStepIndex + 1}:{' '}
-                                </Text>
-                                {currentStep.content}
+                                <View>
+                                    {(currentStep.content ?? '').split('---').map((section, index) => (
+                                        <View key={index} style={[styles.stepCard, index > 0 && { marginTop: THEME.spacing.gap },]} >
+                                            <Markdown style={markdownStyles}>
+                                                {section.trim()}
+                                            </Markdown>
+                                        </View>
+                                    ))}
+                                </View>
                             </Text>
                         </View>
                     )}

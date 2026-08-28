@@ -240,6 +240,26 @@ export const guidesStyles = StyleSheet.create({
         gap: THEME.spacing.gap,
         width: 'auto',
     },
+    linkText: {
+        color: THEME.colors.primary,
+        fontSize: 13,
+        lineHeight: 18,
+        textDecorationLine: 'underline',
+        textDecorationColor: THEME.colors.primary,
+    },
+
+    refreshButton: {
+        alignSelf: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: THEME.spacing.gap,
+    },
+    refreshButtonText: {
+        color: THEME.colors.primary,
+        fontSize: 13,
+        fontWeight: '600',
+    },
+
     nextButton: {
         backgroundColor: THEME.colors.primary,
         flexDirection: 'row',

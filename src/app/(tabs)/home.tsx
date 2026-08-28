@@ -1,3 +1,4 @@
+import { guidesStyles } from '@/styles/guideStyles';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -79,6 +80,15 @@ export default function HomeScreen() {
 
                 <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>
                 <View style={homeStyles.sectionDivider} />
+
+                <TouchableOpacity
+                    style={guidesStyles.refreshButton}
+                    activeOpacity={0.7}
+                    onPress={loadNews} >
+                    <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+
+                    <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
+                </TouchableOpacity>
 
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>

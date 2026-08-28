@@ -47,9 +47,7 @@ export default function GuidesScreen() {
 
     return (
         <SafeAreaView style={guidesStyles.container}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 100 }} >
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }} >
 
                 {/* Header */}
                 <View style={guidesStyles.headerRow}>
@@ -68,6 +66,15 @@ export default function GuidesScreen() {
                         Saiba como e onde agir contra irregularidades.
                     </Text>
                 </View>
+
+                <TouchableOpacity
+                    style={guidesStyles.refreshButton}
+                    activeOpacity={0.7}
+                    onPress={loadGuides} >
+                    <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+
+                    <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
+                </TouchableOpacity>
 
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
