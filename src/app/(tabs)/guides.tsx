@@ -34,13 +34,7 @@ export default function GuidesScreen() {
         }
     }
 
-    if (loading) {
-        return (
-            <SafeAreaView style={[guidesStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <ActivityIndicator size="large" color={THEME.colors.primary} />
-            </SafeAreaView>
-        );
-    }
+ 
 
     if (error) {
         return (
@@ -73,6 +67,11 @@ export default function GuidesScreen() {
                         Saiba como e onde agir contra irregularidades.
                     </Text>
                 </View>
+
+<View style={{alignItems: 'center', justifyContent: 'center', paddingVertical: 25,}}>
+ {loading &&(<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }}/> )}
+<Text style={{color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando Guias...</Text>
+</View>
 
                 {guides.map((item) => (
                     <TouchableOpacity

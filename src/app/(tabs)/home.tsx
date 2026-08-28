@@ -32,13 +32,7 @@ export default function HomeScreen() {
         }
     }
 
-    if (loading) {
-        return (
-            <SafeAreaView style={[homeStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <ActivityIndicator size="large" color={THEME.colors.primary} />
-            </SafeAreaView>
-        );
-    }
+
 
     if (error) {
         return (
@@ -109,6 +103,13 @@ export default function HomeScreen() {
                         </View>
                     </TouchableOpacity>
                 ))}
+
+
+<View style={{alignItems: 'center', justifyContent: 'center', paddingVertical: 25,}}>
+ {loading &&(<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }}/> )}
+<Text style={{color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
+</View>
+
 
                 {/* --- SEÇÃO: EXPLORAR (restaurada, ainda estática) --- */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
