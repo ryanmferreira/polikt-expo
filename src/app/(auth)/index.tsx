@@ -9,7 +9,18 @@ import { authStyles } from '../../styles/authStyles';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
+  // Validação mínima dos campos obrigatórios antes de executar o login.
+  const handleLogin = () => {
+    const normalizedEmail = email.trim();
+    const normalizedPassword = password.trim();
+
+    setEmailError(normalizedEmail ? '' : 'O e-mail é obrigatório.');
+    setPasswordError(normalizedPassword ? '' : 'A senha é obrigatória.');
+
+    if (!normalizedEmail || !normalizedPassword) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
@@ -62,6 +73,9 @@ export default function LoginScreen() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
+            autoCapitalize="none"
+            onFocus={() => setEmailError('')} />
+          {emailError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{emailError}</Text> : null}
             autoCapitalize="none" />
           {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
         </View>
@@ -75,6 +89,9 @@ export default function LoginScreen() {
             placeholderTextColor={THEME.colors.contrast}
             value={password}
             onChangeText={setPassword}
+            secureTextEntry
+            onFocus={() => setPasswordError('')} />
+          {passwordError ? <Text style={{ color: THEME.colors.red, fontSize: 12, fontWeight: '600' }}>{passwordError}</Text> : null}
             secureTextEntry />
           {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
         </View>

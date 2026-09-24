@@ -3,6 +3,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { router } from 'expo-router';
 import { THEME } from '../../constants/theme';
 import { coursesStyles } from '../../styles/coursesStyles';
 
@@ -72,7 +73,7 @@ export default function CoursesScreen() {
                     </View>
 
                     {/* Action button */}
-                    <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
+                    <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8} onPress={() => router.push('../courseprogress')}>
                         <Text style={coursesStyles.actionButtonText}>RETOMAR CURSO</Text>
                     </TouchableOpacity>
                 </View>
@@ -114,7 +115,7 @@ export default function CoursesScreen() {
                             <View style={coursesStyles.exploreFooter}>
                                 <Text style={coursesStyles.exploreFooterInfo}>{course.info}</Text>
 
-                                <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
+                                <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8} onPress={() => router.push('../courseprogress')}>
                                     <Text style={coursesStyles.actionButtonText}>INICIAR CURSO</Text>
                                 </TouchableOpacity>
                             </View>
