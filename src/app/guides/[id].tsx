@@ -118,17 +118,6 @@ export default function GuideScreen() {
                     {/* Title */}
                     <Text style={styles.mainTitle}>{guide.title}</Text>
 
-                    {/* Progress header */}
-                    <View style={styles.progressHeader}>
-                        <Text style={styles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
-                        <Text style={styles.progressHeaderText}>{steps.length} ETAPAS</Text>
-                    </View>
-
-                    {/* Progress track */}
-                    <View style={styles.progressTrack}>
-                        <View style={[styles.progressFill, { width: `${progressRatio * 100}%` }]} />
-                    </View>
-
                     {/* Cover image */}
                     {guide.coverImage && (
                         <Image source={{ uri: guide.coverImage }} style={styles.detailImage} />
@@ -150,7 +139,7 @@ export default function GuideScreen() {
 
                 {/* Steps */}
                 <View style={styles.cardSection}>
-                    <Text style={styles.sectionTitle}>ETAPAS DO PROCESSO</Text>
+                    <Text style={styles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1})</Text>
                     <View style={styles.sectionDivider} />
 
                     {currentStep && (
@@ -169,12 +158,24 @@ export default function GuideScreen() {
                         </View>
                     )}
 
+                    {/* Progress header */}
+                    <View style={styles.progressHeader}>
+                        <Text style={styles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
+                        <Text style={styles.progressHeaderText}>{steps.length} ETAPAS</Text>
+                    </View>
+
+                    {/* Progress track */}
+                    <View style={styles.progressTrack}>
+                        <View style={[styles.progressFill, { width: `${progressRatio * 100}%` }]} />
+                    </View>
+
+
                     {/* Navigation buttons */}
                     <View style={styles.buttonsRow}>
 
                         {/* Previous button */}
                         <TouchableOpacity
-                            style={[styles.nextButton, isFirstStep && { opacity: 0.4 }]}
+                            style={[styles.nextButton, isFirstStep && { opacity: 0.25 }]}
                             activeOpacity={0.8}
                             onPress={handlePreviousStep}
                             disabled={isFirstStep} >
