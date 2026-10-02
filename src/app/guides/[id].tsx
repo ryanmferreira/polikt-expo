@@ -12,7 +12,7 @@ import { getGuideById, getGuideSteps } from '../../services/guides';
 import Markdown from 'react-native-markdown-display';
 
 import { markdownStyles } from '@/styles/markdownStyles';
-import { guidesStyles as styles } from '../../styles/guideStyles';
+import { guidesStyles } from '../../styles/guideStyles';
 
 export default function GuideScreen() {
     const router = useRouter();
@@ -67,7 +67,7 @@ export default function GuideScreen() {
 
     if (loading) {
         return (
-            <SafeAreaView style={[styles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+            <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
                 <ActivityIndicator size="large" color={THEME.colors.primary} />
             </SafeAreaView>
         );
@@ -75,7 +75,7 @@ export default function GuideScreen() {
 
     if (!guide) {
         return (
-            <SafeAreaView style={[styles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+            <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
                 <Text>Guia não encontrado.</Text>
             </SafeAreaView>
         );
@@ -89,65 +89,65 @@ export default function GuideScreen() {
     const isLastStep = currentStepIndex === steps.length - 1;
 
     return (
-        <SafeAreaView style={styles.detailContainer}>
+        <SafeAreaView style={guidesStyles.detailContainer}>
 
             {/* Top bar */}
-            <View style={styles.topBar}>
-                <TouchableOpacity style={styles.actionButton} onPress={handleBack} activeOpacity={0.7}>
+            <View style={guidesStyles.topBar}>
+                <TouchableOpacity style={guidesStyles.actionButton} onPress={handleBack} activeOpacity={0.7}>
                     <ChevronLeft size={20} color={THEME.colors.primary} />
-                    <Text style={styles.topBarText}>VOLTAR</Text>
+                    <Text style={guidesStyles.topBarText}>VOLTAR</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
+                <TouchableOpacity style={guidesStyles.actionButton} activeOpacity={0.7}>
                     <Share2 size={18} color={THEME.colors.primary} />
-                    <Text style={styles.topBarText}>COMPARTILHAR</Text>
+                    <Text style={guidesStyles.topBarText}>COMPARTILHAR</Text>
                 </TouchableOpacity>
             </View>
 
             {/* Main content */}
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                <View style={styles.mainCard}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={guidesStyles.scrollContent}>
+                <View style={guidesStyles.mainCard}>
 
                     {/* Tag row */}
-                    <View style={styles.tagRow}>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>{guide.agency.name}</Text>
+                    <View style={guidesStyles.tagRow}>
+                        <View style={guidesStyles.tag}>
+                            <Text style={guidesStyles.tagText}>{guide.agency.name}</Text>
                         </View>
                     </View>
 
                     {/* Title */}
-                    <Text style={styles.mainTitle}>{guide.title}</Text>
+                    <Text style={guidesStyles.mainTitle}>{guide.title}</Text>
 
                     {/* Cover image */}
                     {guide.coverImage && (
-                        <Image source={{ uri: guide.coverImage }} style={styles.detailImage} />
+                        <Image source={{ uri: guide.coverImage }} style={guidesStyles.detailImage} />
                     )}
 
                     {/* Description */}
-                    <Text style={styles.leadText}>{guide.description}</Text>
+                    <Text style={guidesStyles.leadText}>{guide.description}</Text>
                 </View>
 
                 {/* Agency */}
-                <View style={styles.cardSection}>
-                    <Text style={styles.sectionTitle}>Órgão responsável</Text>
+                <View style={guidesStyles.cardSection}>
+                    <Text style={guidesStyles.sectionTitle}>Órgão responsável</Text>
 
-                    <View style={styles.sectionDivider} />
+                    <View style={guidesStyles.sectionDivider} />
 
-                    <Text style={styles.leadText}>{guide.agency.name}</Text>
-                    <Text style={styles.linkText}>{guide.agency.contact}</Text>
+                    <Text style={guidesStyles.leadText}>{guide.agency.name}</Text>
+                    <Text style={guidesStyles.linkText}>{guide.agency.contact}</Text>
                 </View>
 
                 {/* Steps */}
-                <View style={styles.cardSection}>
-                    <Text style={styles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1})</Text>
-                    <View style={styles.sectionDivider} />
+                <View style={guidesStyles.cardSection}>
+                    <Text style={guidesStyles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1})</Text>
+                    <View style={guidesStyles.sectionDivider} />
 
                     {currentStep && (
                         <View>
-                            <Text style={styles.stepText}>
+                            <Text style={guidesStyles.stepText}>
                                 <View>
                                     {(currentStep.content ?? '').split('---').map((section, index) => (
-                                        <View key={index} style={[styles.stepCard, index > 0 && { marginTop: THEME.spacing.gap },]} >
+                                        <View key={index} style={[guidesStyles.stepCard, index > 0 && { marginTop: THEME.spacing.gap },]} >
                                             <Markdown style={markdownStyles}>
                                                 {section.trim()}
                                             </Markdown>
@@ -159,23 +159,23 @@ export default function GuideScreen() {
                     )}
 
                     {/* Progress header */}
-                    <View style={styles.progressHeader}>
-                        <Text style={styles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
-                        <Text style={styles.progressHeaderText}>{steps.length} ETAPAS</Text>
+                    <View style={guidesStyles.progressHeader}>
+                        <Text style={guidesStyles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
+                        <Text style={guidesStyles.progressHeaderText}>{steps.length} ETAPAS</Text>
                     </View>
 
                     {/* Progress track */}
-                    <View style={styles.progressTrack}>
-                        <View style={[styles.progressFill, { width: `${progressRatio * 100}%` }]} />
+                    <View style={guidesStyles.progressTrack}>
+                        <View style={[guidesStyles.progressFill, { width: `${progressRatio * 100}%` }]} />
                     </View>
 
                     {/* Navigation buttons */}
-                    <View style={styles.buttonsRow}>
+                    <View style={guidesStyles.buttonsRow}>
 
                         {/* Previous button */}
                         <TouchableOpacity
                             style={[
-                                styles.nextButton,
+                                guidesStyles.nextButton,
                                 isFirstStep && { opacity: 0.25 }
                             ]}
                             activeOpacity={0.8}
@@ -184,20 +184,20 @@ export default function GuideScreen() {
 
                             <ChevronLeft size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
 
-                            <Text style={styles.nextButtonText}>ANTERIOR</Text>
+                            <Text style={guidesStyles.nextButtonText}>ANTERIOR</Text>
                         </TouchableOpacity>
 
                         {/* Next button (disabled if last step) */}
                         <TouchableOpacity
                             style={[
-                                styles.nextButton,
+                                guidesStyles.nextButton,
                                 isLastStep && { display: 'none' }
                             ]}
                             activeOpacity={0.8}
                             onPress={handleNextStep}
                             disabled={isLastStep} >
 
-                            <Text style={styles.nextButtonText}>PRÓXIMO</Text>
+                            <Text style={guidesStyles.nextButtonText}>PRÓXIMO</Text>
 
                             <ChevronRight size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>
@@ -205,7 +205,7 @@ export default function GuideScreen() {
                         {/* Finish button (disabled if not last step) */}
                         <TouchableOpacity
                             style={[
-                                styles.nextButton,
+                                guidesStyles.nextButton,
                                 { backgroundColor: THEME.colors.danger },
                                 !isLastStep && { display: 'none' }
                             ]}
@@ -213,7 +213,7 @@ export default function GuideScreen() {
                             onPress={() => handleBack}
                             disabled={!isLastStep} >
 
-                            <Text style={styles.nextButtonText}>     FINALIZAR   </Text>
+                            <Text style={guidesStyles.nextButtonText}>     FINALIZAR   </Text>
 
                             <Check size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>

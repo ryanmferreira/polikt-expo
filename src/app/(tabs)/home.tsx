@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Bell, MessageSquare, RefreshCw, Search, Settings2, ThumbsUp } from 'lucide-react-native';
+import { Bell, Clock, MessageSquare, RefreshCw, Search, Settings2, ThumbsUp } from 'lucide-react-native';
 
 import { THEME } from '../../constants/theme';
 
@@ -107,18 +107,18 @@ export default function HomeScreen() {
                 }
 
                 {/* // ! For each news, show a card */}
-                {newsList.map((item) => (
+                {newsList.map((news) => (
                     <TouchableOpacity
-                        key={item.id}
-                        onPress={() => router.push(`/news/${item.id}`)} // 
+                        key={news.id}
+                        onPress={() => router.push(`/news/${news.id}`)} // 
                         activeOpacity={0.8} >
 
                         <View style={homeStyles.card}>
-                            <Image source={{ uri: item.coverImage ?? undefined }} style={homeStyles.cardImage} />
+                            <Image source={{ uri: news.coverImage ?? undefined }} style={homeStyles.cardImage} />
 
-                            <Text style={homeStyles.cardTitle}>{item.title}</Text>
+                            <Text style={homeStyles.cardTitle}>{news.title}</Text>
 
-                            <Text style={homeStyles.cardDescription}>{item.description}</Text>
+                            <Text style={homeStyles.cardDescription}>{news.description}</Text>
 
                             <View style={homeStyles.cardDivider} />
 
@@ -129,8 +129,13 @@ export default function HomeScreen() {
                                 {/* // TODO: Implement upvotes */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
                                     <ThumbsUp size={20} color={THEME.colors.text} />
-                                    <Text style={homeStyles.statText}>{item.upvotes}</Text>
+                                    <Text style={homeStyles.statText}>{news.upvotes}</Text>
                                 </TouchableOpacity>
+
+                                <View style={homeStyles.iconStat}>
+                                    <Clock size={20} color={THEME.colors.textMuted} />
+                                    <Text style={homeStyles.statText}>{new Date(news.createdAt).toLocaleDateString('pt-BR')}</Text>
+                                </View>
 
                                 {/* // TODO: Implement comments */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>

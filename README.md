@@ -43,9 +43,9 @@ Ensure you have the following installed on your machine:
 ## Installation
 
 ```bash
-git clone https://github.com/ryanmferreira/polikt-app.git
+git clone https://github.com/ryanmferreira/polikt-expo
 
-cd polikt-app
+cd polikt-expo
 
 npm install
 ```
