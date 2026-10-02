@@ -56,9 +56,37 @@ export const articleStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         padding: THEME.spacing.paddingArticleContainer,
+        gap: 12,
+    },
+    metaRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        gap: 12,
+    },
+    metaItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        flexShrink: 1,
+    },
+    metaAuthor: {
+        flex: 1,
+    },
+    metaActions: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+    metaAction: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        paddingVertical: 4,
+    },
+    metaDivider: {
+        height: THEME.borderWidth.default,
+        backgroundColor: THEME.colors.border,
     },
     cardSection: {
         backgroundColor: THEME.colors.surface,
@@ -112,6 +140,11 @@ export const articleStyles = StyleSheet.create({
     metaText: {
         color: THEME.colors.textMuted,
         fontSize: 12,
+        flexShrink: 1,
+    },
+    metaEmphasis: {
+        color: THEME.colors.text,
+        fontWeight: '700',
     },
 
     sectionTitle: {

@@ -116,7 +116,7 @@ export const homeStyles = StyleSheet.create({
 
     footerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
     },
 
     iconStat: {

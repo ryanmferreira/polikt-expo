@@ -1,16 +1,22 @@
-import { guidesStyles } from '@/styles/guideStyles';
-import Ionicons from '@react-native-vector-icons/ionicons';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { Bell, MessageSquare, RefreshCw, Search, Settings2, ThumbsUp } from 'lucide-react-native';
+
 import { THEME } from '../../constants/theme';
+
 import { News } from '../../models/news';
+
 import { getAllNews } from '../../services/news';
+
+import { guidesStyles } from '@/styles/guideStyles';
 import { homeStyles } from '../../styles/homeStyles';
 
 export default function HomeScreen() {
     const router = useRouter();
+
     const [search, setSearch] = useState('');
     const [newsList, setNewsList] = useState<News[]>([]);
     const [loading, setLoading] = useState(true);
@@ -60,7 +66,7 @@ export default function HomeScreen() {
 
                     {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
+                        <Bell size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
                 </View>
 
@@ -75,7 +81,7 @@ export default function HomeScreen() {
                         value={search}
                         onChangeText={setSearch} />
 
-                    <Ionicons name="search" size={20} color={THEME.colors.text} />
+                    <Search size={20} color={THEME.colors.text} />
                 </View>
 
                 <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>
@@ -87,7 +93,7 @@ export default function HomeScreen() {
                         style={guidesStyles.refreshButton}
                         activeOpacity={0.7}
                         onPress={loadNews} >
-                        <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+                        <RefreshCw size={16} color={THEME.colors.primary} />
 
                         <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
                     </TouchableOpacity>
@@ -120,16 +126,15 @@ export default function HomeScreen() {
 
                             {/* Card footer */}
                             <View style={homeStyles.footerRow}>
-
                                 {/* // TODO: Implement upvotes */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
-                                    <Ionicons name="arrow-up" size={20} color={THEME.colors.text} />
+                                    <ThumbsUp size={20} color={THEME.colors.text} />
                                     <Text style={homeStyles.statText}>{item.upvotes}</Text>
                                 </TouchableOpacity>
 
                                 {/* // TODO: Implement comments */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
-                                    <Ionicons name="chatbox" size={18} color={THEME.colors.text} />
+                                    <MessageSquare size={18} color={THEME.colors.text} />
                                     <Text style={homeStyles.statText}>0</Text>
                                 </TouchableOpacity>
                             </View>
@@ -140,7 +145,7 @@ export default function HomeScreen() {
                 {/* Explore section */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={homeStyles.sectionTitle}>EXPLORAR</Text>
-                    <Ionicons name="options" size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
+                    <Settings2 size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
                 </View>
 
                 <View style={homeStyles.sectionDivider} />

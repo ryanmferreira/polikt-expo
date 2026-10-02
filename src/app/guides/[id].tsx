@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { Check, ChevronLeft, ChevronRight, Share2 } from 'lucide-react-native';
 
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -94,12 +94,12 @@ export default function GuideScreen() {
             {/* Top bar */}
             <View style={styles.topBar}>
                 <TouchableOpacity style={styles.actionButton} onPress={handleBack} activeOpacity={0.7}>
-                    <Ionicons name="chevron-back" size={20} color={THEME.colors.primary} />
+                    <ChevronLeft size={20} color={THEME.colors.primary} />
                     <Text style={styles.topBarText}>VOLTAR</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-                    <Ionicons name="share-social" size={18} color={THEME.colors.primary} />
+                    <Share2 size={18} color={THEME.colors.primary} />
                     <Text style={styles.topBarText}>COMPARTILHAR</Text>
                 </TouchableOpacity>
             </View>
@@ -169,30 +169,53 @@ export default function GuideScreen() {
                         <View style={[styles.progressFill, { width: `${progressRatio * 100}%` }]} />
                     </View>
 
-
                     {/* Navigation buttons */}
                     <View style={styles.buttonsRow}>
 
                         {/* Previous button */}
                         <TouchableOpacity
-                            style={[styles.nextButton, isFirstStep && { opacity: 0.25 }]}
+                            style={[
+                                styles.nextButton,
+                                isFirstStep && { opacity: 0.25 }
+                            ]}
                             activeOpacity={0.8}
                             onPress={handlePreviousStep}
                             disabled={isFirstStep} >
 
-                            <Ionicons name="arrow-back" size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
+                            <ChevronLeft size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
+
                             <Text style={styles.nextButtonText}>ANTERIOR</Text>
                         </TouchableOpacity>
 
-                        {/* Next button */}
+                        {/* Next button (disabled if last step) */}
                         <TouchableOpacity
-                            style={[styles.nextButton, isLastStep && { opacity: 0.4 }]}
+                            style={[
+                                styles.nextButton,
+                                isLastStep && { display: 'none' }
+                            ]}
                             activeOpacity={0.8}
                             onPress={handleNextStep}
-                            disabled={isLastStep}>
+                            disabled={isLastStep} >
 
                             <Text style={styles.nextButtonText}>PRÓXIMO</Text>
-                            <Ionicons name="arrow-forward" size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
+
+                            <ChevronRight size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
+                        </TouchableOpacity>
+
+                        {/* Finish button (disabled if not last step) */}
+                        <TouchableOpacity
+                            style={[
+                                styles.nextButton,
+                                { backgroundColor: THEME.colors.danger },
+                                !isLastStep && { display: 'none' }
+                            ]}
+                            activeOpacity={0.8}
+                            onPress={() => handleBack}
+                            disabled={!isLastStep} >
+
+                            <Text style={styles.nextButtonText}>     FINALIZAR   </Text>
+
+                            <Check size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>
                     </View>
                 </View>

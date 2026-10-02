@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { Bell, Settings2 } from 'lucide-react-native';
 
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -38,7 +38,7 @@ export default function CoursesScreen() {
 
                     {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
+                        <Bell size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
                 </View>
 
@@ -78,8 +78,9 @@ export default function CoursesScreen() {
                 </View>
 
                 {/* Explore section */}
-                <View style={coursesStyles.headerRow}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={coursesStyles.headerTitle}>EXPLORAR</Text>
+                    <Settings2 size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
                 </View>
 
                 <View style={coursesStyles.mainDivider} />

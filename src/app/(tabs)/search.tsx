@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { Bell, Search, X } from 'lucide-react-native';
 
 import { useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -27,7 +27,7 @@ export default function SearchScreen() {
 
                     {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
+                        <Bell size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
                 </View>
 
@@ -44,7 +44,7 @@ export default function SearchScreen() {
                         value={searchQuery}
                         onChangeText={setSearchQuery} />
 
-                    <Ionicons name="search" size={20} color={THEME.colors.text} />
+                    <Search size={20} color={THEME.colors.text} />
                 </View>
 
                 {/* Filters by type */}
@@ -92,7 +92,7 @@ export default function SearchScreen() {
                             <Text style={searchStyles.recentSearchText}>{item}</Text>
 
                             <TouchableOpacity activeOpacity={0.6}>
-                                <Ionicons name="close" size={20} color={THEME.colors.text} />
+                                <X size={20} color={THEME.colors.text} />
                             </TouchableOpacity>
                         </View>
                     ))}

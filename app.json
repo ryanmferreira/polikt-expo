@@ -38,8 +38,6 @@
           "imageWidth": 76
         }
       ],
-      "@react-native-vector-icons/ionicons",
-      "@react-native-vector-icons/fontawesome5",
       "expo-image",
       "expo-web-browser"
     ],

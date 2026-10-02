@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { GraduationCap, House, Megaphone, Search, User } from 'lucide-react-native';
 
 import { Tabs } from 'expo-router';
 import { View } from 'react-native';
@@ -43,7 +43,7 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={focused ? { backgroundColor: THEME.colors.primary, paddingHorizontal: 8, paddingVertical: 8, borderRadius: THEME.borderRadius.default } : { paddingHorizontal: 8, paddingVertical: 8 }}>
-                            <Ionicons name="home" size={22} color={color} />
+                            <House size={22} color={color} />
                         </View>
                     ),
                 }} />
@@ -54,7 +54,7 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={focused ? { backgroundColor: THEME.colors.primary, paddingHorizontal: 8, paddingVertical: 8, borderRadius: THEME.borderRadius.default } : { paddingHorizontal: 8, paddingVertical: 8 }}>
-                            <Ionicons name="search" size={22} color={color} />
+                            <Search size={22} color={color} />
                         </View>
                     ),
                 }} />
@@ -65,7 +65,7 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={focused ? { backgroundColor: THEME.colors.primary, paddingHorizontal: 8, paddingVertical: 8, borderRadius: THEME.borderRadius.default } : { paddingHorizontal: 8, paddingVertical: 8 }}>
-                            <Ionicons name="school" size={22} color={color} />
+                            <GraduationCap size={22} color={color} />
                         </View>
                     ),
                 }} />
@@ -76,7 +76,7 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={focused ? { backgroundColor: THEME.colors.primary, paddingHorizontal: 8, paddingVertical: 8, borderRadius: THEME.borderRadius.default } : { paddingHorizontal: 8, paddingVertical: 8 }}>
-                            <Ionicons name="megaphone" size={22} color={color} />
+                            <Megaphone size={22} color={color} />
                         </View>
                     ),
                 }} />
@@ -87,7 +87,7 @@ export default function TabLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <View style={focused ? { backgroundColor: THEME.colors.primary, paddingHorizontal: 8, paddingVertical: 8, borderRadius: THEME.borderRadius.default } : { paddingHorizontal: 8, paddingVertical: 8 }}>
-                            <Ionicons name="person" size={22} color={color} />
+                            <User size={22} color={color} />
                         </View>
                     ),
                 }} />

@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { Bell, RefreshCw, Settings2 } from 'lucide-react-native';
 
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -56,7 +56,7 @@ export default function GuidesScreen() {
 
                     {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Ionicons name="notifications" size={26} color={THEME.colors.primary} />
+                        <Bell size={26} color={THEME.colors.primary} />
                     </TouchableOpacity>
                 </View>
 
@@ -68,13 +68,37 @@ export default function GuidesScreen() {
                     </Text>
                 </View>
 
+                {/* Explore section */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={guidesStyles.headerTitle}>EXPLORAR</Text>
+                    <Settings2 size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
+                </View>
+
+                <View style={guidesStyles.mainDivider} />
+
+                {/* Filters */}
+                <View style={guidesStyles.tagsContainer}>
+                    <TouchableOpacity style={guidesStyles.tag} activeOpacity={0.8}>
+                        <Text style={guidesStyles.tagText}>VER TODOS</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={guidesStyles.tag} activeOpacity={0.8}>
+                        <Text style={guidesStyles.tagText}>GOVERNANÇA</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={guidesStyles.tag} activeOpacity={0.8}>
+                        <Text style={guidesStyles.tagText}>ELEITORAL</Text>
+                    </TouchableOpacity>
+                </View>
+
+
                 {/* Refresh button */}
                 {!loading && (
                     <TouchableOpacity
                         style={guidesStyles.refreshButton}
                         activeOpacity={0.7}
                         onPress={loadGuides} >
-                        <Ionicons name="refresh" size={16} color={THEME.colors.primary} />
+                        <RefreshCw size={16} color={THEME.colors.primary} />
 
                         <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
                     </TouchableOpacity>

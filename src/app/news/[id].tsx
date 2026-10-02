@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { Book, ChevronLeft, Clock, FileText, MessageSquare, Share2, ThumbsUp, User } from 'lucide-react-native';
 
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -70,12 +70,12 @@ export default function ArticleScreen() {
             {/* Top bar */}
             <View style={styles.topBar}>
                 <TouchableOpacity style={styles.actionButton} onPress={handleBack} activeOpacity={0.7}>
-                    <Ionicons name="chevron-back" size={20} color={THEME.colors.primary} />
+                    <ChevronLeft size={20} color={THEME.colors.primary} />
                     <Text style={styles.topBarText}>VOLTAR</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-                    <Ionicons name="share-social" size={18} color={THEME.colors.primary} />
+                    <Share2 size={18} color={THEME.colors.primary} />
                     <Text style={styles.topBarText}>COMPARTILHAR</Text>
                 </TouchableOpacity>
             </View>
@@ -100,7 +100,7 @@ export default function ArticleScreen() {
                         activeOpacity={0.8}
                         onPress={() => setShowSummary(!showSummary)}>
 
-                        <Ionicons name="document-text" size={16} color={THEME.colors.onPrimary} style={{ marginRight: 6 }} />
+                        <FileText size={16} color={THEME.colors.onPrimary} style={{ marginRight: 6 }} />
 
                         <Text style={styles.summaryButtonText}>
                             {showSummary ? 'OCULTAR RESUMO' : 'VER RESUMO'}
@@ -114,18 +114,55 @@ export default function ArticleScreen() {
                 </View>
 
                 {/* News metadata */}
-                <View style={[styles.cardSection, styles.metaCard]}>
-                    <Text style={styles.metaText}>
-                        {new Date(news.createdAt).toLocaleDateString('pt-BR')}
-                    </Text>
+                <View style={styles.metaCard}>
+                    <View style={styles.metaRow}>
+                        <View style={[styles.metaItem, styles.metaAuthor]}>
+                            <User size={16} color={THEME.colors.textMuted} />
+                            <Text style={styles.metaText} numberOfLines={1}>
+                                Por <Text style={styles.metaEmphasis}>{news.user.name}</Text>
+                            </Text>
+                        </View>
 
-                    <Text style={styles.metaText}>
-                        <Text style={{ fontWeight: '700' }}>5 min</Text> de leitura
-                    </Text>
+                        <View style={styles.metaItem}>
+                            <Book size={16} color={THEME.colors.textMuted} />
+                            <Text style={styles.metaText}>
+                                <Text style={styles.metaEmphasis}>5 min</Text> de leitura
+                            </Text>
+                        </View>
+                    </View>
 
-                    <Text style={styles.metaText}>
-                        Por <Text style={{ fontWeight: '700' }}>{news.user.name}</Text>
-                    </Text>
+                    <View style={styles.metaDivider} />
+
+                    <View style={styles.metaRow}>
+                        <View style={styles.metaItem}>
+                            <Clock size={16} color={THEME.colors.textMuted} />
+                            <Text style={styles.metaText}>
+                                {new Date(news.createdAt).toLocaleDateString('pt-BR')}
+                            </Text>
+                        </View>
+
+                        <View style={styles.metaActions}>
+                            {/* // TODO: Implement upvotes */}
+                            <TouchableOpacity
+                                style={styles.metaAction}
+                                activeOpacity={0.7}
+                                accessibilityRole="button"
+                                accessibilityLabel={`Curtir notícia, ${news.upvotes} curtidas`}>
+                                <ThumbsUp size={17} color={THEME.colors.textMuted} />
+                                <Text style={styles.metaText}>{news.upvotes}</Text>
+                            </TouchableOpacity>
+
+                            {/* // TODO: Implement comments */}
+                            <TouchableOpacity
+                                style={styles.metaAction}
+                                activeOpacity={0.7}
+                                accessibilityRole="button"
+                                accessibilityLabel="Comentários, 0 comentários">
+                                <MessageSquare size={17} color={THEME.colors.textMuted} />
+                                <Text style={styles.metaText}>0</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
 
                 {/* News introduction */}
@@ -144,6 +181,6 @@ export default function ArticleScreen() {
                     ))}
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }

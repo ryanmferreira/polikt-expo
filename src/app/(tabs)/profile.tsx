@@ -1,4 +1,4 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { User } from 'lucide-react-native';
 
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ export default function ProfileScreen() {
                 {/* Profile picture */}
                 <View style={profileStyles.avatarContainer}>
                     <View style={profileStyles.avatarPlaceholder}>
-                        <Ionicons name="person" size={56} color={THEME.colors.text} />
+                        <User size={56} color={THEME.colors.text} />
                     </View>
 
                     <TouchableOpacity activeOpacity={0.7}>
