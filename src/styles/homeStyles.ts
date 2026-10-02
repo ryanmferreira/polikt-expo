@@ -17,7 +17,7 @@ export const homeStyles = StyleSheet.create({
     },
     greetingTitle: {
         fontSize: 24,
-        color: THEME.colors.white,
+        color: THEME.colors.text,
     },
     greetingHighlight: {
         fontSize: 24,
@@ -26,7 +26,7 @@ export const homeStyles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 16,
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         marginBottom: 16,
     },
 
@@ -35,7 +35,7 @@ export const homeStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'transparent',
         borderWidth: THEME.borderWidth.default,
-        borderColor: THEME.colors.white,
+        borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         paddingHorizontal: 12,
         height: 48,
@@ -43,7 +43,7 @@ export const homeStyles = StyleSheet.create({
     },
     searchInput: {
         flex: 1,
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 14,
     },
 
@@ -61,7 +61,7 @@ export const homeStyles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -80,12 +80,12 @@ export const homeStyles = StyleSheet.create({
     cardTitle: {
         fontSize: 16,
         fontWeight: '800',
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         marginBottom: 8,
     },
     cardDescription: {
         fontSize: 14,
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         marginBottom: 16,
         lineHeight: 20,
     },
@@ -109,7 +109,7 @@ export const homeStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
     },
     tagText: {
-        color: THEME.colors.black,
+        color: THEME.colors.tagText,
         fontSize: 11,
         fontWeight: '800',
     },
@@ -125,7 +125,7 @@ export const homeStyles = StyleSheet.create({
         gap: 6,
     },
     statText: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 12,
         fontWeight: '600',
     },

@@ -180,7 +180,7 @@ export default function GuideScreen() {
                             onPress={handlePreviousStep}
                             disabled={isFirstStep} >
 
-                            <Ionicons name="arrow-back" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
+                            <Ionicons name="arrow-back" size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                             <Text style={styles.nextButtonText}>ANTERIOR</Text>
                         </TouchableOpacity>
 
@@ -192,7 +192,7 @@ export default function GuideScreen() {
                             disabled={isLastStep}>
 
                             <Text style={styles.nextButtonText}>PRÓXIMO</Text>
-                            <Ionicons name="arrow-forward" size={16} color={THEME.colors.black} style={{ marginLeft: 4 }} />
+                            <Ionicons name="arrow-forward" size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>
                     </View>
                 </View>

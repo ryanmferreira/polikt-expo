@@ -18,7 +18,7 @@ export const profileStyles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: '#1E1E1E',
+        backgroundColor: THEME.colors.surfaceAlt,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -36,7 +36,7 @@ export const profileStyles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -56,12 +56,12 @@ export const profileStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
     input: {
-        backgroundColor: THEME.colors.white,
+        backgroundColor: THEME.colors.field,
         borderRadius: THEME.borderRadius.default,
         paddingHorizontal: 12,
         paddingVertical: 10,
         fontSize: 14,
-        color: THEME.colors.black,
+        color: THEME.colors.text,
     },
 
     cardDivider: {
@@ -71,7 +71,7 @@ export const profileStyles = StyleSheet.create({
     },
 
     actionContainer: {
-        backgroundColor: '#141414',
+        backgroundColor: THEME.colors.surfaceAlt,
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: THEME.borderWidth.default,
@@ -87,7 +87,7 @@ export const profileStyles = StyleSheet.create({
 
     buttonExit: {
         flex: 1,
-        backgroundColor: THEME.colors.red,
+        backgroundColor: THEME.colors.danger,
         borderRadius: THEME.borderRadius.default,
         paddingVertical: THEME.spacing.buttonVertical,
         alignItems: 'center',
@@ -99,14 +99,14 @@ export const profileStyles = StyleSheet.create({
         paddingVertical: THEME.spacing.buttonVertical,
         alignItems: 'center',
     },
-    
+
     buttonTextExit: {
-        color: THEME.colors.white,
+        color: THEME.colors.onPrimary,
         fontWeight: 'bold',
         fontSize: 12,
     },
     buttonTextSettings: {
-        color: THEME.colors.black,
+        color: THEME.colors.onPrimary,
         fontWeight: 'bold',
         fontSize: 12,
     },

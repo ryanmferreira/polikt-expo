@@ -29,7 +29,7 @@ export const guidesStyles = StyleSheet.create({
     },
 
     infoBox: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -40,7 +40,7 @@ export const guidesStyles = StyleSheet.create({
         marginBottom: 24,
     },
     infoText: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 16,
         lineHeight: 24,
     },
@@ -59,7 +59,7 @@ export const guidesStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
     },
     tagText: {
-        color: THEME.colors.black,
+        color: THEME.colors.tagText,
         fontSize: 11,
         fontWeight: '800',
     },
@@ -71,7 +71,7 @@ export const guidesStyles = StyleSheet.create({
 
     card: {
         flexDirection: 'row',
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -92,7 +92,7 @@ export const guidesStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     cardTitle: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 14,
         fontWeight: '800',
         marginBottom: 8,
@@ -103,7 +103,7 @@ export const guidesStyles = StyleSheet.create({
         marginBottom: 8,
     },
     cardDesc: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 13,
     },
 
@@ -141,7 +141,7 @@ export const guidesStyles = StyleSheet.create({
     },
 
     mainCard: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -152,7 +152,7 @@ export const guidesStyles = StyleSheet.create({
         gap: 12,
     },
     cardSection: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -164,7 +164,7 @@ export const guidesStyles = StyleSheet.create({
     },
 
     mainTitle: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 22,
         fontWeight: '800',
         lineHeight: 28,
@@ -179,7 +179,7 @@ export const guidesStyles = StyleSheet.create({
         marginVertical: 4,
     },
     leadText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 14,
         lineHeight: 20,
     },
@@ -229,7 +229,7 @@ export const guidesStyles = StyleSheet.create({
         padding: 12,
     },
     stepText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 13,
         lineHeight: 18,
     },
@@ -272,7 +272,7 @@ export const guidesStyles = StyleSheet.create({
         flex: 1,
     },
     nextButtonText: {
-        color: THEME.colors.black,
+        color: THEME.colors.onPrimary,
         fontSize: 13,
         fontWeight: '800',
     },

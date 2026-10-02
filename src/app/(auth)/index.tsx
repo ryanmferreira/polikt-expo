@@ -58,7 +58,7 @@ export default function LoginScreen() {
           <TextInput
             style={authStyles.input}
             placeholder="nome@dominio.com"
-            placeholderTextColor={THEME.colors.contrast}
+            placeholderTextColor={THEME.colors.textMuted}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -72,7 +72,7 @@ export default function LoginScreen() {
           <TextInput
             style={authStyles.input}
             placeholder="********"
-            placeholderTextColor={THEME.colors.contrast}
+            placeholderTextColor={THEME.colors.textMuted}
             value={password}
             onChangeText={setPassword}
             secureTextEntry />

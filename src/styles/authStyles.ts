@@ -18,7 +18,7 @@ export const authStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerSubtitle: {
-    color: THEME.colors.white,
+    color: THEME.colors.text,
     fontSize: 16,
   },
   divider: {
@@ -28,7 +28,7 @@ export const authStyles = StyleSheet.create({
     marginVertical: 4,
   },
   card: {
-    backgroundColor: THEME.colors.container,
+    backgroundColor: THEME.colors.surface,
     borderTopWidth: THEME.borderWidth.default,
     borderLeftWidth: THEME.borderWidth.default,
     borderRightWidth: 0,
@@ -53,15 +53,15 @@ export const authStyles = StyleSheet.create({
     fontWeight: '600',
   },
   input: {
-    backgroundColor: THEME.colors.white,
+    backgroundColor: THEME.colors.field,
     borderRadius: THEME.borderRadius.default,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
-    color: THEME.colors.black,
+    color: THEME.colors.text,
   },
   errorText: {
-    color: '#FF4D4D',
+    color: THEME.colors.danger,
     fontSize: 12,
     marginTop: 2,
   },
@@ -74,7 +74,7 @@ export const authStyles = StyleSheet.create({
     marginTop: 8,
   },
   buttonText: {
-    color: THEME.colors.black,
+    color: THEME.colors.onPrimary,
     fontWeight: 'bold',
     fontSize: 16,
   },

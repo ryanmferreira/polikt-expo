@@ -38,7 +38,7 @@ export default function GuidesScreen() {
     if (error) {
         return (
             <SafeAreaView style={[guidesStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text style={{ color: THEME.colors.white, marginBottom: 12 }}>{error}</Text>
+                <Text style={{ color: THEME.colors.text, marginBottom: 12 }}>{error}</Text>
                 <TouchableOpacity onPress={loadGuides}>
                     <Text style={{ color: THEME.colors.primary }}>Tentar novamente</Text>
                 </TouchableOpacity>
@@ -83,7 +83,7 @@ export default function GuidesScreen() {
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
                         {loading && (<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }} />)}
-                        <Text style={{ color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando guias...</Text>
+                        <Text style={{ color: THEME.colors.text, marginTop: 8, fontSize: 12, }}>Carregando guias...</Text>
                     </View>
                 }
 

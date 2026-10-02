@@ -1,33 +1,35 @@
-import { useColorScheme } from "react-native";
-
-const colorScheme = useColorScheme();
+import { Appearance } from "react-native";
 
 const DARK_COLORS = {
-  primary: "#8d6df0", // ! Highlight color (Ex: titles, buttons)
-  background: "#0C0C0C", // * Background color of the app
-  container: "#1C1C1C", // * Background color of containers (Ex: cards, modals)
-  border: "#393939", // * Border color for containers
-  contrast: "#BDBDBD", // * Contrast color (Ex: inactive tab)
-  white: "#FFFFFF", // * White default
-  black: "#000000", // * Black default
-  red: "#E32323", // * Red default
-  tag: "#c9b7ff", // * Tag color
-  navBar: "#0C0C0C", // * Tag color
-  navIcon: "#000000", // * Tag color
+  primary: "#8D6DF0",
+  background: "#0C0C0C",
+  surface: "#1C1C1C",
+  surfaceAlt: "#252525",
+  border: "#393939",
+  text: "#F5F5F5",
+  textMuted: "#BDBDC7",
+  onPrimary: "#FFFFFF",
+  field: "#292929",
+  danger: "#E32323",
+  tag: "#30264B",
+  tagText: "#E7DEFF",
+  navBar: "#111111",
 } as const;
 
 const LIGHT_COLORS = {
-  primary: "#61A3FA", // ! Highlight color (Ex: titles, buttons)
-  background: "#e7e7e7", // * Background color of the app
-  container: "#FEFFFF", // * Spi faBackground color of containers (Ex: cards, modals)
-  border: "#d7d7d7", // * Border color for containers
-  contrast: "#aaaaaa", // * Contrast color (Ex: inactive tab)
-  white: "#2f2f2f", // * White default
-  black: "#ffffff", // * Black default
-  red: "#E32323", // * Red default
-  tag: "#aacfff", // * Tag color
-  navBar: "rgb(255, 255, 255)", // * Tag color
-  navIcon: "#FEFFFF", // * Tag color
+  primary: "#176B9A",
+  background: "#F3F6F8",
+  surface: "#FFFFFF",
+  surfaceAlt: "#E8EEF2",
+  border: "#D5DEE5",
+  text: "#1D2B36",
+  textMuted: "#536572",
+  onPrimary: "#FFFFFF",
+  field: "#E8EEF2",
+  danger: "#B42318",
+  tag: "#DCECF5",
+  tagText: "#174B68",
+  navBar: "#FFFFFF",
 } as const;
 
 export const SPACING = {
@@ -47,12 +49,12 @@ export const BORDER_RADIUS = {
 } as const;
 
 export const BORDER_WIDTH = {
-  default: 2,
+  default: 1,
 } as const;
 
-const USE_DARK_THEME = colorScheme === 'light';
+const USE_DARK_THEME = Appearance.getColorScheme() === "dark";
 
-export const COLORS = USE_DARK_THEME ? LIGHT_COLORS : DARK_COLORS;
+export const COLORS = USE_DARK_THEME ? DARK_COLORS : LIGHT_COLORS;
 
 export const THEME = {
   colors: COLORS,

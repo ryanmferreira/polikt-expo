@@ -92,7 +92,7 @@ export default function RegisterScreen() {
                         <TextInput
                             style={authStyles.input}
                             placeholder="Nome Sobrenome"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={name}
                             onChangeText={setName} />
 
@@ -105,7 +105,7 @@ export default function RegisterScreen() {
                         <TextInput
                             style={authStyles.input}
                             placeholder="nome@dominio.com"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
@@ -120,7 +120,7 @@ export default function RegisterScreen() {
                         <TextInput
                             style={authStyles.input}
                             placeholder="(11) 9XXXX-XXXX"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={phone}
                             onChangeText={setPhone}
                             keyboardType="phone-pad"
@@ -133,7 +133,7 @@ export default function RegisterScreen() {
                         <TextInput
                             style={authStyles.input}
                             placeholder="********"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={password}
                             onChangeText={setPassword}
                             secureTextEntry />
@@ -147,7 +147,7 @@ export default function RegisterScreen() {
                         <TextInput
                             style={authStyles.input}
                             placeholder="********"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
                             secureTextEntry />

@@ -100,7 +100,7 @@ export default function ArticleScreen() {
                         activeOpacity={0.8}
                         onPress={() => setShowSummary(!showSummary)}>
 
-                        <Ionicons name="document-text" size={16} color={THEME.colors.black} style={{ marginRight: 6 }} />
+                        <Ionicons name="document-text" size={16} color={THEME.colors.onPrimary} style={{ marginRight: 6 }} />
 
                         <Text style={styles.summaryButtonText}>
                             {showSummary ? 'OCULTAR RESUMO' : 'VER RESUMO'}

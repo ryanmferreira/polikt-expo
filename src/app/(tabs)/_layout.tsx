@@ -11,10 +11,10 @@ export default function TabLayout() {
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarActiveTintColor: THEME.colors.white,
-                tabBarInactiveTintColor: THEME.colors.contrast,
+                tabBarActiveTintColor: THEME.colors.onPrimary,
+                tabBarInactiveTintColor: THEME.colors.textMuted,
                 tabBarStyle: {
-                    backgroundColor: THEME.colors.background,
+                    backgroundColor: THEME.colors.navBar,
                     borderWidth: THEME.borderWidth.default,
                     borderColor: THEME.colors.border,
                     borderRadius: THEME.borderRadius.default,

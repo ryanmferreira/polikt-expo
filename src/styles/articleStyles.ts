@@ -37,7 +37,7 @@ export const articleStyles = StyleSheet.create({
     },
 
     mainCard: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -48,7 +48,7 @@ export const articleStyles = StyleSheet.create({
         gap: THEME.spacing.gap,
     },
     metaCard: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -61,7 +61,7 @@ export const articleStyles = StyleSheet.create({
         alignItems: 'center',
     },
     cardSection: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -85,13 +85,13 @@ export const articleStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
     },
     tagText: {
-        color: THEME.colors.black,
+        color: THEME.colors.tagText,
         fontSize: 11,
         fontWeight: '800',
     },
 
     mainTitle: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 22,
         fontWeight: '800',
         lineHeight: 28,
@@ -105,12 +105,12 @@ export const articleStyles = StyleSheet.create({
     },
 
     leadText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 14,
         lineHeight: 20,
     },
     metaText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 12,
     },
 
@@ -126,7 +126,7 @@ export const articleStyles = StyleSheet.create({
     },
 
     paragraph: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 14,
         lineHeight: 22,
     },
@@ -142,7 +142,7 @@ export const articleStyles = StyleSheet.create({
         marginTop: 4,
     },
     summaryButtonText: {
-        color: THEME.colors.black,
+        color: THEME.colors.onPrimary,
         fontSize: 13,
         fontWeight: '800',
     },
@@ -156,7 +156,7 @@ export const articleStyles = StyleSheet.create({
         padding: 12,
     },
     nestedCardText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 13,
         lineHeight: 20,
     },

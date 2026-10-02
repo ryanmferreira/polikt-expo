@@ -29,7 +29,7 @@ export const coursesStyles = StyleSheet.create({
     },
 
     progressCard: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -56,18 +56,18 @@ export const coursesStyles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     tagText: {
-        color: THEME.colors.black,
+        color: THEME.colors.tagText,
         fontSize: 11,
         fontWeight: '800',
     },
 
     courseTitle: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 18,
         fontWeight: '800',
     },
     courseDesc: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 14,
         lineHeight: 20,
     },
@@ -90,7 +90,7 @@ export const coursesStyles = StyleSheet.create({
     },
     progressTrack: {
         height: 8,
-        backgroundColor: THEME.colors.white,
+        backgroundColor: THEME.colors.surfaceAlt,
         borderRadius: 4,
         width: '100%',
         overflow: 'hidden',
@@ -110,13 +110,13 @@ export const coursesStyles = StyleSheet.create({
         marginTop: 8,
     },
     actionButtonText: {
-        color: THEME.colors.black,
+        color: THEME.colors.onPrimary,
         fontSize: 12,
         fontWeight: '800',
     },
 
     exploreCard: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
         borderRightWidth: 0,
@@ -145,7 +145,7 @@ export const coursesStyles = StyleSheet.create({
         backgroundColor: THEME.colors.border,
         marginVertical: 4,
     },
-    
+
     exploreFooter: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -153,7 +153,7 @@ export const coursesStyles = StyleSheet.create({
         marginTop: 8,
     },
     exploreFooterInfo: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 13,
         fontWeight: '600',
     },

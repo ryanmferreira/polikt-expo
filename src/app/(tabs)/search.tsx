@@ -40,11 +40,11 @@ export default function SearchScreen() {
                     <TextInput
                         style={searchStyles.searchInput}
                         placeholder="Pesquisar..."
-                        placeholderTextColor={THEME.colors.contrast}
+                        placeholderTextColor={THEME.colors.textMuted}
                         value={searchQuery}
                         onChangeText={setSearchQuery} />
 
-                    <Ionicons name="search" size={20} color={THEME.colors.white} />
+                    <Ionicons name="search" size={20} color={THEME.colors.text} />
                 </View>
 
                 {/* Filters by type */}
@@ -92,7 +92,7 @@ export default function SearchScreen() {
                             <Text style={searchStyles.recentSearchText}>{item}</Text>
 
                             <TouchableOpacity activeOpacity={0.6}>
-                                <Ionicons name="close" size={20} color={THEME.colors.white} />
+                                <Ionicons name="close" size={20} color={THEME.colors.text} />
                             </TouchableOpacity>
                         </View>
                     ))}

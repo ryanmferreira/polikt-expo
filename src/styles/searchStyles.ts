@@ -8,7 +8,7 @@ export const searchStyles = StyleSheet.create({
         paddingTop: THEME.spacing.paddingPageTop,
         paddingHorizontal: THEME.spacing.paddingStandard,
     },
-    
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -28,7 +28,7 @@ export const searchStyles = StyleSheet.create({
         marginBottom: 24,
     },
     subtitle: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 16,
         marginBottom: 16,
     },
@@ -38,7 +38,7 @@ export const searchStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'transparent',
         borderWidth: THEME.borderWidth.default,
-        borderColor: THEME.colors.white,
+        borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         paddingHorizontal: 12,
         height: 48,
@@ -46,7 +46,7 @@ export const searchStyles = StyleSheet.create({
     },
     searchInput: {
         flex: 1,
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 14,
     },
 
@@ -76,7 +76,7 @@ export const searchStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     filterTextActive: {
-        color: THEME.colors.black,
+        color: THEME.colors.onPrimary,
         fontSize: 13,
         fontWeight: '800',
     },
@@ -87,7 +87,7 @@ export const searchStyles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: THEME.colors.container,
+        backgroundColor: THEME.colors.surface,
         borderRadius: THEME.borderRadius.default,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
@@ -118,7 +118,7 @@ export const searchStyles = StyleSheet.create({
         paddingVertical: 8,
     },
     recentSearchText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 13,
         fontWeight: '600',
     },
@@ -142,7 +142,7 @@ export const searchStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     topicText: {
-        color: THEME.colors.contrast,
+        color: THEME.colors.textMuted,
         fontSize: 12,
         fontWeight: '700',
         textAlign: 'center',

@@ -36,7 +36,7 @@ export default function HomeScreen() {
     if (error) {
         return (
             <SafeAreaView style={[homeStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text style={{ color: THEME.colors.white, marginBottom: 12 }}>{error}</Text>
+                <Text style={{ color: THEME.colors.text, marginBottom: 12 }}>{error}</Text>
 
                 <TouchableOpacity onPress={loadNews}>
                     <Text style={{ color: THEME.colors.primary }}>Tentar novamente</Text>
@@ -71,11 +71,11 @@ export default function HomeScreen() {
                     <TextInput
                         style={homeStyles.searchInput}
                         placeholder="Pesquisar..."
-                        placeholderTextColor={THEME.colors.contrast}
+                        placeholderTextColor={THEME.colors.textMuted}
                         value={search}
                         onChangeText={setSearch} />
 
-                    <Ionicons name="search" size={20} color={THEME.colors.white} />
+                    <Ionicons name="search" size={20} color={THEME.colors.text} />
                 </View>
 
                 <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>
@@ -96,7 +96,7 @@ export default function HomeScreen() {
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
                         {loading && (<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }} />)}
-                        <Text style={{ color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
+                        <Text style={{ color: THEME.colors.text, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
                     </View>
                 }
 
@@ -123,13 +123,13 @@ export default function HomeScreen() {
 
                                 {/* // TODO: Implement upvotes */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
-                                    <Ionicons name="arrow-up" size={20} color={THEME.colors.white} />
+                                    <Ionicons name="arrow-up" size={20} color={THEME.colors.text} />
                                     <Text style={homeStyles.statText}>{item.upvotes}</Text>
                                 </TouchableOpacity>
 
                                 {/* // TODO: Implement comments */}
                                 <TouchableOpacity style={homeStyles.iconStat} activeOpacity={0.7}>
-                                    <Ionicons name="chatbox" size={18} color={THEME.colors.white} />
+                                    <Ionicons name="chatbox" size={18} color={THEME.colors.text} />
                                     <Text style={homeStyles.statText}>0</Text>
                                 </TouchableOpacity>
                             </View>
@@ -163,7 +163,7 @@ export default function HomeScreen() {
                 {loading &&
                     <View style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 25, }}>
                         {loading && (<ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }} />)}
-                        <Text style={{ color: THEME.colors.white, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
+                        <Text style={{ color: THEME.colors.text, marginTop: 8, fontSize: 12, }}>Carregando notícias...</Text>
                     </View>
                 }
             </ScrollView>

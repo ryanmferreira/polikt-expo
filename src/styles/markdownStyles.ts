@@ -4,7 +4,7 @@ import { THEME } from '../constants/theme';
 
 export const markdownStyles = StyleSheet.create({
     body: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
         fontSize: 16,
         lineHeight: 24,
     },
@@ -28,7 +28,7 @@ export const markdownStyles = StyleSheet.create({
     },
 
     paragraph: {
-        color: THEME.colors.white,
+        color: THEME.colors.text,
     },
 
     link: {

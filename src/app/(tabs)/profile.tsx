@@ -28,7 +28,7 @@ export default function ProfileScreen() {
                 {/* Profile picture */}
                 <View style={profileStyles.avatarContainer}>
                     <View style={profileStyles.avatarPlaceholder}>
-                        <Ionicons name="person" size={56} color={THEME.colors.white} />
+                        <Ionicons name="person" size={56} color={THEME.colors.text} />
                     </View>
 
                     <TouchableOpacity activeOpacity={0.7}>
@@ -47,7 +47,7 @@ export default function ProfileScreen() {
                         <TextInput
                             style={profileStyles.input}
                             placeholder="Nome Sobrenome"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={name}
                             onChangeText={setName} />
                     </View>
@@ -59,7 +59,7 @@ export default function ProfileScreen() {
                         <TextInput
                             style={profileStyles.input}
                             placeholder="nome@dominio.com"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
@@ -73,7 +73,7 @@ export default function ProfileScreen() {
                         <TextInput
                             style={profileStyles.input}
                             placeholder="(11) 9XXXX-XXXX"
-                            placeholderTextColor={THEME.colors.contrast}
+                            placeholderTextColor={THEME.colors.textMuted}
                             value={phone}
                             onChangeText={setPhone}
                             keyboardType="phone-pad" />
