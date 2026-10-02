@@ -1,14 +1,16 @@
-import { Link, router } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { registerUser } from '../../services/users';
+import { loginUser, registerUser } from '../../services/users';
 
 import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
 
 export default function RegisterScreen() {
+      const router = useRouter();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -62,7 +64,12 @@ export default function RegisterScreen() {
                 phone.trim()
             );
 
-            router.replace('/(tabs)/home');
+            let data = await loginUser(email.trim(), password);
+
+            if (data !== null) {
+                router.replace('/(tabs)/home');
+            }
+
         } catch (error) {
             alert('Erro ao cadastrar usuário:' + error);
         }
@@ -163,7 +170,7 @@ export default function RegisterScreen() {
                     <View style={authStyles.cardDivider} />
 
                     {/* Go to login */}
-                    <Link href="/(auth)" asChild>
+                    <Link href="/(auth)/login" asChild>
                         <TouchableOpacity>
                             <Text style={authStyles.linkText}>Já possui conta? Entre aqui!</Text>
                         </TouchableOpacity>

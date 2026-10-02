@@ -1,19 +1,22 @@
-import { Link, router } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { loginUser } from '@/services/users';
 import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
 
 export default function LoginScreen() {
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setEmailError('');
     setPasswordError('');
 
@@ -34,7 +37,11 @@ export default function LoginScreen() {
       return;
     }
 
-    router.replace('/(tabs)/home');
+    let data = await loginUser(email, password);
+
+    if (data !== null) {
+      router.replace('/(tabs)/home');
+    }
   };
 
   return (

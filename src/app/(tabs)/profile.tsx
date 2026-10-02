@@ -1,22 +1,58 @@
 import { User } from 'lucide-react-native';
 
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { THEME } from '../../constants/theme';
 
+import { User as UserModel } from '@/models/user';
+
+import { clearToken } from '@/services/token';
+import { getMyProfile } from '@/services/users';
+
 import { profileStyles } from '../../styles/profileStyles';
 
 export default function ProfileScreen() {
-    const [name, setName] = useState('Ryan Ferreira');
+    const [user, setUser] = useState<UserModel>();
+
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    async function loadUser() {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await getMyProfile();
+            setUser(data);
+        } catch (e) {
+            setError('Não foi possível carregar o seu perfil.');
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const handleLogout = () => {
-        router.replace('/(auth)');
+        clearToken();
+        router.replace('/(auth)/login');
     };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={[profileStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={THEME.colors.primary} />
+            </SafeAreaView>
+        );
+    }
 
     return (
         // ? Should we do this now?

@@ -1,3 +1,5 @@
+import { getToken } from './token';
+
 const DEFAULT_API_URL = "https://polikt-spring.onrender.com";
 const LOCALHOST_URL = "http://localhost:8080";
 
@@ -24,12 +26,15 @@ async function getActiveApiUrl() {
 export async function apiFetch(path: string, options: RequestInit = {}) {
     const apiUrl = await getActiveApiUrl();
 
+    const token = await getToken();
+
     const response = await fetch(`${apiUrl}${path}`, {
         method: options.method,
         body: options.body,
         headers: {
             "Content-Type": "application/json",
             ...options.headers,
+            Authorization: `Bearer ${token}`
         },
     });
 
