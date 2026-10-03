@@ -18,19 +18,19 @@ const DARK_COLORS = {
 } as const;
 
 const LIGHT_COLORS = {
-  primary: "#1c79af",
-  background: "#F3F6F8",
+  primary: "#6D4CDB",
+  background: "#F7F6FC",
   surface: "#FFFFFF",
-  surfaceAlt: "#E8EEF2",
-  border: "#D5DEE5",
-  text: "#1D2B36",
-  textMuted: "#536572",
+  surfaceAlt: "#EFECFA",
+  border: "#DDD8EE",
+  text: "#27233A",
+  textMuted: "#625D73",
   onPrimary: "#FFFFFF",
-  field: "#E8EEF2",
+  field: "#EFECFA",
   danger: "#B42318",
-  success: "#43d056",
-  tag: "#DCECF5",
-  tagText: "#174B68",
+  success: "#2E9B55",
+  tag: "#E9E3FF",
+  tagText: "#4B3792",
   navBar: "#FFFFFF",
 } as const;
 
