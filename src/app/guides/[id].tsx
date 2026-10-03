@@ -139,7 +139,7 @@ export default function GuideScreen() {
 
                 {/* Steps */}
                 <View style={guidesStyles.cardSection}>
-                    <Text style={guidesStyles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1})</Text>
+                    <Text style={guidesStyles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1} / {steps.length + 1})</Text>
                     <View style={guidesStyles.sectionDivider} />
 
                     {currentStep && (
@@ -206,14 +206,14 @@ export default function GuideScreen() {
                         <TouchableOpacity
                             style={[
                                 guidesStyles.nextButton,
-                                { backgroundColor: THEME.colors.danger },
+                                { backgroundColor: THEME.colors.success },
                                 !isLastStep && { display: 'none' }
                             ]}
                             activeOpacity={0.8}
-                            onPress={() => handleBack}
+                            onPress={handleBack}
                             disabled={!isLastStep} >
 
-                            <Text style={guidesStyles.nextButtonText}>     FINALIZAR   </Text>
+                            <Text style={guidesStyles.nextButtonText}>FECHAR</Text>
 
                             <Check size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
                         </TouchableOpacity>

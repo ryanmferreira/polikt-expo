@@ -30,23 +30,6 @@ export const homeStyles = StyleSheet.create({
         marginBottom: 16,
     },
 
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-        borderWidth: THEME.borderWidth.default,
-        borderColor: THEME.colors.border,
-        borderRadius: THEME.borderRadius.default,
-        paddingHorizontal: 12,
-        height: 48,
-        marginBottom: 32,
-    },
-    searchInput: {
-        flex: 1,
-        color: THEME.colors.text,
-        fontSize: 14,
-    },
-
     sectionTitle: {
         fontSize: 18,
         fontWeight: '800',

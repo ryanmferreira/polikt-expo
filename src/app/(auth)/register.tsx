@@ -9,7 +9,7 @@ import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
 
 export default function RegisterScreen() {
-      const router = useRouter();
+    const router = useRouter();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

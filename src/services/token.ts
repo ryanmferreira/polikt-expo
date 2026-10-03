@@ -32,6 +32,6 @@ export async function clearToken(): Promise<void> {
 
 export async function isLoggedIn(): Promise<boolean> {
     const token = await getToken();
-   
+
     return token !== null;
 }

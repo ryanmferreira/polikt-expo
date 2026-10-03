@@ -1,47 +1,46 @@
-import { getToken } from './token';
+import { getToken } from "./token";
 
 const DEFAULT_API_URL = "https://polikt-spring.onrender.com";
 const LOCALHOST_URL = "http://localhost:8080";
 
 async function getActiveApiUrl() {
-    try {
-        console.log("Attempting to connect to localhost...");
+  try {
+    console.log("Attempting to connect to localhost...");
 
-        const response = await fetch(LOCALHOST_URL, {
-            method: "HEAD",
-        });
+    const response = await fetch(LOCALHOST_URL, {
+      method: "HEAD",
+    });
 
-        if (response.ok) {
-            console.log("Localhost available. Using localhost.");
-            return LOCALHOST_URL;
-        }
-
-        console.error(`Status ${response.status} returned`);
-    } catch (error) {
-        console.warn("Localhost unavailable. Falling back to Render.");
-        return DEFAULT_API_URL;
+    if (response.ok) {
+      console.log("Localhost available. Using localhost.");
+      return LOCALHOST_URL;
     }
+
+    console.error(`Status ${response.status} returned`);
+  } catch (error) {
+    console.warn("Localhost unavailable. Falling back to Render.");
+    return DEFAULT_API_URL;
+  }
 }
 
 export async function apiFetch(path: string, options: RequestInit = {}) {
-    const apiUrl = await getActiveApiUrl();
+  const apiUrl = await getActiveApiUrl();
 
-    const token = await getToken();
+  const token = await getToken();
 
-    const response = await fetch(`${apiUrl}${path}`, {
-        method: options.method,
-        body: options.body,
-        headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-            Authorization: `Bearer ${token}`
-        },
-    });
+  const response = await fetch(`${apiUrl}${path}`, {
+    method: options.method,
+    body: options.body,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-    if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage || `Error ${response.status}`);
-    }
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
 
-    return response.json();
+  return response.json();
 }

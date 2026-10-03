@@ -1,35 +1,35 @@
-import { Link, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link, useRouter } from "expo-router";
+import { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { loginUser } from '@/services/users';
-import { THEME } from '../../constants/theme';
-import { authStyles } from '../../styles/authStyles';
+import { loginUser } from "@/services/users";
+import { THEME } from "../../constants/theme";
+import { authStyles } from "../../styles/authStyles";
 
 export default function LoginScreen() {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleLogin = async () => {
-    setEmailError('');
-    setPasswordError('');
+    setEmailError("");
+    setPasswordError("");
 
     let hasError = false;
 
     const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
     if (!validMail) {
-      setEmailError('Digite um e-mail válido.');
+      setEmailError("Digite um e-mail válido.");
       hasError = true;
     }
 
     if (password.length < 6) {
-      setPasswordError('A senha deve ter pelo menos 6 caracteres.');
+      setPasswordError("A senha deve ter pelo menos 6 caracteres.");
       hasError = true;
     }
 
@@ -37,20 +37,19 @@ export default function LoginScreen() {
       return;
     }
 
-    let data = await loginUser(email, password);
-
-    if (data !== null) {
-      router.replace('/(tabs)/home');
+    if (await loginUser(email, password)) {
+      router.replace("/(tabs)/home");
     }
   };
 
   return (
     <SafeAreaView style={authStyles.container}>
-
       {/* Header */}
       <View style={authStyles.headerGroup}>
         <Text style={authStyles.headerTitle}>BEM-VINDO</Text>
-        <Text style={authStyles.headerSubtitle}>O que gostaria de aprender hoje?</Text>
+        <Text style={authStyles.headerSubtitle}>
+          O que gostaria de aprender hoje?
+        </Text>
       </View>
 
       <View style={authStyles.divider} />
@@ -69,8 +68,11 @@ export default function LoginScreen() {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
-            autoCapitalize="none" />
-          {emailError !== '' && <Text style={authStyles.errorText}>{emailError}</Text>}
+            autoCapitalize="none"
+          />
+          {emailError !== "" && (
+            <Text style={authStyles.errorText}>{emailError}</Text>
+          )}
         </View>
 
         {/* Password field */}
@@ -82,12 +84,19 @@ export default function LoginScreen() {
             placeholderTextColor={THEME.colors.textMuted}
             value={password}
             onChangeText={setPassword}
-            secureTextEntry />
-          {passwordError !== '' && <Text style={authStyles.errorText}>{passwordError}</Text>}
+            secureTextEntry
+          />
+          {passwordError !== "" && (
+            <Text style={authStyles.errorText}>{passwordError}</Text>
+          )}
         </View>
 
         {/* Login button */}
-        <TouchableOpacity style={authStyles.button} activeOpacity={0.8} onPress={handleLogin}>
+        <TouchableOpacity
+          style={authStyles.button}
+          activeOpacity={0.8}
+          onPress={handleLogin}
+        >
           <Text style={authStyles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
@@ -96,7 +105,9 @@ export default function LoginScreen() {
         {/* Create account */}
         <Link href="/(auth)/register" asChild>
           <TouchableOpacity>
-            <Text style={authStyles.linkText}>Não possui conta? Crie aqui!</Text>
+            <Text style={authStyles.linkText}>
+              Não possui conta? Crie aqui!
+            </Text>
           </TouchableOpacity>
         </Link>
 

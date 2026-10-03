@@ -11,13 +11,14 @@ const DARK_COLORS = {
   onPrimary: "#FFFFFF",
   field: "#292929",
   danger: "#E32323",
+  success: "#42b451",
   tag: "#30264B",
   tagText: "#E7DEFF",
   navBar: "#111111",
 } as const;
 
 const LIGHT_COLORS = {
-  primary: "#176B9A",
+  primary: "#1c79af",
   background: "#F3F6F8",
   surface: "#FFFFFF",
   surfaceAlt: "#E8EEF2",
@@ -27,6 +28,7 @@ const LIGHT_COLORS = {
   onPrimary: "#FFFFFF",
   field: "#E8EEF2",
   danger: "#B42318",
+  success: "#43d056",
   tag: "#DCECF5",
   tagText: "#174B68",
   navBar: "#FFFFFF",
