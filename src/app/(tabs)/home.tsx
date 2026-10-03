@@ -109,8 +109,9 @@ export default function HomeScreen() {
             value={search}
             onChangeText={setSearch}
           />
-
-          <Search size={20} color={THEME.colors.text} />
+          <View style={searchStyles.searchIcon}>
+            <Search size={19} color={THEME.colors.primary} />
+          </View>
         </View>
 
         <Text style={homeStyles.sectionTitle}>ÚLTIMAS NOTÍCIAS</Text>

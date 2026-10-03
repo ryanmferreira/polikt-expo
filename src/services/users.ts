@@ -29,6 +29,7 @@ export async function loginUser(email: string, password: string) {
     setToken(data.token);
     return true;
   } catch {
+    // TODO: Error handling
     alert("Erro ao logar na conta");
     return false;
   }

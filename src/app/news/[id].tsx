@@ -21,20 +21,32 @@ export default function ArticleScreen() {
     const { id } = useLocalSearchParams();
 
     const [news, setNews] = useState<News | null>(null);
-    const [loading, setLoading] = useState(true);
     const [showSummary, setShowSummary] = useState(false);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const [reloadKey, setReloadKey] = useState(0);
 
     // Update the news when the id changes (attention to the end of the line)
     useEffect(() => {
-        if (id) loadNews();
-    }, [id]);
+        if (id) {
+            loadNews();
+        }
+    }, [id, reloadKey]);
 
     async function loadNews() {
         try {
+            setLoading(true);
+            setError(null);
+
             const data = await getNewsById(id as string);
+
             setNews(data);
         } catch (e) {
             // TODO: Error handling
+            setNews(null);
+            setError('Não foi possível carregar esta notícia.');
         } finally {
             setLoading(false);
         }
@@ -59,8 +71,13 @@ export default function ArticleScreen() {
 
     if (!news) {
         return (
-            <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text>Notícia não encontrada.</Text>
+            <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center', padding: THEME.spacing.paddingStandard }]}>
+                <Text style={styles.newsEmpty}>{error ?? 'Notícia não encontrada.'}</Text>
+                {id && (
+                    <TouchableOpacity onPress={() => handleBack()} activeOpacity={0.7}>
+                        <Text style={styles.linkText}>Voltar para o catálogo</Text>
+                    </TouchableOpacity>
+                )}
             </SafeAreaView>
         );
     }

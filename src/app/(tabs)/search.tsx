@@ -12,8 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { THEME } from "../../constants/theme";
 
-import { searchStyles } from "../../styles/searchStyles";
 import { responsiveStyles } from "../../styles/responsiveStyles";
+import { searchStyles } from "../../styles/searchStyles";
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,8 +59,9 @@ export default function SearchScreen() {
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-
-          <Search size={20} color={THEME.colors.text} />
+          <View style={searchStyles.searchIcon}>
+            <Search size={19} color={THEME.colors.primary} />
+          </View>
         </View>
 
         {/* Filters by type */}

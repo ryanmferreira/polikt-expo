@@ -66,6 +66,7 @@ export const newsStyles = StyleSheet.create({
         height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.border,
     },
+
     cardSection: {
         backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
@@ -135,6 +136,20 @@ export const newsStyles = StyleSheet.create({
         height: THEME.borderWidth.default,
         backgroundColor: THEME.colors.primary,
         marginBottom: 4,
+    },
+
+    linkText: {
+        color: THEME.colors.primary,
+        fontSize: 13,
+        lineHeight: 18,
+        textDecorationLine: 'underline',
+        textDecorationColor: THEME.colors.primary,
+    },
+
+    newsEmpty: {
+        color: THEME.colors.textMuted,
+        fontSize: 14,
+        lineHeight: 20,
     },
 
     paragraph: {

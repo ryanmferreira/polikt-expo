@@ -6,8 +6,10 @@ import { Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { THEME } from '../../constants/theme';
 
 export default function TabLayout() {
+    // Use the window dimensions to determine if the screen is wide enough
     const { width } = useWindowDimensions();
 
+    // If the screen width is wide enough, use the sidebar
     const useSidebar = Platform.OS === 'web' && width >= 1024;
 
     return (
@@ -18,39 +20,36 @@ export default function TabLayout() {
                 tabBarVariant: useSidebar ? 'material' : undefined,
                 tabBarShowLabel: useSidebar,
                 tabBarLabelPosition: useSidebar ? 'beside-icon' : undefined,
-                tabBarActiveTintColor: THEME.colors.onPrimary,
+                tabBarActiveTintColor: THEME.colors.onPrimaryAlt,
                 tabBarInactiveTintColor: THEME.colors.textMuted,
                 tabBarStyle: {
                     backgroundColor: THEME.colors.navBar,
                     borderWidth: useSidebar ? 0 : THEME.borderWidth.default,
                     borderColor: THEME.colors.border,
                     borderRadius: useSidebar ? 0 : THEME.borderRadius.default,
-                    ...(useSidebar
-                        ? {
-                            minWidth: 128,
-                            maxWidth: 256,
-                            flexBasis: '20%',
-                        }
-                        : {
-                            height: 64,
-                            position: 'absolute',
-                            bottom: 8,
-                            left: THEME.spacing.paddingStandard,
-                            right: THEME.spacing.paddingStandard,
-                        }),
+
+                    ...(useSidebar ? {
+                        minWidth: 128,
+                        maxWidth: 256,
+                        flexBasis: '20%',
+                    } : {
+                        height: 64,
+                        position: 'absolute',
+                        bottom: 8,
+                        left: THEME.spacing.paddingStandard,
+                        right: THEME.spacing.paddingStandard,
+                    }),
+
                     elevation: 0,
                     paddingBottom: 0,
                 },
-                tabBarItemStyle: useSidebar
-                    ? {}
-                    : {
-                        height: '100%',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    },
-                tabBarLabelStyle: useSidebar
-                    ? { marginLeft: THEME.spacing.gap } : undefined,
+                tabBarItemStyle: useSidebar ? {} : {
+                    height: '100%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+                tabBarLabelStyle: useSidebar ? { marginLeft: THEME.spacing.gap } : undefined,
                 tabBarIconStyle: {
                     marginTop: 0,
                 },
@@ -62,10 +61,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Início',
                     tabBarIcon: ({ color, focused }) => (
-                        <View style={[
-                            styles.icon,
-                            useSidebar && styles.sidebarIcon,
-                            focused && styles.activeIcon,]}>
+                        <View style={[navBarStyles.icon, useSidebar && navBarStyles.sidebarIcon, focused && navBarStyles.activeIcon,]}>
 
                             <House size={useSidebar ? 16 : 22} color={color} />
                         </View>
@@ -78,11 +74,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Buscar',
                     tabBarIcon: ({ color, focused }) => (
-                        <View style={[
-                            styles.icon,
-                            useSidebar && styles.sidebarIcon,
-                            focused && styles.activeIcon,
-                        ]}>
+                        <View style={[navBarStyles.icon, useSidebar && navBarStyles.sidebarIcon, focused && navBarStyles.activeIcon]}>
                             <Search size={useSidebar ? 16 : 22} color={color} />
                         </View>
                     ),
@@ -94,11 +86,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Cursos',
                     tabBarIcon: ({ color, focused }) => (
-                        <View style={[
-                            styles.icon,
-                            useSidebar && styles.sidebarIcon,
-                            focused && styles.activeIcon,
-                        ]}>
+                        <View style={[navBarStyles.icon, useSidebar && navBarStyles.sidebarIcon, focused && navBarStyles.activeIcon,]}>
                             <GraduationCap size={useSidebar ? 16 : 22} color={color} />
                         </View>
                     ),
@@ -110,11 +98,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Guias',
                     tabBarIcon: ({ color, focused }) => (
-                        <View style={[
-                            styles.icon,
-                            useSidebar && styles.sidebarIcon,
-                            focused && styles.activeIcon,
-                        ]}>
+                        <View style={[navBarStyles.icon, useSidebar && navBarStyles.sidebarIcon, focused && navBarStyles.activeIcon,]}>
                             <Megaphone size={useSidebar ? 16 : 22} color={color} />
                         </View>
                     ),
@@ -126,11 +110,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Perfil',
                     tabBarIcon: ({ color, focused }) => (
-                        <View style={[
-                            styles.icon,
-                            useSidebar && styles.sidebarIcon,
-                            focused && styles.activeIcon,
-                        ]}>
+                        <View style={[navBarStyles.icon, useSidebar && navBarStyles.sidebarIcon, focused && navBarStyles.activeIcon,]}>
                             <User size={useSidebar ? 16 : 22} color={color} />
                         </View>
                     ),
@@ -139,7 +119,7 @@ export default function TabLayout() {
     );
 }
 
-const styles = StyleSheet.create({
+const navBarStyles = StyleSheet.create({
     icon: {
         alignItems: 'center',
         justifyContent: 'center',

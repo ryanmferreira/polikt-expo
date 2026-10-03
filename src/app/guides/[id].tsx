@@ -25,53 +25,43 @@ export default function GuideScreen() {
     const [guide, setGuide] = useState<Guide | null>(null);
     const [steps, setSteps] = useState<GuideStep[]>([]);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+
     const [reloadKey, setReloadKey] = useState(0);
+
     const guideId = Array.isArray(id) ? id[0] : id;
 
+    // Update the guide when the id changes (attention to the end of the line)
     useEffect(() => {
-        let isCurrentRequest = true;
-
-        async function loadGuide() {
-            if (!guideId) {
-                setGuide(null);
-                setSteps([]);
-                setError('Guia não encontrado.');
-                setLoading(false);
-                return;
-            }
-
-            try {
-                setLoading(true);
-                setError(null);
-                setCurrentStepIndex(0);
-
-                const guideData = await getGuideById(guideId);
-                const stepsData = await getGuideSteps(guideId);
-
-                if (isCurrentRequest) {
-                    setGuide(guideData);
-                    setSteps(stepsData);
-                }
-            } catch {
-                if (isCurrentRequest) {
-                    setGuide(null);
-                    setSteps([]);
-                    setError('Não foi possível carregar este guia.');
-                }
-            } finally {
-                if (isCurrentRequest) {
-                    setLoading(false);
-                }
-            }
+        if (guideId) {
+            loadGuide();
         }
-
-        void loadGuide();
-        return () => {
-            isCurrentRequest = false;
-        };
     }, [guideId, reloadKey]);
+
+    async function loadGuide() {
+        try {
+            setLoading(true);
+            setError(null);
+
+            setCurrentStepIndex(0);
+
+            const guideData = await getGuideById(guideId);
+            const stepsData = await getGuideSteps(guideId);
+
+            setGuide(guideData);
+            setSteps(stepsData);
+        } catch {
+            // TODO: Error handling
+            setGuide(null);
+            setSteps([]);
+            setError('Não foi possível carregar este guia.');
+        } finally {
+            setLoading(false);
+        }
+    }
 
     // If can't go back, go direct to the home route
     const handleBack = () => {
@@ -96,7 +86,7 @@ export default function GuideScreen() {
 
     if (loading) {
         return (
-            <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
+            <SafeAreaView style={[guidesStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
                 <ActivityIndicator size="large" color={THEME.colors.primary} />
             </SafeAreaView>
         );
@@ -107,8 +97,8 @@ export default function GuideScreen() {
             <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center', padding: THEME.spacing.paddingStandard }]}>
                 <Text style={guidesStyles.stepEmpty}>{error ?? 'Guia não encontrado.'}</Text>
                 {guideId && (
-                    <TouchableOpacity onPress={() => setReloadKey((key) => key + 1)} activeOpacity={0.7}>
-                        <Text style={guidesStyles.linkText}>Tentar novamente</Text>
+                    <TouchableOpacity onPress={() => handleBack()} activeOpacity={0.7}>
+                        <Text style={guidesStyles.linkText}>Voltar para o catálogo</Text>
                     </TouchableOpacity>
                 )}
             </SafeAreaView>
