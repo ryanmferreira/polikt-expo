@@ -20,6 +20,7 @@ import { clearToken, isLoggedIn } from "@/services/token";
 import { getMyProfile } from "@/services/users";
 
 import { profileStyles } from "../../styles/profileStyles";
+import { responsiveStyles } from "../../styles/responsiveStyles";
 
 export default function ProfileScreen() {
   const [user, setUser] = useState<UserModel>();
@@ -78,7 +79,7 @@ export default function ProfileScreen() {
     <SafeAreaView style={profileStyles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.formContent]}
       >
         {/* Profile picture */}
         <View style={profileStyles.avatarContainer}>

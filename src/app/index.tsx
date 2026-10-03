@@ -1,4 +1,5 @@
 import { isLoggedIn } from "@/services/token";
+import { THEME } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -21,8 +22,8 @@ export default function App() {
     }, []);
 
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <ActivityIndicator />
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: THEME.colors.background }}>
+            <ActivityIndicator color={THEME.colors.primary} />
         </View>
     );
 }

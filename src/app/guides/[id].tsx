@@ -2,7 +2,7 @@ import { Check, ChevronLeft, ChevronRight, Share2 } from 'lucide-react-native';
 
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { THEME } from '../../constants/theme';
@@ -13,36 +13,65 @@ import Markdown from 'react-native-markdown-display';
 
 import { markdownStyles } from '@/styles/markdownStyles';
 import { guidesStyles } from '../../styles/guideStyles';
+import { responsiveStyles, WIDE_LAYOUT_BREAKPOINT } from '../../styles/responsiveStyles';
 
 export default function GuideScreen() {
     const router = useRouter();
     const { id } = useLocalSearchParams();
 
+    const { width } = useWindowDimensions();
+    const useWideLayout = width >= WIDE_LAYOUT_BREAKPOINT;
+
     const [guide, setGuide] = useState<Guide | null>(null);
     const [steps, setSteps] = useState<GuideStep[]>([]);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [reloadKey, setReloadKey] = useState(0);
+    const guideId = Array.isArray(id) ? id[0] : id;
 
-    // Update the guide when the id changes (attention to the end of the line)
     useEffect(() => {
-        if (id) {
-            loadGuide();
-        }
-    }, [id]);
+        let isCurrentRequest = true;
 
-    async function loadGuide() {
-        try {
-            const guideData = await getGuideById(id as string);
-            const stepsData = await getGuideSteps(id as string);
+        async function loadGuide() {
+            if (!guideId) {
+                setGuide(null);
+                setSteps([]);
+                setError('Guia não encontrado.');
+                setLoading(false);
+                return;
+            }
 
-            setGuide(guideData);
-            setSteps(stepsData);
-        } catch (e) {
-            // TODO: Error handling
-        } finally {
-            setLoading(false);
+            try {
+                setLoading(true);
+                setError(null);
+                setCurrentStepIndex(0);
+
+                const guideData = await getGuideById(guideId);
+                const stepsData = await getGuideSteps(guideId);
+
+                if (isCurrentRequest) {
+                    setGuide(guideData);
+                    setSteps(stepsData);
+                }
+            } catch {
+                if (isCurrentRequest) {
+                    setGuide(null);
+                    setSteps([]);
+                    setError('Não foi possível carregar este guia.');
+                }
+            } finally {
+                if (isCurrentRequest) {
+                    setLoading(false);
+                }
+            }
         }
-    }
+
+        void loadGuide();
+        return () => {
+            isCurrentRequest = false;
+        };
+    }, [guideId, reloadKey]);
 
     // If can't go back, go direct to the home route
     const handleBack = () => {
@@ -75,149 +104,173 @@ export default function GuideScreen() {
 
     if (!guide) {
         return (
-            <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text>Guia não encontrado.</Text>
+            <SafeAreaView style={[guidesStyles.detailContainer, { justifyContent: 'center', alignItems: 'center', padding: THEME.spacing.paddingStandard }]}>
+                <Text style={guidesStyles.stepEmpty}>{error ?? 'Guia não encontrado.'}</Text>
+                {guideId && (
+                    <TouchableOpacity onPress={() => setReloadKey((key) => key + 1)} activeOpacity={0.7}>
+                        <Text style={guidesStyles.linkText}>Tentar novamente</Text>
+                    </TouchableOpacity>
+                )}
             </SafeAreaView>
         );
     }
 
-    const progressRatio = steps.length > 0 ? (currentStepIndex + 1) / steps.length : 0; // Calculate the progress ratio
+    const progressRatio = steps.length > 0 ? currentStepIndex / (steps.length - 1) : 0;
 
     const currentStep = steps[currentStepIndex];
 
     const isFirstStep = currentStepIndex === 0;
-    const isLastStep = currentStepIndex === steps.length - 1;
+    const isLastStep = steps.length > 0 && currentStepIndex === steps.length - 1;
 
     return (
         <SafeAreaView style={guidesStyles.detailContainer}>
 
             {/* Top bar */}
-            <View style={guidesStyles.topBar}>
-                <TouchableOpacity style={guidesStyles.actionButton} onPress={handleBack} activeOpacity={0.7}>
-                    <ChevronLeft size={20} color={THEME.colors.primary} />
-                    <Text style={guidesStyles.topBarText}>VOLTAR</Text>
-                </TouchableOpacity>
+            <View style={responsiveStyles.detailTopBar}>
+                <View style={responsiveStyles.topBarContent}>
+                    <TouchableOpacity style={responsiveStyles.detailTopBarAction} onPress={handleBack} activeOpacity={0.7}>
+                        <ChevronLeft size={20} color={THEME.colors.primary} />
+                        <Text style={responsiveStyles.detailTopBarText}>VOLTAR</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={guidesStyles.actionButton} activeOpacity={0.7}>
-                    <Share2 size={18} color={THEME.colors.primary} />
-                    <Text style={guidesStyles.topBarText}>COMPARTILHAR</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={responsiveStyles.detailTopBarAction} activeOpacity={0.7}>
+                        <Share2 size={18} color={THEME.colors.primary} />
+                        <Text style={responsiveStyles.detailTopBarText}>COMPARTILHAR</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             {/* Main content */}
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={guidesStyles.scrollContent}>
-                <View style={guidesStyles.mainCard}>
+            <ScrollView
+                style={{ flex: 1 }}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={[
+                    guidesStyles.scrollContent,
+                    responsiveStyles.guideDetailContent,
+                    { flexGrow: 1 },
+                    useWideLayout && responsiveStyles.guideDetailColumns,
+                ]}>
 
-                    {/* Tag row */}
-                    <View style={guidesStyles.tagRow}>
-                        <View style={guidesStyles.tag}>
-                            <Text style={guidesStyles.tagText}>{guide.agency.name}</Text>
+                {/* Guide overview */}
+                <View style={[guidesStyles.detailOverview, useWideLayout && responsiveStyles.guideOverviewDesktop,]}>
+                    {/* Main card */}
+                    <View style={guidesStyles.mainCard}>
+
+                        {/* Tag row */}
+                        <View style={guidesStyles.tagRow}>
+                            <View style={guidesStyles.tag}>
+                                <Text style={guidesStyles.tagText}>{guide.agency.name}</Text>
+                            </View>
                         </View>
+
+                        {/* Title */}
+                        <Text style={guidesStyles.mainTitle}>{guide.title}</Text>
+
+                        {/* Cover image */}
+                        {guide.coverImage && (
+                            <Image source={{ uri: guide.coverImage }} style={guidesStyles.detailImage} />
+                        )}
+
+                        {/* Description */}
+                        <Text style={guidesStyles.leadText}>{guide.description}</Text>
                     </View>
 
-                    {/* Title */}
-                    <Text style={guidesStyles.mainTitle}>{guide.title}</Text>
+                    {/* Agency */}
+                    <View style={[guidesStyles.cardSection, { flexGrow: 1 }]}>
+                        <Text style={guidesStyles.sectionTitle}>Órgão responsável</Text>
 
-                    {/* Cover image */}
-                    {guide.coverImage && (
-                        <Image source={{ uri: guide.coverImage }} style={guidesStyles.detailImage} />
-                    )}
+                        <View style={guidesStyles.sectionDivider} />
 
-                    {/* Description */}
-                    <Text style={guidesStyles.leadText}>{guide.description}</Text>
-                </View>
-
-                {/* Agency */}
-                <View style={guidesStyles.cardSection}>
-                    <Text style={guidesStyles.sectionTitle}>Órgão responsável</Text>
-
-                    <View style={guidesStyles.sectionDivider} />
-
-                    <Text style={guidesStyles.leadText}>{guide.agency.name}</Text>
-                    <Text style={guidesStyles.linkText}>{guide.agency.contact}</Text>
+                        <Text style={guidesStyles.leadText}>{guide.agency.name}</Text>
+                        <Text style={guidesStyles.linkText}>{guide.agency.contact}</Text>
+                    </View>
                 </View>
 
                 {/* Steps */}
-                <View style={guidesStyles.cardSection}>
-                    <Text style={guidesStyles.sectionTitle}>ETAPAS DO PROCESSO ({currentStepIndex + 1} / {steps.length + 1})</Text>
+                <View style={[
+                    guidesStyles.cardSection,
+                    guidesStyles.guideStepsPanel,
+                    useWideLayout && responsiveStyles.guideStepsDesktop,
+                ]}>
+                    <Text style={guidesStyles.sectionTitle}>
+                        ETAPAS DO PROCESSO{steps.length > 0 ? ` (${currentStepIndex + 1} / ${steps.length})` : ''}
+                    </Text>
                     <View style={guidesStyles.sectionDivider} />
 
-                    {currentStep && (
-                        <View>
-                            <Text style={guidesStyles.stepText}>
-                                <View>
+                    {currentStep ? (
+                        useWideLayout ? (
+                            <ScrollView
+                                style={responsiveStyles.guideStepContentDesktop}
+                                showsVerticalScrollIndicator={false}>
+                                <View style={guidesStyles.stepCards}>
                                     {(currentStep.content ?? '').split('---').map((section, index) => (
-                                        <View key={index} style={[guidesStyles.stepCard, index > 0 && { marginTop: THEME.spacing.gap },]} >
+                                        <View key={`${currentStep.id}-${index}`} style={guidesStyles.stepCard}>
                                             <Markdown style={markdownStyles}>
                                                 {section.trim()}
                                             </Markdown>
                                         </View>
                                     ))}
                                 </View>
-                            </Text>
-                        </View>
+                            </ScrollView>
+                        ) : (
+                            <View style={guidesStyles.stepCards}>
+                                {(currentStep.content ?? '').split('---').map((section, index) => (
+                                    <View key={`${currentStep.id}-${index}`} style={guidesStyles.stepCard}>
+                                        <Markdown style={markdownStyles}>
+                                            {section.trim()}
+                                        </Markdown>
+                                    </View>
+                                ))}
+                            </View>
+                        )
+                    ) : (
+                        <Text style={guidesStyles.stepEmpty}>Este guia ainda não possui etapas cadastradas.</Text>
                     )}
 
-                    {/* Progress header */}
-                    <View style={guidesStyles.progressHeader}>
-                        <Text style={guidesStyles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
-                        <Text style={guidesStyles.progressHeaderText}>{steps.length} ETAPAS</Text>
-                    </View>
+                    {steps.length > 0 && (
+                        <>
+                            <View style={guidesStyles.progressHeader}>
+                                <Text style={guidesStyles.progressHeaderText}>ETAPA {currentStepIndex + 1}</Text>
+                                <Text style={guidesStyles.progressHeaderText}>{steps.length} ETAPAS</Text>
+                            </View>
 
-                    {/* Progress track */}
-                    <View style={guidesStyles.progressTrack}>
-                        <View style={[guidesStyles.progressFill, { width: `${progressRatio * 100}%` }]} />
-                    </View>
+                            <View style={guidesStyles.progressTrack}>
+                                <View style={[guidesStyles.progressFill, { width: `${progressRatio * 100}%` }]} />
+                            </View>
 
-                    {/* Navigation buttons */}
-                    <View style={guidesStyles.buttonsRow}>
+                            <View style={guidesStyles.buttonsRow}>
+                                <TouchableOpacity
+                                    style={[
+                                        guidesStyles.nextButton,
+                                        isFirstStep && { opacity: 0.25 },
+                                    ]}
+                                    activeOpacity={0.8}
+                                    onPress={handlePreviousStep}
+                                    disabled={isFirstStep}>
+                                    <ChevronLeft size={16} color={THEME.colors.onPrimary} />
+                                    <Text style={guidesStyles.nextButtonText}>ANTERIOR</Text>
+                                </TouchableOpacity>
 
-                        {/* Previous button */}
-                        <TouchableOpacity
-                            style={[
-                                guidesStyles.nextButton,
-                                isFirstStep && { opacity: 0.25 }
-                            ]}
-                            activeOpacity={0.8}
-                            onPress={handlePreviousStep}
-                            disabled={isFirstStep} >
-
-                            <ChevronLeft size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
-
-                            <Text style={guidesStyles.nextButtonText}>ANTERIOR</Text>
-                        </TouchableOpacity>
-
-                        {/* Next button (disabled if last step) */}
-                        <TouchableOpacity
-                            style={[
-                                guidesStyles.nextButton,
-                                isLastStep && { display: 'none' }
-                            ]}
-                            activeOpacity={0.8}
-                            onPress={handleNextStep}
-                            disabled={isLastStep} >
-
-                            <Text style={guidesStyles.nextButtonText}>PRÓXIMO</Text>
-
-                            <ChevronRight size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
-                        </TouchableOpacity>
-
-                        {/* Finish button (disabled if not last step) */}
-                        <TouchableOpacity
-                            style={[
-                                guidesStyles.nextButton,
-                                { backgroundColor: THEME.colors.success },
-                                !isLastStep && { display: 'none' }
-                            ]}
-                            activeOpacity={0.8}
-                            onPress={handleBack}
-                            disabled={!isLastStep} >
-
-                            <Text style={guidesStyles.nextButtonText}>FECHAR</Text>
-
-                            <Check size={16} color={THEME.colors.onPrimary} style={{ marginLeft: 4 }} />
-                        </TouchableOpacity>
-                    </View>
+                                {!isLastStep ? (
+                                    <TouchableOpacity
+                                        style={guidesStyles.nextButton}
+                                        activeOpacity={0.8}
+                                        onPress={handleNextStep}>
+                                        <Text style={guidesStyles.nextButtonText}>PRÓXIMO</Text>
+                                        <ChevronRight size={16} color={THEME.colors.onPrimary} />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <TouchableOpacity
+                                        style={[guidesStyles.nextButton, { backgroundColor: THEME.colors.success }]}
+                                        activeOpacity={0.8}
+                                        onPress={handleBack}>
+                                        <Text style={guidesStyles.nextButtonText}>FECHAR</Text>
+                                        <Check size={16} color={THEME.colors.onPrimary} />
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+                        </>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>

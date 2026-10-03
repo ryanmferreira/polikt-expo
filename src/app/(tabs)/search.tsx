@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { THEME } from "../../constants/theme";
 
 import { searchStyles } from "../../styles/searchStyles";
+import { responsiveStyles } from "../../styles/responsiveStyles";
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,7 +33,7 @@ export default function SearchScreen() {
     <SafeAreaView style={searchStyles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]}
       >
         {/* Header */}
         <View style={searchStyles.headerRow}>

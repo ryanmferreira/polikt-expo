@@ -30,6 +30,7 @@ import { getAllNews } from "../../services/news";
 import { guidesStyles } from "@/styles/guideStyles";
 import { searchStyles } from "@/styles/searchStyles";
 import { homeStyles } from "../../styles/homeStyles";
+import { responsiveStyles } from "../../styles/responsiveStyles";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function HomeScreen() {
     <SafeAreaView style={homeStyles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]}
       >
         {/* Header */}
         <View style={homeStyles.headerRow}>
@@ -155,49 +156,52 @@ export default function HomeScreen() {
         {newsList.map((news) => (
           <TouchableOpacity
             key={news.id}
-            onPress={() => router.push(`/news/${news.id}`)} //
-            activeOpacity={0.8}
-          >
+            style={responsiveStyles.readingContent}
+            onPress={() => router.push(`/news/${news.id}`)}
+            activeOpacity={0.8}>
             <View style={homeStyles.card}>
-              <Image
-                source={{ uri: news.coverImage ?? undefined }}
-                style={homeStyles.cardImage}
-              />
+              <Image source={{ uri: news.coverImage ?? undefined }} style={homeStyles.cardImage} resizeMode="cover" />
 
-              <Text style={homeStyles.cardTitle}>{news.title}</Text>
+              <View style={homeStyles.cardContent}>
+                <Text style={homeStyles.cardTitle} numberOfLines={2}>
+                  {news.title}
+                </Text>
 
-              <Text style={homeStyles.cardDescription}>{news.description}</Text>
+                <Text style={homeStyles.cardDescription} numberOfLines={3}>
+                  {news.description}
+                </Text>
 
-              <View style={homeStyles.cardDivider} />
+                <View style={homeStyles.cardDivider} />
 
-              {/* // TODO: Tags (not implemented yet) :( */}
+                {/* // TODO: Tags (not implemented yet) :( */}
 
-              {/* Card footer */}
-              <View style={homeStyles.footerRow}>
-                {/* // TODO: Implement upvotes */}
-                <TouchableOpacity
-                  style={homeStyles.iconStat}
-                  activeOpacity={0.7}
-                >
-                  <ThumbsUp size={20} color={THEME.colors.text} />
-                  <Text style={homeStyles.statText}>{news.upvotes}</Text>
-                </TouchableOpacity>
+                {/* Card footer */}
+                <View style={homeStyles.footerRow}>
+                  {/* // TODO: Implement upvotes */}
+                  <TouchableOpacity
+                    style={homeStyles.iconStat}
+                    activeOpacity={0.7}
+                  >
+                    <ThumbsUp size={18} color={THEME.colors.text} />
+                    <Text style={homeStyles.statText}>{news.upvotes}</Text>
+                  </TouchableOpacity>
 
-                <View style={homeStyles.iconStat}>
-                  <Clock size={20} color={THEME.colors.textMuted} />
-                  <Text style={homeStyles.statText}>
-                    {new Date(news.createdAt).toLocaleDateString("pt-BR")}
-                  </Text>
+                  <View style={homeStyles.iconStat}>
+                    <Clock size={18} color={THEME.colors.textMuted} />
+                    <Text style={homeStyles.statText}>
+                      {new Date(news.createdAt).toLocaleDateString("pt-BR")}
+                    </Text>
+                  </View>
+
+                  {/* // TODO: Implement comments */}
+                  <TouchableOpacity
+                    style={homeStyles.iconStat}
+                    activeOpacity={0.7}
+                  >
+                    <MessageSquare size={18} color={THEME.colors.text} />
+                    <Text style={homeStyles.statText}>0</Text>
+                  </TouchableOpacity>
                 </View>
-
-                {/* // TODO: Implement comments */}
-                <TouchableOpacity
-                  style={homeStyles.iconStat}
-                  activeOpacity={0.7}
-                >
-                  <MessageSquare size={18} color={THEME.colors.text} />
-                  <Text style={homeStyles.statText}>0</Text>
-                </TouchableOpacity>
               </View>
             </View>
           </TouchableOpacity>

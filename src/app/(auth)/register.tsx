@@ -7,6 +7,7 @@ import { loginUser, registerUser } from '../../services/users';
 
 import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
+import { responsiveStyles } from '../../styles/responsiveStyles';
 
 export default function RegisterScreen() {
     const router = useRouter();
@@ -78,8 +79,9 @@ export default function RegisterScreen() {
     return (
         <SafeAreaView style={authStyles.container}>
             <ScrollView
+                keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ gap: THEME.spacing.gap, paddingBottom: 24 }} >
+                contentContainerStyle={[authStyles.scrollContent, responsiveStyles.formContent]} >
 
                 {/* Header */}
                 <View style={authStyles.headerGroup}>

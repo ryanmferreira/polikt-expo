@@ -39,10 +39,21 @@ export const guidesStyles = StyleSheet.create({
         padding: THEME.spacing.paddingArticleContainer,
         marginBottom: 24,
     },
+    infoHeading: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 8,
+    },
+    infoTitle: {
+        color: THEME.colors.primary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
     infoText: {
         color: THEME.colors.text,
-        fontSize: 16,
-        lineHeight: 24,
+        fontSize: 14,
+        lineHeight: 21,
     },
 
     tagsContainer: {
@@ -79,33 +90,56 @@ export const guidesStyles = StyleSheet.create({
         borderBottomWidth: 0,
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
-        marginBottom: 16,
+        marginBottom: 14,
+        overflow: 'hidden',
+    },
+    cardImageWrap: {
+        width: '36%',
+        minHeight: 146,
+        backgroundColor: THEME.colors.surfaceAlt,
+        position: 'relative',
         overflow: 'hidden',
     },
     cardImage: {
-        width: 120,
+        width: '100%',
         height: '100%',
-        minHeight: 100,
+    },
+    cardImagePlaceholder: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     cardContent: {
         flex: 1,
-        padding: THEME.spacing.paddingArticleContainer,
         justifyContent: 'center',
+        padding: 12,
     },
     cardTitle: {
         color: THEME.colors.text,
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
-        marginBottom: 8,
-    },
-    cardDivider: {
-        height: THEME.borderWidth.default,
-        backgroundColor: THEME.colors.border,
-        marginBottom: 8,
+        lineHeight: 20,
+        marginBottom: 5,
     },
     cardDesc: {
-        color: THEME.colors.text,
-        fontSize: 13,
+        color: THEME.colors.textMuted,
+        fontSize: 12,
+        lineHeight: 17,
+    },
+    cardFooter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTopWidth: THEME.borderWidth.default,
+        borderTopColor: THEME.colors.border,
+        marginTop: 8,
+        paddingTop: 8,
+    },
+    cardActionText: {
+        color: THEME.colors.primary,
+        fontSize: 11,
+        fontWeight: '800',
+        letterSpacing: 0.7,
     },
 
     detailContainer: {
@@ -113,32 +147,18 @@ export const guidesStyles = StyleSheet.create({
         backgroundColor: THEME.colors.background,
     },
 
-    topBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: THEME.spacing.paddingStandard,
-        paddingVertical: 12,
-        borderBottomWidth: THEME.borderWidth.default,
-        borderBottomColor: THEME.colors.primary,
-        backgroundColor: THEME.colors.background,
-    },
-    topBarText: {
-        color: THEME.colors.primary,
-        fontSize: 13,
-        fontWeight: '800',
-    },
-
-    actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-    },
-
     scrollContent: {
         paddingHorizontal: THEME.spacing.paddingStandard,
         paddingVertical: 16,
         gap: 16,
+    },
+
+    detailOverview: {
+        width: '100%',
+        gap: 16,
+    },
+    guideStepsPanel: {
+        width: '100%',
     },
 
     mainCard: {
@@ -212,7 +232,7 @@ export const guidesStyles = StyleSheet.create({
         backgroundColor: THEME.colors.background,
         borderRadius: THEME.borderRadius.rounded,
         overflow: 'hidden',
-        borderWidth: 1,
+        borderWidth: THEME.borderWidth.default,
         borderColor: THEME.colors.border,
     },
     progressFill: {
@@ -229,17 +249,19 @@ export const guidesStyles = StyleSheet.create({
         borderRadius: THEME.borderRadius.default,
         padding: 12,
     },
-    stepText: {
+    stepCards: {
+        gap: 12,
+    },
+    stepEmpty: {
         color: THEME.colors.textMuted,
-        fontSize: 13,
-        lineHeight: 18,
+        fontSize: 14,
+        lineHeight: 20,
     },
 
     buttonsRow: {
-        display: 'flex',
         flexDirection: 'row',
-        gap: THEME.spacing.gap,
-        width: 'auto',
+        gap: 8,
+        width: '100%',
     },
     linkText: {
         color: THEME.colors.primary,
@@ -266,7 +288,7 @@ export const guidesStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: THEME.spacing.buttonHorizontal,
+        paddingHorizontal: 8,
         paddingVertical: THEME.spacing.buttonVertical,
         borderRadius: THEME.borderRadius.default,
         marginTop: 4,

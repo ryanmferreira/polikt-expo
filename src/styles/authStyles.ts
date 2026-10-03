@@ -7,7 +7,12 @@ export const authStyles = StyleSheet.create({
     backgroundColor: THEME.colors.background,
     paddingTop: THEME.spacing.paddingPageTop,
     paddingHorizontal: THEME.spacing.paddingStandard,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
     gap: THEME.spacing.gap,
+    paddingBottom: THEME.spacing.paddingStandard,
   },
   headerGroup: {
     gap: 8,

@@ -1,12 +1,15 @@
 import { Bell, Settings2 } from 'lucide-react-native';
 
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { THEME } from '../../constants/theme';
 import { coursesStyles } from '../../styles/coursesStyles';
+import { RESPONSIVE_BREAKPOINT, responsiveStyles } from '../../styles/responsiveStyles';
 
 export default function CoursesScreen() {
+    const { width } = useWindowDimensions();
+    const useGrid = Platform.OS === 'web' && width >= RESPONSIVE_BREAKPOINT;
 
     // TODO: Replace with real data
     const exploreCourses = [
@@ -30,7 +33,7 @@ export default function CoursesScreen() {
         <SafeAreaView style={coursesStyles.container}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 100 }}>
+                contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]}>
 
                 {/* Header - Courses in progress */}
                 <View style={coursesStyles.headerRow}>
@@ -101,8 +104,14 @@ export default function CoursesScreen() {
                 </View>
 
                 {/* Courses list // TODO: Replace with real data */}
+                <View style={useGrid && responsiveStyles.grid}>
                 {exploreCourses.map((course, index) => (
-                    <View key={index} style={coursesStyles.exploreCard}>
+                    <View
+                        key={index}
+                        style={[
+                            coursesStyles.exploreCard,
+                            useGrid && responsiveStyles.gridCard,
+                        ]}>
                         <Image source={{ uri: course.image }} style={coursesStyles.exploreCardImage} />
 
                         <View style={coursesStyles.exploreCardContent}>
@@ -122,6 +131,7 @@ export default function CoursesScreen() {
                         </View>
                     </View>
                 ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     );

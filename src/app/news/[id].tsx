@@ -11,8 +11,9 @@ import { THEME } from '../../constants/theme';
 import { News } from '../../models/news';
 import { getNewsById } from '../../services/news';
 
-import { articleStyles as styles } from '../../styles/articleStyles';
 import { markdownStyles } from '../../styles/markdownStyles';
+import { newsStyles as styles } from '../../styles/newsStyles';
+import { responsiveStyles } from '../../styles/responsiveStyles';
 
 export default function ArticleScreen() {
     const router = useRouter();
@@ -68,20 +69,22 @@ export default function ArticleScreen() {
         <SafeAreaView style={styles.container}>
 
             {/* Top bar */}
-            <View style={styles.topBar}>
-                <TouchableOpacity style={styles.actionButton} onPress={handleBack} activeOpacity={0.7}>
-                    <ChevronLeft size={20} color={THEME.colors.primary} />
-                    <Text style={styles.topBarText}>VOLTAR</Text>
-                </TouchableOpacity>
+            <View style={responsiveStyles.detailTopBar}>
+                <View style={responsiveStyles.topBarContent}>
+                    <TouchableOpacity style={responsiveStyles.detailTopBarAction} onPress={handleBack} activeOpacity={0.7}>
+                        <ChevronLeft size={20} color={THEME.colors.primary} />
+                        <Text style={responsiveStyles.detailTopBarText}>VOLTAR</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-                    <Share2 size={18} color={THEME.colors.primary} />
-                    <Text style={styles.topBarText}>COMPARTILHAR</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={responsiveStyles.detailTopBarAction} activeOpacity={0.7}>
+                        <Share2 size={18} color={THEME.colors.primary} />
+                        <Text style={responsiveStyles.detailTopBarText}>COMPARTILHAR</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             {/* Main content */}
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.scrollContent, responsiveStyles.readingContent]}>
                 <View style={styles.cardSection}>
                     {/* Title */}
                     <Text style={styles.mainTitle}>{news.title}</Text>
@@ -98,6 +101,8 @@ export default function ArticleScreen() {
                     <TouchableOpacity
                         style={styles.summaryButton}
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityState={{ expanded: showSummary }}
                         onPress={() => setShowSummary(!showSummary)}>
 
                         <FileText size={16} color={THEME.colors.onPrimary} style={{ marginRight: 6 }} />
@@ -109,7 +114,9 @@ export default function ArticleScreen() {
 
                     {/* // TODO: Do a modal to show the summary */}
                     {showSummary && (
-                        <Text style={[styles.leadText, { marginTop: THEME.spacing.gap }]}>{news.summary}</Text>
+                        <View style={styles.summaryPanel}>
+                            <Text style={styles.summaryText}>{news.summary}</Text>
+                        </View>
                     )}
                 </View>
 

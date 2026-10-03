@@ -1,39 +1,16 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../constants/theme';
 
-export const articleStyles = StyleSheet.create({
+export const newsStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: THEME.colors.background,
-    },
-
-    topBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: THEME.spacing.paddingStandard,
-        paddingVertical: 12,
-        borderBottomWidth: THEME.borderWidth.default,
-        borderBottomColor: THEME.colors.primary,
-        backgroundColor: THEME.colors.background,
-    },
-    topBarText: {
-        color: THEME.colors.primary,
-        fontSize: 13,
-        fontWeight: '800',
-    },
-
-    actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: THEME.spacing.gap,
     },
 
     scrollContent: {
         paddingHorizontal: THEME.spacing.paddingStandard,
         paddingVertical: 16,
         gap: THEME.spacing.gap,
-        paddingBottom: 100,
     },
 
     mainCard: {
@@ -63,6 +40,7 @@ export const articleStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 12,
+        flexWrap: 'wrap',
     },
     metaItem: {
         flexDirection: 'row',
@@ -179,6 +157,21 @@ export const articleStyles = StyleSheet.create({
         color: THEME.colors.onPrimary,
         fontSize: 13,
         fontWeight: '800',
+    },
+
+    summaryPanel: {
+        backgroundColor: THEME.colors.background,
+        borderBottomWidth: THEME.borderWidth.default,
+        borderRightWidth: THEME.borderWidth.default,
+        borderColor: THEME.colors.border,
+        borderRadius: THEME.borderRadius.default,
+        padding: THEME.spacing.paddingArticleContainer,
+        marginTop: 4,
+    },
+    summaryText: {
+        color: THEME.colors.textMuted,
+        fontSize: 14,
+        lineHeight: 21,
     },
 
     nestedCard: {

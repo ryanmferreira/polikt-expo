@@ -1,8 +1,8 @@
-import { Bell, RefreshCw, Settings2 } from 'lucide-react-native';
+import { ArrowRight, Bell, BookOpen, RefreshCw, Settings2, ShieldCheck } from 'lucide-react-native';
 
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getAllGuides } from '../../services/guides';
@@ -11,9 +11,12 @@ import { THEME } from '../../constants/theme';
 import { Guide } from '../../models/guide';
 
 import { guidesStyles } from '../../styles/guideStyles';
+import { RESPONSIVE_BREAKPOINT, responsiveStyles } from '../../styles/responsiveStyles';
 
 export default function GuidesScreen() {
     const router = useRouter();
+    const { width } = useWindowDimensions();
+    const useGrid = Platform.OS === 'web' && width >= RESPONSIVE_BREAKPOINT;
     const [guides, setGuides] = useState<Guide[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -48,7 +51,7 @@ export default function GuidesScreen() {
 
     return (
         <SafeAreaView style={guidesStyles.container}>
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }} >
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]} >
 
                 {/* Header */}
                 <View style={guidesStyles.headerRow}>
@@ -63,8 +66,12 @@ export default function GuidesScreen() {
                 <View style={guidesStyles.mainDivider} />
 
                 <View style={guidesStyles.infoBox}>
+                    <View style={guidesStyles.infoHeading}>
+                        <ShieldCheck size={18} color={THEME.colors.primary} />
+                        <Text style={guidesStyles.infoTitle}>GUIAS DE DENÚNCIA</Text>
+                    </View>
                     <Text style={guidesStyles.infoText}>
-                        Saiba como e onde agir contra irregularidades.
+                        Orientações práticas para identificar irregularidades e saber onde denunciá-las.
                     </Text>
                 </View>
 
@@ -112,26 +119,50 @@ export default function GuidesScreen() {
                 }
 
                 {/* // ! For each guide, show a card */}
-                {guides.map((item) => (
-                    <TouchableOpacity
-                        key={item.id}
-                        style={guidesStyles.card}
-                        activeOpacity={0.8}
-                        onPress={() => router.push(`/guides/${item.id}`)} >
+                <View style={useGrid && responsiveStyles.grid}>
+                    {guides.map((item) => (
+                        <TouchableOpacity
+                            key={item.id}
+                            style={[
+                                guidesStyles.card,
+                                useGrid && responsiveStyles.guideGridCard,
+                            ]}
+                            activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Abrir guia: ${item.title}`}
+                            onPress={() => router.push(`/guides/${item.id}`)} >
 
-                        <Image
-                            source={{ uri: item.coverImage ?? undefined }}
-                            style={guidesStyles.cardImage} />
+                            <View style={[guidesStyles.cardImageWrap, useGrid && responsiveStyles.guideGridImage,]}>
+                                {item.coverImage ? (
+                                    <Image
+                                        source={{ uri: item.coverImage }}
+                                        style={guidesStyles.cardImage}
+                                        resizeMode="cover"
+                                    />
+                                ) : (
+                                    <View style={guidesStyles.cardImagePlaceholder}>
+                                        <BookOpen size={38} color={THEME.colors.primary} />
+                                    </View>
+                                )}
+                            </View>
 
-                        <View style={guidesStyles.cardContent}>
-                            <Text style={guidesStyles.cardTitle}>{item.title}</Text>
+                            <View style={guidesStyles.cardContent}>
+                                <Text style={guidesStyles.cardTitle} numberOfLines={2}>
+                                    {item.title}
+                                </Text>
 
-                            <View style={guidesStyles.cardDivider} />
+                                <Text style={guidesStyles.cardDesc} numberOfLines={2}>
+                                    {item.description}
+                                </Text>
 
-                            <Text style={guidesStyles.cardDesc}>{item.description}</Text>
-                        </View>
-                    </TouchableOpacity>
-                ))}
+                                <View style={guidesStyles.cardFooter}>
+                                    <Text style={guidesStyles.cardActionText}>VER GUIA</Text>
+                                    <ArrowRight size={16} color={THEME.colors.primary} />
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
