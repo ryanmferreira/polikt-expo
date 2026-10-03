@@ -56,6 +56,7 @@ export const guidesStyles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: THEME.borderRadius.rounded,
+        borderWidth: THEME.borderWidth.default,
         borderColor: THEME.colors.border,
     },
     tagText: {

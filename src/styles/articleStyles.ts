@@ -102,7 +102,7 @@ export const articleStyles = StyleSheet.create({
 
     tagsContainer: {
         flexDirection: 'row',
-        gap: THEME.spacing.gap,
+        gap: 8,
         flexWrap: 'wrap',
     },
     tag: {
@@ -110,6 +110,7 @@ export const articleStyles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: THEME.borderRadius.rounded,
+        borderWidth: THEME.borderWidth.default,
         borderColor: THEME.colors.border,
     },
     tagText: {
