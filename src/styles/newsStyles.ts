@@ -165,7 +165,7 @@ export const newsStyles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: THEME.spacing.buttonHorizontal,
         paddingVertical: THEME.spacing.buttonVertical,
-        borderRadius: THEME.borderRadius.default,
+        borderRadius: THEME.borderRadius.rounded,
         marginTop: 4,
     },
     summaryButtonText: {

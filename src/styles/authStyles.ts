@@ -59,7 +59,7 @@ export const authStyles = StyleSheet.create({
   },
   input: {
     backgroundColor: THEME.colors.field,
-    borderRadius: THEME.borderRadius.default,
+    borderRadius: THEME.borderRadius.rounded,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
@@ -72,7 +72,7 @@ export const authStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: THEME.colors.primary,
-    borderRadius: THEME.borderRadius.default,
+    borderRadius: THEME.borderRadius.rounded,
     paddingHorizontal: THEME.spacing.buttonHorizontal,
     paddingVertical: THEME.spacing.buttonVertical,
     alignItems: 'center',

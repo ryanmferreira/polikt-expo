@@ -68,60 +68,42 @@ export default function SearchScreen() {
         <View style={searchStyles.filterRow}>
           <TouchableOpacity
             style={
-              activeTab === "noticias"
-                ? searchStyles.filterButtonActive
-                : searchStyles.filterButtonInactive
+              activeTab === "noticias" ? searchStyles.filterButtonActive : searchStyles.filterButtonInactive
             }
             onPress={() => setActiveTab("noticias")}
-            activeOpacity={0.8}
-          >
-            <Text
-              style={
-                activeTab === "noticias"
-                  ? searchStyles.filterTextActive
-                  : searchStyles.filterTextInactive
-              }
-            >
+            activeOpacity={0.8} >
+
+            <Text style={activeTab === "noticias" ? searchStyles.filterTextActive : searchStyles.filterTextInactive}>
               Notícias
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={
-              activeTab === "cursos"
-                ? searchStyles.filterButtonActive
-                : searchStyles.filterButtonInactive
+              activeTab === "cursos" ? searchStyles.filterButtonActive : searchStyles.filterButtonInactive
             }
             onPress={() => setActiveTab("cursos")}
-            activeOpacity={0.8}
-          >
+            activeOpacity={0.8} >
+
             <Text
               style={
-                activeTab === "cursos"
-                  ? searchStyles.filterTextActive
-                  : searchStyles.filterTextInactive
-              }
-            >
+                activeTab === "cursos" ? searchStyles.filterTextActive : searchStyles.filterTextInactive
+              } >
               Cursos
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={
-              activeTab === "guias"
-                ? searchStyles.filterButtonActive
-                : searchStyles.filterButtonInactive
+              activeTab === "guias" ? searchStyles.filterButtonActive : searchStyles.filterButtonInactive
             }
             onPress={() => setActiveTab("guias")}
-            activeOpacity={0.8}
-          >
+            activeOpacity={0.8} >
+
             <Text
               style={
-                activeTab === "guias"
-                  ? searchStyles.filterTextActive
-                  : searchStyles.filterTextInactive
-              }
-            >
+                activeTab === "guias" ? searchStyles.filterTextActive : searchStyles.filterTextInactive
+              } >
               Guias
             </Text>
           </TouchableOpacity>

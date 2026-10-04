@@ -106,7 +106,7 @@ export const coursesStyles = StyleSheet.create({
         backgroundColor: THEME.colors.primary,
         paddingHorizontal: THEME.spacing.buttonHorizontal,
         paddingVertical: THEME.spacing.buttonVertical,
-        borderRadius: THEME.borderRadius.default,
+        borderRadius: THEME.borderRadius.rounded,
         alignSelf: 'flex-end',
         marginTop: 8,
     },

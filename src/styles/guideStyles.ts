@@ -290,7 +290,7 @@ export const guidesStyles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 8,
         paddingVertical: THEME.spacing.buttonVertical,
-        borderRadius: THEME.borderRadius.default,
+        borderRadius: THEME.borderRadius.rounded,
         marginTop: 4,
         flex: 1,
     },
