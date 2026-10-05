@@ -1,6 +1,6 @@
 import { getToken } from "./token";
 
-const DEFAULT_API_URL = "https://polikt-spring.onrender.com";
+const DEFAULT_API_URL = "https://polikt-api.vercel.app";
 const LOCALHOST_URL = "http://localhost:8080";
 
 async function getActiveApiUrl() {
