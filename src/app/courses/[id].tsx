@@ -1,15 +1,15 @@
-import { Check, ChevronLeft, ChevronRight, Share2 } from 'lucide-react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+
+import { ChevronLeft, Play, Share2 } from 'lucide-react-native';
+
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Markdown from 'react-native-markdown-display';
 
 import { THEME } from '../../constants/theme';
-import { Course, CourseModule, ModuleContent } from '../../models/course';
-import { getCourseById, getCourseModules, getModuleContents } from '../../services/courses';
+import { Course, CourseModule } from '../../models/course';
+import { getCourseById, getCourseModules } from '../../services/courses';
 
-import { markdownStyles } from '@/styles/markdownStyles';
 import { coursesStyles } from '../../styles/courseStyles';
 import { responsiveStyles, WIDE_LAYOUT_BREAKPOINT } from '../../styles/responsiveStyles';
 
@@ -21,11 +21,7 @@ export default function CourseDetailScreen() {
     const useWideLayout = width >= WIDE_LAYOUT_BREAKPOINT;
 
     const [course, setCourse] = useState<Course | null>(null);
-    const [steps, setSteps] = useState<CourseModule[]>([]);
-    const [currentStepIndex, setCurrentStepIndex] = useState(0);
-
-    const [contents, setContents] = useState<ModuleContent[]>([]);
-    const [loadingContents, setLoadingContents] = useState(false);
+    const [modules, setModules] = useState<CourseModule[]>([]);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -43,35 +39,19 @@ export default function CourseDetailScreen() {
             setLoading(true);
             setError(null);
 
-            setCurrentStepIndex(0);
-
             const courseData = await getCourseById(courseId);
-            const stepsData = await getCourseModules(courseId);
+            const modulesData = await getCourseModules(courseId);
 
             setCourse(courseData);
-            setSteps(stepsData);
+            setModules(modulesData);
         } catch {
             setCourse(null);
-            setSteps([]);
+            setModules([]);
             setError('Não foi possível carregar este curso.');
         } finally {
             setLoading(false);
         }
     }
-
-    const currentStep = steps[currentStepIndex];
-
-    useEffect(() => {
-        if (courseId && currentStep?.id) {
-            setLoadingContents(true);
-            getModuleContents(courseId, currentStep.id)
-                .then(setContents)
-                .catch(() => setContents([]))
-                .finally(() => setLoadingContents(false));
-        } else {
-            setContents([]);
-        }
-    }, [courseId, currentStepIndex, currentStep?.id]);
 
     const handleBack = () => {
         if (router.canGoBack()) {
@@ -80,18 +60,6 @@ export default function CourseDetailScreen() {
             router.replace('/(tabs)/courses');
         }
     };
-
-    function handleNextStep() {
-        if (currentStepIndex < steps.length - 1) {
-            setCurrentStepIndex(currentStepIndex + 1);
-        }
-    }
-
-    function handlePreviousStep() {
-        if (currentStepIndex > 0) {
-            setCurrentStepIndex(currentStepIndex - 1);
-        }
-    }
 
     if (loading) {
         return (
@@ -113,10 +81,6 @@ export default function CourseDetailScreen() {
             </SafeAreaView>
         );
     }
-
-    const progressRatio = steps.length > 1 ? currentStepIndex / (steps.length - 1) : 1;
-    const isFirstStep = currentStepIndex === 0;
-    const isLastStep = steps.length > 0 && currentStepIndex === steps.length - 1;
 
     return (
         <SafeAreaView style={coursesStyles.detailContainer}>
@@ -149,6 +113,8 @@ export default function CourseDetailScreen() {
 
                 {/* Course overview */}
                 <View style={[coursesStyles.detailOverview, useWideLayout && responsiveStyles.guideOverviewDesktop]}>
+
+                    {/* Course info card */}
                     <View style={coursesStyles.mainCard}>
 
                         <View style={coursesStyles.tagRow}>
@@ -159,99 +125,60 @@ export default function CourseDetailScreen() {
 
                         <Text style={coursesStyles.mainTitle}>{course.title}</Text>
 
-                        {course.coverImage && (
+                        {course.coverImage ? (
                             <Image source={{ uri: course.coverImage }} style={coursesStyles.detailImage} />
-                        )}
+                        ) : null}
 
                         <Text style={coursesStyles.leadText}>{course.description}</Text>
-                    </View>
-                </View>
 
-
-                <View style={[
-                    coursesStyles.cardSection,
-                    coursesStyles.guideStepsPanel,
-                    useWideLayout && responsiveStyles.guideStepsDesktop,
-                ]}>
-                    <Text style={coursesStyles.sectionTitle}>
-                        AULAS DO CURSO{steps.length > 0 ? ` (${currentStepIndex + 1} / ${steps.length})` : ''}
-                    </Text>
-                    <View style={coursesStyles.sectionDivider} />
-
-                    {loadingContents ? (
-                        <ActivityIndicator size="small" color={THEME.colors.primary} style={{ paddingVertical: 20 }} />
-                    ) : currentStep ? (
-                        <View style={coursesStyles.stepCards}>
-
-                            <View style={coursesStyles.stepCard}>
-                                {contents.length > 0 ? (
-                                    contents.map((item, index) => (
-                                        <View key={item.id} style={index > 0 ? { marginTop: 16 } : undefined}>
-                                            {item.coverImage && (
-                                                <Image
-                                                    source={{ uri: item.coverImage }}
-                                                    style={{ width: '100%', height: 160, borderRadius: 8, marginBottom: 12 }}
-                                                />
-                                            )}
-                                            <Markdown style={markdownStyles}>
-                                                {item.content ? item.content.trim() : ''}
-                                            </Markdown>
-                                        </View>
-                                    ))
-                                ) : (
-                                    <Text style={{ color: THEME.colors.text }}>
-                                        {currentStep.description || 'Sem conteúdo disponível para esta aula.'}
-                                    </Text>
-                                )}
-                            </View>
-                        </View>
-                    ) : (
-                        <Text style={coursesStyles.stepEmpty}>Este curso ainda não possui aulas cadastradas.</Text>
-                    )}
-
-                    {steps.length > 0 && (
-                        <>
-                            <View style={coursesStyles.progressHeader}>
-                                <Text style={coursesStyles.progressHeaderText}>AULA {currentStepIndex + 1}</Text>
-                                <Text style={coursesStyles.progressHeaderText}>{steps.length} AULAS</Text>
+                        {/* Progress bar */}
+                        <View>
+                            <View style={coursesStyles.progressRow}>
+                                <Text style={coursesStyles.progressLabel}>PROGRESSO</Text>
+                                {/* // TODO: Load real progress */}
+                                <Text style={coursesStyles.progressValue}>0%</Text>
                             </View>
 
                             <View style={coursesStyles.progressTrack}>
-                                <View style={[coursesStyles.progressFill, { width: `${progressRatio * 100}%` }]} />
+                                <View style={[coursesStyles.progressFill, { width: '0%' }]} />
                             </View>
+                        </View>
+                    </View>
+                </View>
 
-                            <View style={coursesStyles.buttonsRow}>
-                                <TouchableOpacity
-                                    style={[
-                                        coursesStyles.nextButton,
-                                        isFirstStep && { opacity: 0.25 },
-                                    ]}
-                                    activeOpacity={0.8}
-                                    onPress={handlePreviousStep}
-                                    disabled={isFirstStep}>
-                                    <ChevronLeft size={16} color={THEME.colors.onPrimary} />
-                                    <Text style={coursesStyles.nextButtonText}>ANTERIOR</Text>
-                                </TouchableOpacity>
+                {/* Tracks */}
+                <View style={[coursesStyles.guideStepsPanel, useWideLayout && responsiveStyles.guideStepsDesktop]}>
+                    <Text style={coursesStyles.headerTitle}>TRILHAS</Text>
+                    <View style={coursesStyles.mainDivider} />
 
-                                {!isLastStep ? (
+                    {modules.length > 0 ? (
+                        <View style={coursesStyles.timeline}>
+
+                            {/* Vertical line */}
+                            <View style={coursesStyles.timelineLine} />
+
+                            {modules.map((module) => (
+                                <View key={module.id} style={coursesStyles.timelineItem}>
+
+                                    {/* Play button */}
                                     <TouchableOpacity
-                                        style={coursesStyles.nextButton}
+                                        style={coursesStyles.playButton}
                                         activeOpacity={0.8}
-                                        onPress={handleNextStep}>
-                                        <Text style={coursesStyles.nextButtonText}>PRÓXIMO</Text>
-                                        <ChevronRight size={16} color={THEME.colors.onPrimary} />
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`Abrir módulo: ${module.title}`}
+                                        onPress={() => router.push(`/courses/${courseId}/modules/${module.id}`)}>
+                                        <Play size={24} color={THEME.colors.onPrimary} />
                                     </TouchableOpacity>
-                                ) : (
-                                    <TouchableOpacity
-                                        style={[coursesStyles.nextButton, { backgroundColor: THEME.colors.success }]}
-                                        activeOpacity={0.8}
-                                        onPress={handleBack}>
-                                        <Text style={coursesStyles.nextButtonText}>CONCLUIR</Text>
-                                        <Check size={16} color={THEME.colors.onPrimary} />
-                                    </TouchableOpacity>
-                                )}
-                            </View>
-                        </>
+
+                                    {/* Module title */}
+                                    <Text style={coursesStyles.timelineTitle} numberOfLines={2}>
+                                        {module.title}
+                                    </Text>
+                                </View>
+                            ))}
+                        </View>
+                    ) : (
+                        <Text style={coursesStyles.stepEmpty}>Este curso ainda não possui módulos cadastrados.</Text>
                     )}
                 </View>
             </ScrollView>

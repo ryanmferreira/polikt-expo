@@ -28,7 +28,7 @@ export const coursesStyles = StyleSheet.create({
         marginBottom: 24,
     },
 
-    infoBox: {
+    progressCard: {
         backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
@@ -37,23 +37,8 @@ export const coursesStyles = StyleSheet.create({
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
         padding: THEME.spacing.paddingArticleContainer,
-        marginBottom: 24,
-    },
-    infoHeading: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-        marginBottom: 8,
-    },
-    infoTitle: {
-        color: THEME.colors.primary,
-        fontSize: 12,
-        fontWeight: '800',
-    },
-    infoText: {
-        color: THEME.colors.text,
-        fontSize: 14,
-        lineHeight: 21,
+        gap: 16,
+        marginBottom: 32,
     },
 
     tagsContainer: {
@@ -69,6 +54,7 @@ export const coursesStyles = StyleSheet.create({
         borderRadius: THEME.borderRadius.rounded,
         borderWidth: THEME.borderWidth.default,
         borderColor: THEME.colors.border,
+        alignSelf: 'flex-start',
     },
     tagText: {
         color: THEME.colors.tagText,
@@ -81,8 +67,49 @@ export const coursesStyles = StyleSheet.create({
         flexWrap: 'wrap',
     },
 
-    card: {
+    courseTitle: {
+        color: THEME.colors.text,
+        fontSize: 18,
+        fontWeight: '800',
+    },
+    courseDesc: {
+        color: THEME.colors.text,
+        fontSize: 14,
+        lineHeight: 20,
+    },
+
+    progressRow: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        marginBottom: 6,
+    },
+    progressLabel: {
+        color: THEME.colors.primary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+    progressValue: {
+        color: THEME.colors.primary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+
+    actionButton: {
+        backgroundColor: THEME.colors.primary,
+        paddingHorizontal: THEME.spacing.buttonHorizontal,
+        paddingVertical: THEME.spacing.buttonVertical,
+        borderRadius: THEME.borderRadius.rounded,
+        alignSelf: 'flex-end',
+        marginTop: 8,
+    },
+    actionButtonText: {
+        color: THEME.colors.onPrimary,
+        fontSize: 12,
+        fontWeight: '800',
+    },
+
+    exploreCard: {
         backgroundColor: THEME.colors.surface,
         borderTopWidth: THEME.borderWidth.default,
         borderLeftWidth: THEME.borderWidth.default,
@@ -90,56 +117,92 @@ export const coursesStyles = StyleSheet.create({
         borderBottomWidth: 0,
         borderColor: THEME.colors.border,
         borderRadius: THEME.borderRadius.default,
-        marginBottom: 14,
+        marginBottom: 24,
         overflow: 'hidden',
     },
-    cardImageWrap: {
-        width: '36%',
-        minHeight: 146,
-        backgroundColor: THEME.colors.surfaceAlt,
-        position: 'relative',
-        overflow: 'hidden',
-    },
-    cardImage: {
+    exploreCardImage: {
         width: '100%',
-        height: '100%',
+        height: 180,
     },
-    cardImagePlaceholder: {
-        flex: 1,
+    exploreCardImagePlaceholder: {
+        width: '100%',
+        height: 180,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: THEME.colors.surfaceAlt,
     },
-    cardContent: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 12,
+    exploreCardContent: {
+        padding: THEME.spacing.paddingArticleContainer,
+        gap: 12,
     },
-    cardTitle: {
-        color: THEME.colors.text,
-        fontSize: 15,
+    exploreCourseTitle: {
+        color: THEME.colors.primary,
+        fontSize: 18,
         fontWeight: '800',
-        lineHeight: 20,
-        marginBottom: 5,
     },
-    cardDesc: {
-        color: THEME.colors.textMuted,
-        fontSize: 12,
-        lineHeight: 17,
+
+    cardDivider: {
+        height: THEME.borderWidth.default,
+        backgroundColor: THEME.colors.border,
+        marginVertical: 4,
     },
-    cardFooter: {
+
+    exploreFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    exploreFooterInfo: {
+        color: THEME.colors.text,
+        fontSize: 13,
+        fontWeight: '600',
+    },
+
+    timeline: {
+        width: '100%',
+    },
+    timelineItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        borderTopWidth: THEME.borderWidth.default,
-        borderTopColor: THEME.colors.border,
-        marginTop: 8,
-        paddingTop: 8,
+        gap: 16,
+        paddingVertical: 10,
     },
-    cardActionText: {
+    timelineLine: {
+        position: 'absolute',
+        left: 26,
+        top: 38,
+        bottom: 38,
+        width: 4,
+        backgroundColor: THEME.colors.border,
+    },
+    timelineTitle: {
+        flex: 1,
+        color: THEME.colors.text,
+        fontSize: 15,
+        fontWeight: '700',
+        lineHeight: 20,
+    },
+    playButton: {
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: THEME.colors.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    refreshButton: {
+        alignSelf: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: THEME.spacing.gap,
+        gap: 6,
+    },
+    refreshButtonText: {
         color: THEME.colors.primary,
-        fontSize: 11,
-        fontWeight: '800',
-        letterSpacing: 0.7,
+        fontSize: 13,
+        fontWeight: '600',
     },
 
     detailContainer: {
@@ -269,19 +332,6 @@ export const coursesStyles = StyleSheet.create({
         lineHeight: 18,
         textDecorationLine: 'underline',
         textDecorationColor: THEME.colors.primary,
-    },
-
-    refreshButton: {
-        alignSelf: 'flex-start',
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: THEME.spacing.gap,
-        gap: 6,
-    },
-    refreshButtonText: {
-        color: THEME.colors.primary,
-        fontSize: 13,
-        fontWeight: '600',
     },
 
     nextButton: {

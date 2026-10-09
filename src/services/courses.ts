@@ -13,6 +13,10 @@ export function getCourseModules(courseId: string | number): Promise<CourseModul
   return apiFetch(`/courses/${courseId}/modules`);
 }
 
+export function getCourseModule(courseId: string | number, moduleId: string | number): Promise<CourseModule> {
+  return apiFetch(`/courses/${courseId}/modules/${moduleId}`);
+}
+
 export function getModuleContents(courseId: string | number, moduleId: string | number): Promise<ModuleContent[]> {
   return apiFetch(`/courses/${courseId}/modules/${moduleId}/content`);
 }
