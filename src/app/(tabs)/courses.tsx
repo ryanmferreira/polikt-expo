@@ -1,136 +1,156 @@
-import { Bell, Settings2 } from 'lucide-react-native';
-
-import { Image, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { ArrowRight, Bell, BookOpen, RefreshCw, Settings2 } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { getCourses } from '../../services/courses';
 import { THEME } from '../../constants/theme';
-import { coursesStyles } from '../../styles/coursesStyles';
+import { Course } from '../../models/course';
+
+import { coursesStyles } from '../../styles/courseStyles';
 import { RESPONSIVE_BREAKPOINT, responsiveStyles } from '../../styles/responsiveStyles';
 
 export default function CoursesScreen() {
+    const router = useRouter();
     const { width } = useWindowDimensions();
     const useGrid = Platform.OS === 'web' && width >= RESPONSIVE_BREAKPOINT;
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    // TODO: Replace with real data
-    const exploreCourses = [
-        {
-            id: 1,
-            title: 'VOTO NULO E VOTO BRANCO',
-            desc: 'Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro',
-            info: '15min - 6 Módulos',
-            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYZDNRXDsx4zBokTIcZh1XPD9AB7HZCrWFgBhpql5Bm6jRY7LDytnjU88&s=10',
-        },
-        {
-            id: 2,
-            title: 'VOTO NULO E VOTO BRANCO',
-            desc: 'Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro',
-            info: '15min - 6 Módulos',
-            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYZDNRXDsx4zBokTIcZh1XPD9AB7HZCrWFgBhpql5Bm6jRY7LDytnjU88&s=10',
+    useEffect(() => {
+        loadCourses();
+    }, []);
+
+    async function loadCourses() {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await getCourses();
+            setCourses(data);
+        } catch (e) {
+            setError('Não foi possível carregar os cursos.');
+        } finally {
+            setLoading(false);
         }
-    ];
+    }
+
+    if (error) {
+        return (
+            <SafeAreaView style={[coursesStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text style={{ color: THEME.colors.text, marginBottom: 12 }}>{error}</Text>
+                <TouchableOpacity onPress={loadCourses}>
+                    <Text style={{ color: THEME.colors.primary }}>Tentar novamente</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={coursesStyles.container}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[{ paddingBottom: 100 }, responsiveStyles.pageContent]}>
 
-                {/* Header - Courses in progress */}
+                {/* Header */}
                 <View style={coursesStyles.headerRow}>
-                    <Text style={coursesStyles.headerTitle}>CURSOS EM ANDAMENTO</Text>
+                    <Text style={coursesStyles.headerTitle}>CURSOS</Text>
 
                     {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Bell size={26} color={THEME.colors.primary} />
+                        <Bell color={THEME.colors.primary} size={26} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={coursesStyles.mainDivider} />
 
-                {/* Progress card */}
-                <View style={coursesStyles.progressCard}>
-
-                    {/* // TODO: Implement tags */}
-                    <View style={coursesStyles.tag}>
-                        <Text style={coursesStyles.tagText}>ELEITORAL</Text>
+                <View style={coursesStyles.infoBox}>
+                    <View style={coursesStyles.infoHeading}>
+                        <Text style={coursesStyles.infoTitle}>CURSOS DISPONÍVEIS</Text>
                     </View>
-
-                    {/* Title */}
-                    <Text style={coursesStyles.courseTitle}>VOTO NULO E VOTO BRANCO</Text>
-
-                    <Text style={coursesStyles.courseDesc}>
-                        Conceitos, Diferenças e Efeitos no Processo Eleitoral Brasileiro
+                    <Text style={coursesStyles.infoText}>
+                        Explore nossos materiais educativos e aprimore seus conhecimentos.
                     </Text>
-
-                    {/* Progress bar */}
-                    <View>
-                        <View style={coursesStyles.progressRow}>
-                            <Text style={coursesStyles.progressLabel}>PROGRESSO</Text>
-                            <Text style={coursesStyles.progressValue}>60%</Text>
-                        </View>
-
-                        <View style={coursesStyles.progressTrack}>
-                            <View style={[coursesStyles.progressFill, { width: '60%' }]} />
-                        </View>
-                    </View>
-
-                    {/* Action button */}
-                    <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
-                        <Text style={coursesStyles.actionButtonText}>RETOMAR CURSO</Text>
-                    </TouchableOpacity>
                 </View>
 
                 {/* Explore section */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={coursesStyles.headerTitle}>EXPLORAR</Text>
-                    <Settings2 size={22} color={THEME.colors.primary} style={{ marginBottom: 8 }} />
+                    <Settings2 color={THEME.colors.primary} size={22} style={{ marginBottom: 8 }} />
                 </View>
 
                 <View style={coursesStyles.mainDivider} />
 
                 {/* Filters */}
                 <View style={coursesStyles.tagsContainer}>
-                    <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
+                    <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
                         <Text style={coursesStyles.tagText}>VER TODOS</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
-                        <Text style={coursesStyles.tagText}>GOVERNANÇA</Text>
+                    <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
+                        <Text style={coursesStyles.tagText}>TECNOLOGIA</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={coursesStyles.tag} activeOpacity={0.8}>
-                        <Text style={coursesStyles.tagText}>ELEITORAL</Text>
+                    <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
+                        <Text style={coursesStyles.tagText}>GESTÃO</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* Courses list // TODO: Replace with real data */}
-                <View style={useGrid && responsiveStyles.grid}>
-                {exploreCourses.map((course, index) => (
-                    <View
-                        key={index}
-                        style={[
-                            coursesStyles.exploreCard,
-                            useGrid && responsiveStyles.gridCard,
-                        ]}>
-                        <Image source={{ uri: course.image }} style={coursesStyles.exploreCardImage} />
+                {/* Refresh button */}
+                {!loading && (
+                    <TouchableOpacity activeOpacity={0.7} onPress={loadCourses} style={coursesStyles.refreshButton}>
+                        <RefreshCw color={THEME.colors.primary} size={16} />
+                        <Text style={coursesStyles.refreshButtonText}>Atualizar</Text>
+                    </TouchableOpacity>
+                )}
 
-                        <View style={coursesStyles.exploreCardContent}>
-                            <Text style={coursesStyles.exploreCourseTitle}>{course.title}</Text>
-
-                            <Text style={coursesStyles.courseDesc}>{course.desc}</Text>
-
-                            <View style={coursesStyles.cardDivider} />
-
-                            <View style={coursesStyles.exploreFooter}>
-                                <Text style={coursesStyles.exploreFooterInfo}>{course.info}</Text>
-
-                                <TouchableOpacity style={coursesStyles.actionButton} activeOpacity={0.8}>
-                                    <Text style={coursesStyles.actionButtonText}>INICIAR CURSO</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                {loading && (
+                    <View style={{ paddingVertical: 25, justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size="large" color={THEME.colors.primary} style={{ marginTop: 20 }} />
+                        <Text style={{ marginTop: 8, fontSize: 12, color: THEME.colors.text }}>Carregando cursos...</Text>
                     </View>
-                ))}
+                )}
+
+                {/* List of courses */}
+                <View style={useGrid ? responsiveStyles.grid : undefined}>
+                    {courses.map((item) => (
+                        <TouchableOpacity
+                            key={item.id}
+                            activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Abrir curso: ${item.title}`}
+   
+                            onPress={() => router.push(`/courses/${item.id}`)}
+                            style={[
+                                coursesStyles.card,
+                                useGrid && responsiveStyles.guideGridCard,
+                            ]}
+                        >
+                            <View style={[coursesStyles.cardImageWrap, useGrid && responsiveStyles.guideGridImage]}>
+                                {item.coverImage ? (
+                                    <Image source={{ uri: item.coverImage }} style={coursesStyles.cardImage} resizeMode="cover" />
+                                ) : (
+                                    <View style={coursesStyles.cardImagePlaceholder}>
+                                        <BookOpen color={THEME.colors.primary} size={38} />
+                                    </View>
+                                )}
+                            </View>
+
+                            <View style={coursesStyles.cardContent}>
+                                <Text style={coursesStyles.cardTitle} numberOfLines={2}>
+                                    {item.title}
+                                </Text>
+
+                                <Text style={coursesStyles.cardDesc} numberOfLines={2}>
+                                    {item.description}
+                                </Text>
+
+                                <View style={coursesStyles.cardFooter}>
+                                    <Text style={coursesStyles.cardActionText}>VER CURSO</Text>
+                                    <ArrowRight color={THEME.colors.primary} size={16} />
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
                 </View>
             </ScrollView>
         </SafeAreaView>
