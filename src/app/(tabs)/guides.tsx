@@ -101,10 +101,7 @@ export default function GuidesScreen() {
 
                 {/* Refresh button */}
                 {!loading && (
-                    <TouchableOpacity
-                        style={guidesStyles.refreshButton}
-                        activeOpacity={0.7}
-                        onPress={loadGuides} >
+                    <TouchableOpacity style={guidesStyles.refreshButton}activeOpacity={0.7}onPress={loadGuides} >
                         <RefreshCw size={16} color={THEME.colors.primary} />
 
                         <Text style={guidesStyles.refreshButtonText}>Atualizar</Text>
