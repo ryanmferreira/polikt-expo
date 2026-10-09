@@ -1,4 +1,4 @@
-import { Bell, Search, X } from "lucide-react-native";
+import { Bell, GraduationCap, Megaphone, Newspaper, Search, X } from "lucide-react-native";
 
 import { useState } from "react";
 import {
@@ -73,6 +73,7 @@ export default function SearchScreen() {
             onPress={() => setActiveTab("noticias")}
             activeOpacity={0.8} >
 
+            <Newspaper size={15} color={activeTab === "noticias" ? THEME.colors.onPrimary : THEME.colors.primary} />
             <Text style={activeTab === "noticias" ? searchStyles.filterTextActive : searchStyles.filterTextInactive}>
               Notícias
             </Text>
@@ -85,6 +86,7 @@ export default function SearchScreen() {
             onPress={() => setActiveTab("cursos")}
             activeOpacity={0.8} >
 
+            <GraduationCap size={15} color={activeTab === "cursos" ? THEME.colors.onPrimary : THEME.colors.primary} />
             <Text
               style={
                 activeTab === "cursos" ? searchStyles.filterTextActive : searchStyles.filterTextInactive
@@ -100,6 +102,7 @@ export default function SearchScreen() {
             onPress={() => setActiveTab("guias")}
             activeOpacity={0.8} >
 
+            <Megaphone size={15} color={activeTab === "guias" ? THEME.colors.onPrimary : THEME.colors.primary} />
             <Text
               style={
                 activeTab === "guias" ? searchStyles.filterTextActive : searchStyles.filterTextInactive
