@@ -32,7 +32,6 @@ export default function CourseDetailScreen() {
 
     const courseId = Array.isArray(id) ? id[0] : id;
 
-    // 1. Carrega as informações do curso e lista de módulos
     useEffect(() => {
         if (courseId) {
             loadCourse();
@@ -60,7 +59,6 @@ export default function CourseDetailScreen() {
         }
     }
 
-    // 2. Procura os conteúdos da aula atual quando o módulo muda
     const currentStep = steps[currentStepIndex];
 
     useEffect(() => {
@@ -151,7 +149,7 @@ export default function CourseDetailScreen() {
 
                 {/* Course overview */}
                 <View style={[coursesStyles.detailOverview, useWideLayout && responsiveStyles.guideOverviewDesktop]}>
-                <View style={coursesStyles.mainCard}>
+                    <View style={coursesStyles.mainCard}>
 
                         <View style={coursesStyles.tagRow}>
                             <View style={coursesStyles.tag}>
@@ -169,7 +167,7 @@ export default function CourseDetailScreen() {
                     </View>
                 </View>
 
-                {/* Steps / Lessons */}
+
                 <View style={[
                     coursesStyles.cardSection,
                     coursesStyles.guideStepsPanel,
@@ -183,24 +181,30 @@ export default function CourseDetailScreen() {
                     {loadingContents ? (
                         <ActivityIndicator size="small" color={THEME.colors.primary} style={{ paddingVertical: 20 }} />
                     ) : currentStep ? (
-                        contents.length > 0 ? (
-                            <View style={coursesStyles.stepCards}>
-                                {contents.map((item) => (
-                                    <View key={item.id} style={coursesStyles.stepCard}>
-                                        {item.coverImage && (
-                                            <Image source={{ uri: item.coverImage }} style={{ width: '100%', height: 160, borderRadius: 8, marginBottom: 12 }} />
-                                        )}
-                                        <Markdown style={markdownStyles}>
-                                            {item.content ? item.content.trim() : ''}
-                                        </Markdown>
-                                    </View>
-                                ))}
-                            </View>
-                        ) : (
+                        <View style={coursesStyles.stepCards}>
+
                             <View style={coursesStyles.stepCard}>
-                                <Text style={{ color: THEME.colors.text }}>{currentStep.description || 'Sem conteúdo disponível para esta aula.'}</Text>
+                                {contents.length > 0 ? (
+                                    contents.map((item, index) => (
+                                        <View key={item.id} style={index > 0 ? { marginTop: 16 } : undefined}>
+                                            {item.coverImage && (
+                                                <Image
+                                                    source={{ uri: item.coverImage }}
+                                                    style={{ width: '100%', height: 160, borderRadius: 8, marginBottom: 12 }}
+                                                />
+                                            )}
+                                            <Markdown style={markdownStyles}>
+                                                {item.content ? item.content.trim() : ''}
+                                            </Markdown>
+                                        </View>
+                                    ))
+                                ) : (
+                                    <Text style={{ color: THEME.colors.text }}>
+                                        {currentStep.description || 'Sem conteúdo disponível para esta aula.'}
+                                    </Text>
+                                )}
                             </View>
-                        )
+                        </View>
                     ) : (
                         <Text style={coursesStyles.stepEmpty}>Este curso ainda não possui aulas cadastradas.</Text>
                     )}

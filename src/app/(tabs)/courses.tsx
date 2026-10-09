@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, BookOpen, RefreshCw, Settings2 } from 'lucide-react-native';
+import { ArrowRight, Bell, BookOpen, GraduationCap, RefreshCw, Settings2 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
@@ -53,22 +53,25 @@ export default function CoursesScreen() {
 
                 {/* Header */}
                 <View style={coursesStyles.headerRow}>
-                    <Text style={coursesStyles.headerTitle}>CURSOS</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                        <GraduationCap color={THEME.colors.primary} size={26} />
+                        <Text style={coursesStyles.headerTitle}>CURSOS</Text>
+                    </View>
 
-                    {/* Notifications icon */}
                     <TouchableOpacity activeOpacity={0.7}>
-                        <Bell color={THEME.colors.primary} size={26} />
+                        <Bell color={THEME.colors.primary} size={24} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={coursesStyles.mainDivider} />
 
+                {/* Info Banner */}
                 <View style={coursesStyles.infoBox}>
                     <View style={coursesStyles.infoHeading}>
-                        <Text style={coursesStyles.infoTitle}>CURSOS DISPONÍVEIS</Text>
+                        <Text style={coursesStyles.infoTitle}>ACADEMIA & APRENDIZADO</Text>
                     </View>
                     <Text style={coursesStyles.infoText}>
-                        Explore nossos materiais educativos e aprimore seus conhecimentos.
+                        Explore nossos cursos estruturados para aprimorar e consolidar seus conhecimentos.
                     </Text>
                 </View>
 
@@ -83,15 +86,15 @@ export default function CoursesScreen() {
                 {/* Filters */}
                 <View style={coursesStyles.tagsContainer}>
                     <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
-                        <Text style={coursesStyles.tagText}>VER TODOS</Text>
+                        <Text style={coursesStyles.tagText}>TODOS OS CURSOS</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
-                        <Text style={coursesStyles.tagText}>TECNOLOGIA</Text>
+                        <Text style={coursesStyles.tagText}>PODERES</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.8} style={coursesStyles.tag}>
-                        <Text style={coursesStyles.tagText}>GESTÃO</Text>
+                        <Text style={coursesStyles.tagText}>VOTAÇÃO</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -118,7 +121,6 @@ export default function CoursesScreen() {
                             activeOpacity={0.8}
                             accessibilityRole="button"
                             accessibilityLabel={`Abrir curso: ${item.title}`}
-   
                             onPress={() => router.push(`/courses/${item.id}`)}
                             style={[
                                 coursesStyles.card,
@@ -133,6 +135,7 @@ export default function CoursesScreen() {
                                         <BookOpen color={THEME.colors.primary} size={38} />
                                     </View>
                                 )}
+
                             </View>
 
                             <View style={coursesStyles.cardContent}>
@@ -145,7 +148,7 @@ export default function CoursesScreen() {
                                 </Text>
 
                                 <View style={coursesStyles.cardFooter}>
-                                    <Text style={coursesStyles.cardActionText}>VER CURSO</Text>
+                                    <Text style={coursesStyles.cardActionText}>INICIAR CURSO</Text>
                                     <ArrowRight color={THEME.colors.primary} size={16} />
                                 </View>
                             </View>
