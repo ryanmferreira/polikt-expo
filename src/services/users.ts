@@ -20,19 +20,12 @@ export async function registerUser(
 }
 
 export async function loginUser(email: string, password: string) {
-  try {
-    const data = await apiFetch("/users/auth", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+  const data = await apiFetch<{ token: string }>("/users/auth", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
 
-    setToken(data.token);
-    return true;
-  } catch {
-    // TODO: Error handling
-    alert("Erro ao logar na conta");
-    return false;
-  }
+  await setToken(data.token);
 }
 
 export async function getMyProfile(): Promise<User> {
@@ -43,4 +36,11 @@ export async function getMyProfile(): Promise<User> {
   }
 
   return apiFetch("/users/me");
+}
+
+export async function updateMyProfile(data: { name?: string; email?: string; phone?: string; password?: string; }): Promise<User> {
+  return apiFetch("/users/me", {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
 }

@@ -10,8 +10,10 @@ import { THEME } from "../../constants/theme";
 
 import { User as UserModel } from "@/models/user";
 
+import { ApiError, getErrorMessage } from "@/services/api";
 import { clearToken, isLoggedIn } from "@/services/token";
-import { getMyProfile } from "@/services/users";
+import { getMyProfile, updateMyProfile } from "@/services/users";
+import { showAlert } from "@/utils/alert";
 
 import { profileStyles } from "../../styles/profileStyles";
 import { responsiveStyles } from "../../styles/responsiveStyles";
@@ -28,20 +30,23 @@ export default function ProfileScreen() {
   const [phone, setPhone] = useState("");
 
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    checkLogin();
-    loadUser();
+    init();
   }, []);
 
   async function handleChangeAppTheme(theme: "auto" | "dark" | "light") {
   }
 
-  async function checkLogin() {
-    if (!isLoggedIn) {
+  async function init() {
+    if (!(await isLoggedIn())) {
       router.replace("/(auth)/login");
+      return;
     }
+
+    await loadUser();
   }
 
   async function loadUser() {
@@ -50,10 +55,36 @@ export default function ProfileScreen() {
       setError(null);
       const userData = await getMyProfile();
       setUser(userData);
+      setName(userData.name ?? "");
+      setEmail(userData.email ?? "");
+      setPhone(userData.phone ?? "");
     } catch (e) {
-      setError("Não foi possível carregar o seu perfil.");
+      if (e instanceof ApiError && e.status === 401) {
+        await clearToken();
+        router.replace("/(auth)/login");
+        return;
+      }
+
+      const message = getErrorMessage(e);
+      setError(message);
+      showAlert("Erro ao carregar perfil", message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleSave() {
+    try {
+      setSaving(true);
+      const updatedUser = await updateMyProfile({ name, email, phone });
+      setUser(updatedUser);
+      setEmail(updatedUser.email ?? "");
+      setPhone(updatedUser.phone ?? "");
+      showAlert("Perfil atualizado", "Seus dados foram salvos.");
+    } catch (e) {
+      showAlert("Erro ao salvar perfil", getErrorMessage(e));
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -189,7 +220,7 @@ export default function ProfileScreen() {
               style={profileStyles.input}
               placeholder="nome@dominio.com"
               placeholderTextColor={THEME.colors.textMuted}
-              value={user?.email}
+              value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
@@ -207,12 +238,29 @@ export default function ProfileScreen() {
               style={profileStyles.input}
               placeholder="(11) 9XXXX-XXXX"
               placeholderTextColor={THEME.colors.textMuted}
-              value={user?.phone}
+              value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"
             />
           </View>
         </View>
+
+        {error !== null && (
+          <Text style={profileStyles.sectionHint}>{error}</Text>
+        )}
+
+        {/* Save button */}
+        <TouchableOpacity
+          style={profileStyles.defaultButton}
+          activeOpacity={0.8}
+          onPress={handleSave}
+          disabled={saving}
+          accessibilityRole="button"
+        >
+          <Text style={profileStyles.buttonTextExit}>
+            {saving ? "SALVANDO..." : "SALVAR"}
+          </Text>
+        </TouchableOpacity>
 
         <View style={profileStyles.actionContainer}>
           {/* Logout button */}

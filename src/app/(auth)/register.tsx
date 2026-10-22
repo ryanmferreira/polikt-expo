@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { getErrorMessage } from '../../services/api';
 import { loginUser, registerUser } from '../../services/users';
+import { showAlert } from '../../utils/alert';
 
 import { THEME } from '../../constants/theme';
 import { authStyles } from '../../styles/authStyles';
@@ -65,14 +67,11 @@ export default function RegisterScreen() {
                 phone.trim()
             );
 
-            let data = await loginUser(email.trim(), password);
+            await loginUser(email.trim(), password);
 
-            if (data !== null) {
-                router.replace('/(tabs)/home');
-            }
-
+            router.replace('/(tabs)/home');
         } catch (error) {
-            alert('Erro ao cadastrar usuário:' + error);
+            showAlert('Erro ao criar conta', getErrorMessage(error));
         }
     };
 

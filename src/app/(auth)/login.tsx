@@ -3,7 +3,9 @@ import { useState } from "react";
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { getErrorMessage } from "@/services/api";
 import { loginUser } from "@/services/users";
+import { showAlert } from "@/utils/alert";
 import { THEME } from "../../constants/theme";
 import { authStyles } from "../../styles/authStyles";
 import { responsiveStyles } from "../../styles/responsiveStyles";
@@ -38,8 +40,11 @@ export default function LoginScreen() {
       return;
     }
 
-    if (await loginUser(email, password)) {
+    try {
+      await loginUser(email, password);
       router.replace("/(tabs)/home");
+    } catch (error) {
+      showAlert("Erro ao entrar", getErrorMessage(error));
     }
   };
 
