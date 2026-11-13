@@ -1,6 +1,6 @@
 import { Link, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getErrorMessage } from '../../services/api';
@@ -14,6 +14,8 @@ import { responsiveStyles } from '../../styles/responsiveStyles';
 export default function RegisterScreen() {
     const router = useRouter();
 
+    const [loading, setLoading] = useState(false);
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -25,55 +27,54 @@ export default function RegisterScreen() {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
+    useEffect(() => {
+        setNameError(name.trim() ? "" : "Digite seu nome.");
+
+        const validMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        setEmailError(email === "" || validMail ? "" : "Digite um e-mail válido.");
+
+        setPasswordError(password === "" || password.length >= 6 ? "" : "A senha deve ter pelo menos 6 caracteres.");
+
+        setConfirmPasswordError(confirmPassword === "" || password === confirmPassword ? "" : "As senhas não coincidem.");
+    }, [name, email, password, confirmPassword]);
+
     const handleRegister = async () => {
-        setNameError('');
-        setEmailError('');
-        setPasswordError('');
-        setConfirmPasswordError('');
+        const validName = name.trim() !== "";
+        const validMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const validPassword = password.length >= 6;
+        const passwordsMatch = password === confirmPassword;
 
-        let hasError = false;
+        setNameError(validName ? "" : "Digite seu nome.");
+        setEmailError(validMail ? "" : "Digite um e-mail válido.");
+        setPasswordError(validPassword ? "" : "A senha deve ter pelo menos 6 caracteres.");
+        setConfirmPasswordError(passwordsMatch ? "" : "As senhas não coincidem.");
 
-        if (name.trim() === '') {
-            setNameError('Digite seu nome.');
-            hasError = true;
-        }
-
-        const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
-
-        if (!validMail) {
-            setEmailError('Digite um e-mail válido.');
-            hasError = true;
-        }
-
-        if (password.length < 6) {
-            setPasswordError('A senha deve ter pelo menos 6 caracteres.');
-            hasError = true;
-        }
-
-        if (password !== confirmPassword) {
-            setConfirmPasswordError('As senhas não coincidem.');
-            hasError = true;
-        }
-
-        if (hasError) {
+        if (!validName || !validMail || !validPassword || !passwordsMatch) {
             return;
         }
 
         try {
-            await registerUser(
-                name.trim(),
-                email.trim(),
-                password,
-                phone.trim()
-            );
+            setLoading(true);
 
+            await registerUser(name.trim(), email.trim(), password, phone.trim());
             await loginUser(email.trim(), password);
 
-            router.replace('/(tabs)/home');
+            router.replace("/(tabs)/home");
         } catch (error) {
-            showAlert('Erro ao criar conta', getErrorMessage(error));
+            showAlert("Erro ao criar conta", getErrorMessage(error));
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={[authStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text style={authStyles.buttonText}>Cadastrando usuário. Você será redirecionado.</Text>
+                <ActivityIndicator size="large" color={THEME.colors.primary} />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={authStyles.container}>

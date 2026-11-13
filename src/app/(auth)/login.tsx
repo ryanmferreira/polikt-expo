@@ -1,6 +1,6 @@
 import { Link, useRouter } from "expo-router";
-import { useState } from "react";
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { getErrorMessage } from "@/services/api";
@@ -13,40 +13,51 @@ import { responsiveStyles } from "../../styles/responsiveStyles";
 export default function LoginScreen() {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  useEffect(() => {
+    const validMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    setEmailError(email === "" || validMail ? "" : "Digite um e-mail válido.");
+    setPasswordError(password === "" || password.length >= 6 ? "" : "A senha deve ter pelo menos 6 caracteres.");
+  }, [email, password]);
+
   const handleLogin = async () => {
-    setEmailError("");
-    setPasswordError("");
+    const validMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const validPassword = password.length >= 6;
 
-    let hasError = false;
+    setEmailError(validMail ? "" : "Digite um e-mail válido.");
+    setPasswordError(validPassword ? "" : "A senha deve ter pelo menos 6 caracteres.");
 
-    const validMail = /^[^\s@]+@[^\s@]+$/.test(email);
-    if (!validMail) {
-      setEmailError("Digite um e-mail válido.");
-      hasError = true;
-    }
-
-    if (password.length < 6) {
-      setPasswordError("A senha deve ter pelo menos 6 caracteres.");
-      hasError = true;
-    }
-
-    if (hasError) {
+    if (!validMail || !validPassword) {
       return;
     }
 
     try {
+      setLoading(true);
       await loginUser(email, password);
       router.replace("/(tabs)/home");
     } catch (error) {
       showAlert("Erro ao entrar", getErrorMessage(error));
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={[authStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={authStyles.buttonText}>Autenticando usuário. Você será redirecionado.</Text>
+        <ActivityIndicator size="large" color={THEME.colors.primary} />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={authStyles.container}>
